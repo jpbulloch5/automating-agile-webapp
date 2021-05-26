@@ -13,5 +13,22 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>eORM-custom-repo</id>
+            <name>eORM custom repo</name>
+            <url>https://github.com/210426-java-react-enterprise/team_e_p1_orm/tree/mvn-repo</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!-- https://github.com/210426-java-react-enterprise/team_e_p1_orm/ -->
+        <dependency>
+            <groupId>eTeam</groupId>
+            <artifactId>eORM</artifactId>
+            <version>0.9</version>
+        </dependency>
+    </dependencies>
     
 </project>
