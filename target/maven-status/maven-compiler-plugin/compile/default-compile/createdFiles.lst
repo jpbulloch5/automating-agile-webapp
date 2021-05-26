@@ -1,1 +1,4 @@
 Driver.class
+com/revature/airline/pojo/Customer.class
+com/revature/airline/pojo/Flight.class
+com/revature/airline/pojo/Ticket.class
