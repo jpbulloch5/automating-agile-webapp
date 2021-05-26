@@ -16,4 +16,4 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - target/team_e_p1_webapp-1.0-SNAPSHOT.war
+    - target/p1-webapp-0.1.war
