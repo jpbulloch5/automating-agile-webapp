@@ -1,8 +1,11 @@
 package com.revature.airline.pojo;
 
 
+
+
 public class Customer {
     private String firstName;
+
 
     public Customer(String firstName, String lastName, int customerNum) {
         this.firstName = firstName;
