@@ -5,11 +5,13 @@
             configurations you may want tomcat to know about.
     It belongs in src/main/webapp/WEB-INF/ directory
 -->
+
 <web-app
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://java.sun.com/xml/ns/javaee"
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         version="2.5">
+
 
     <!--This tells tomcat where to find the servlet and what name to register it as. We can use
             the name of the servlet later to reference this instance.
@@ -27,5 +29,6 @@
     <listener>
         <listener-class>services.DependencyLoaderListener</listener-class>
     </listener>
+
 
 </web-app>
