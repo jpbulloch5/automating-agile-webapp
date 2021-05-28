@@ -1,6 +1,0 @@
-services/DependencyLoaderListener.class
-servlets/PingServlet.class
-com/revature/airline/pojo/Customer.class
-com/revature/airline/pojo/Flight.class
-servlets/BookFlightServlet.class
-com/revature/airline/pojo/Ticket.class
