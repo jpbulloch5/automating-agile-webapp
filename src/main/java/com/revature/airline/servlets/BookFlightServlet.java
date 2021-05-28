@@ -1,6 +1,6 @@
-package servlets;
+package com.revature.airline.servlets;
 
-import com.revature.airline.pojo.Flight;
+import com.revature.airline.repos.Flight;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +14,7 @@ public class BookFlightServlet {
         String departureLocation = req.getParameter ("From");
 
 
-        Flight flight = new Flight (departureLocation, destinationLocation);
+        //Flight flight = new Flight (departureLocation, destinationLocation);
 
         //TODO
 
