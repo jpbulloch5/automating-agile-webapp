@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--web.xml is your depoyment descriptor
         this is how tomcat gathers information about your project, such as welcome files,
-            available servlets, how to handle errors and exceptions, and other various
+            available com.revature.airline.servlets, how to handle errors and exceptions, and other various
             configurations you may want tomcat to know about.
     It belongs in src/main/webapp/WEB-INF/ directory
 -->
@@ -18,7 +18,7 @@
             -->
     <servlet>
         <servlet-name>pingServlet</servlet-name>
-        <servlet-class>servlets.PingServlet</servlet-class>
+        <servlet-class>com.revature.airline.servlets.PingServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>pingServlet</servlet-name>
@@ -27,7 +27,7 @@
 
 
     <listener>
-        <listener-class>services.DependencyLoaderListener</listener-class>
+        <listener-class>com.revature.airline.services.DependencyLoaderListener</listener-class>
     </listener>
 
 
