@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
-public class FlightsController {
+public class FlightController {
 
     public void getAllFlights(HttpServletRequest req, HttpServletResponse resp, Connection conn){
         try {
@@ -35,15 +35,5 @@ public class FlightsController {
 
     }
 
-    public void purchaseTickets(HttpServletRequest req, HttpServletResponse resp, Connection conn){
-        UUID customer_id = UUID.fromString (req.getParameter ("customer_id"));
-        UUID flight_id = UUID.fromString (req.getParameter ("flight_id"));
-        UUID ticket_id = UUID.randomUUID ();
 
-        TicketService ticketService = new TicketService ();
-
-        ticketService.purchase (conn);
-
-
-    }
 }
