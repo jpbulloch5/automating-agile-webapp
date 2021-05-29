@@ -12,6 +12,6 @@ public class HealthCheckServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setStatus(202);
+        resp.setStatus(200);
     }
 }
