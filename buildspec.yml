@@ -10,8 +10,9 @@ phases:
       - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!START OF PREBUILD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       - ls -al ~/.m2
       - aws s3 cp s3://codebuild-p1-orm-output-bucket/p1-orm/target/eorm-1.0.0-SNAPSHOT.jar ~/.m2/repository/eteam/eorm/1.0.0-SNAPSHOT/eorm-1.0.0-SNAPSHOT.jar
-      - aws s3 cp s3://codebuild-p1-orm-output-bucket/p1-orm/target/eorm-1.0.0-SNAPSHOT.jar ~/
-      - mvn install:install-file -Dfile=~/eorm-1.0.0-SNAPSHOT.jar -DgroupId=eteam -DartifactId=eorm -Dversion=1.0.0-SNAPSHOT -Dpackaging=jar -DgeneratePom=true
+      - aws s3 cp s3://codebuild-p1-orm-output-bucket/p1-orm/target/eorm-1.0.0-SNAPSHOT.jar /root/ec2-user/eorm-1.0.0-SNAPSHOT.jar
+      #- mvn install:install-file -Dfile=~/eorm-1.0.0-SNAPSHOT.jar -DgroupId=eteam -DartifactId=eorm -Dversion=1.0.0-SNAPSHOT -Dpackaging=jar -DgeneratePom=true
+      - mvn install:install-file -Dfile=/root/ec2-user/eorm-1.0.0-SNAPSHOT.jar -DgroupId=eteam -DartifactId=eorm -Dversion=1.0.0-SNAPSHOT -Dpackaging=jar
       - ls -al ~/.m2/repository/eteam/eorm/1.0.0-SNAPSHOT/
       - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!END OF PREBUILD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   build:
