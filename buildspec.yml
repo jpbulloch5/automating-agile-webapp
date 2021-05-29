@@ -3,10 +3,12 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto11
+      java: corretto8
+
   pre_build:
     commands:
-      - echo Nothing to do in the pre_build phase...
+      - pwd
+      - cp ./build/settings.xml /root/.m2/settings.xml
   build:
     commands:
       - echo Build started on `date`
