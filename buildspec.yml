@@ -8,7 +8,7 @@ phases:
   pre_build:
     commands:
       - pwd
-      - cp ./build/settings.xml /root/.m2/settings.xml
+      - cp .src/main/build/settings.xml /root/.m2/settings.xml
   build:
     commands:
       - echo Build started on `date`
