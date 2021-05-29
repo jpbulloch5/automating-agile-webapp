@@ -10,15 +10,17 @@ phases:
       - pwd
       - ls -al
       - ls -al ~/.m2
-#      - cp src/main/build/settings.xml /root/.m2/settings.xml
+      - aws s3 cp s3://codebuild-p1-orm-output-bucket/p1-orm/target/eorm-1.0.0-SNAPSHOT.jar ~/
+      - ls -al ~
+      - mvn install:install-file -Dfile=~/eorm-1.0.0-SNAPSHOT.jar -DgroupId=eteam -DartifactId=eorm -Dversion=1.0.0-SNAPSHOT -Dpackaging=jar -DgeneratePom=true
+      - ls -al ~/.m2
+      - ls -al ~/.m2/repository/
+      - ls -al ~/.m2/repository/eteam/eorm
   build:
     commands:
       - echo Build started on `date`
       - echo test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       - mvn install
-      - ls -al ~/.m2
-      - ls -al ~/.m2/repository
-      - ls -al ~/.m2/repository/eteam/eorm
   post_build:
     commands:
       - echo Build completed on `date`
