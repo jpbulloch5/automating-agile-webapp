@@ -34,6 +34,15 @@
         <url-pattern>/test</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>healthCheckServlet</servlet-name>
+        <servlet-class>com.revature.airline.servlets.HealthCheckServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>healthCheckServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
 
     <listener>
         <listener-class>com.revature.airline.services.DependencyLoaderListener</listener-class>
