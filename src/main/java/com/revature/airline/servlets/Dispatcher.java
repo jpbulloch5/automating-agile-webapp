@@ -1,10 +1,11 @@
 package com.revature.airline.servlets;
 
-import com.revature.airline.controller.FlightsController;
+import com.revature.airline.controller.CustomerController;
+import com.revature.airline.controller.FlightController;
+import com.revature.airline.controller.TicketController;
 import eorm.exceptions.DBConnectionException;
 import eorm.utils.ConnectionFactory;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -21,16 +22,22 @@ public class Dispatcher {
         }
     }
 
-    FlightsController controller = new FlightsController ();
+    FlightController flightController = new FlightController ();
+    TicketController ticketController = new TicketController ();
+    CustomerController customerController = new CustomerController ();
 
     public void dataDispatch(HttpServletRequest req, HttpServletResponse resp)throws IOException {
 
         switch(req.getRequestURI ()){
             case"/webapp/flight":
-                controller.getAllFlights(req, resp, this.conn);
+                flightController.getAllFlights(req, resp, this.conn);
                 break;
             case"/webapp/purchase":
-                controller.purchaseTickets (req, resp, this.conn);
+                ticketController.purchaseTickets (req, resp, this.conn);
+                break;
+            case"/webapp/customer":
+                customerController.createCustomer (req, resp, this.conn);
+
         }
     }
 }

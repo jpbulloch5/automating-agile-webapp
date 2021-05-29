@@ -34,6 +34,24 @@
         <url-pattern>/flight</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>PurchaseTicketServlet</servlet-name>
+        <servlet-class>com.revature.airline.servlets.PurchaseTicketServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PurchaseTicketServlet</servlet-name>
+        <url-pattern>/purchase</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateCustomerServlet</servlet-name>
+        <servlet-class>com.revature.airline.servlets.CreateCustomerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateCustomerServlet</servlet-name>
+        <url-pattern>/customer</url-pattern>
+    </servlet-mapping>
+
 
     <listener>
         <listener-class>com.revature.airline.services.DependencyLoaderListener</listener-class>
