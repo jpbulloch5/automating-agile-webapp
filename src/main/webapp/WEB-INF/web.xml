@@ -25,6 +25,15 @@
         <url-pattern>/ping</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>testServlet</servlet-name>
+        <servlet-class>com.revature.airline.servlets.TestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>testServlet</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+
 
     <listener>
         <listener-class>com.revature.airline.services.DependencyLoaderListener</listener-class>
