@@ -7,6 +7,7 @@ phases:
 
   pre_build:
     commands:
+      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!START OF PREBUILD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       - pwd
       - ls -al
       - ls -al ~/.m2
@@ -16,6 +17,7 @@ phases:
       - ls -al ~/.m2
       - ls -al ~/.m2/repository/
       - ls -al ~/.m2/repository/eteam/eorm
+      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!END OF PREBUILD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   build:
     commands:
       - echo Build started on `date`
