@@ -4,17 +4,11 @@ phases:
   install:
     runtime-versions:
       java: corretto8
-
   pre_build:
     commands:
-      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_START_OF_PREBUILD_!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      - ls -al ~/.m2
-      - aws s3 cp s3://codebuild-p1-orm-output-bucket/p1-orm/target/eorm-1.0.jar ~/.m2/repository/eteam/eorm/1.0/eorm-1.0.jar
+     # - aws s3 cp s3://codebuild-p1-orm-output-bucket/p1-orm/target/eorm-1.0.jar ~/.m2/repository/eteam/eorm/1.0/eorm-1.0.jar
       - aws s3 cp s3://codebuild-p1-orm-output-bucket/p1-orm/target/eorm-1.0.jar /root/ec2-user/eorm-1.0.jar
-      #- mvn install:install-file -Dfile=~/eorm-1.0.0-SNAPSHOT.jar -DgroupId=eteam -DartifactId=eorm -Dversion=1.0.0-SNAPSHOT -Dpackaging=jar -DgeneratePom=true
       - mvn install:install-file -Dfile=/root/ec2-user/eorm-1.0.jar -DgroupId=eteam -DartifactId=eorm -Dversion=1.0 -Dpackaging=jar
-      - ls -al ~/.m2/repository/eteam/eorm/1.0/
-      - echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!END OF PREBUILD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   build:
     commands:
       - echo Build started on `date`

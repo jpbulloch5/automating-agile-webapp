@@ -15,7 +15,6 @@
     </properties>
 
     <dependencies>
-        <!-- https://github.com/KylePlummerBSCS/eORM/packages/813510 -->
         <dependency>
             <groupId>eteam</groupId>
             <artifactId>eorm</artifactId>
