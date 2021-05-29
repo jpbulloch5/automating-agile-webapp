@@ -9,7 +9,8 @@ phases:
     commands:
       - pwd
       - ls -al
-      - cp src/main/build/settings.xml /root/.m2/settings.xml
+      - ls -al ~/.m2
+#      - cp src/main/build/settings.xml /root/.m2/settings.xml
   build:
     commands:
       - echo Build started on `date`
