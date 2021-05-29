@@ -16,6 +16,9 @@ phases:
       - echo Build started on `date`
       - echo test!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       - mvn install
+      - ls -al ~/.m2
+      - ls -al ~/.m2/repository
+      - ls -al ~/.m2/repository/eteam/eorm
   post_build:
     commands:
       - echo Build completed on `date`
