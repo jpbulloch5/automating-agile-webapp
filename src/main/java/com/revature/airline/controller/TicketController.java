@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class TicketController {
 
-    public void purchaseTickets(HttpServletRequest req, HttpServletResponse resp, Connection conn) {
+    public void purchaseTickets(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws SQLException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
         UUID customer_id = UUID.fromString (req.getParameter ("customer_id"));
         UUID flight_id = UUID.fromString (req.getParameter ("flight_id"));
 
@@ -26,56 +26,36 @@ public class TicketController {
             newTicket.setCustomer_id (customer_id);
             newTicket.setFlight_id (flight_id);
             newTicket.setTicket_id (UUID.randomUUID ());
-            try {
-                newTicket.save ();
-            } catch (IllegalAccessException e) {
-                FileLogger.getFileLogger().writeExceptionToFile(e);
-            } catch (SQLException throwables) {
-                FileLogger.getFileLogger().writeExceptionToFile(throwables);
-            }
+
+            newTicket.save ();
+
         }
 
     }
 
-    public Ticket verifySpace(Connection conn, UUID flight_id, HttpServletResponse resp) {
-        try {
-            List<Repository> queryTickets = Ticket.query (conn, Ticket.class);
-            List<Ticket> tickets = new ArrayList<> ();
+    public Ticket verifySpace(Connection conn, UUID flight_id, HttpServletResponse resp) throws SQLException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
 
-            for (Repository repository : queryTickets) {
-                Ticket ticket = (Ticket) repository;
-                if (flight_id == ticket.getFlight_id ()) {
-                    tickets.add (ticket);
-                }
+        List<Repository> queryTickets = Ticket.query (conn, Ticket.class);
+        List<Ticket> tickets = new ArrayList<> ();
+
+        for (Repository repository : queryTickets) {
+            Ticket ticket = (Ticket) repository;
+            if (flight_id == ticket.getFlight_id ()) {
+                tickets.add (ticket);
             }
-
-            if (tickets.size () > 130) {
-                try {
-                    resp.getWriter ().println ("Flight sold out.");
-                } catch (IOException e) {
-                    FileLogger.getFileLogger().writeExceptionToFile(e);
-                }
-                return null;
-            } else {
-                Ticket newTicket = new Ticket(conn);
-                newTicket.setSeat (tickets.size ());
-                return newTicket;
-            }
-
-
-
-        } catch (SQLException throwables) {
-            FileLogger.getFileLogger().writeExceptionToFile(throwables);
-        } catch (InvocationTargetException e) {
-            FileLogger.getFileLogger().writeExceptionToFile(e);
-        } catch (InstantiationException e) {
-            FileLogger.getFileLogger().writeExceptionToFile(e);
-        } catch (IllegalAccessException e) {
-            FileLogger.getFileLogger().writeExceptionToFile(e);
-        } catch (NoSuchMethodException e) {
-            FileLogger.getFileLogger().writeExceptionToFile(e);
         }
-        return null;
 
+        if (tickets.size () > 130) {
+            try {
+                resp.getWriter ().println ("Flight sold out.");
+            } catch (IOException e) {
+                FileLogger.getFileLogger().writeExceptionToFile(e);
+            }
+            return null;
+        } else {
+            Ticket newTicket = new Ticket(conn);
+            newTicket.setSeat (tickets.size ());
+            return newTicket;
+        }
     }
 }
