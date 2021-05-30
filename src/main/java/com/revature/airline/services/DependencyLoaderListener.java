@@ -16,15 +16,8 @@ import java.sql.Connection;
 public class DependencyLoaderListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        Connection conn;
 
-        {
-            try {
-                conn = ConnectionFactory.getConnection ("project0.cksippr4cmc5.us-east-1.rds.amazonaws.com", 5432, "postgres", "project1", "jfallon", "revature", "org.postgresql.Driver");
-            } catch (DBConnectionException e) {
-                e.printStackTrace ();
-            }
-        }
+
     }
 
     @Override

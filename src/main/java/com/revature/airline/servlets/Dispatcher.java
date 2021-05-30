@@ -3,15 +3,14 @@ package com.revature.airline.servlets;
 import com.revature.airline.controller.CustomerController;
 import com.revature.airline.controller.FlightController;
 import com.revature.airline.controller.TicketController;
+import com.revature.airline.utils.DatabaseInitializer;
 import com.revature.airline.utils.FileLogger;
 import eorm.exceptions.DBConnectionException;
 import eorm.utils.ConnectionFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public class Dispatcher {
     Connection conn;
@@ -21,8 +20,16 @@ public class Dispatcher {
 
     public Dispatcher() {
         try {
-            conn = ConnectionFactory.getConnection ("project0.cksippr4cmc5.us-east-1.rds.amazonaws.com", 5432, "postgres", "project1", "jfallon", "revature", "org.postgresql.Driver");
-        } catch (DBConnectionException e) {
+//            conn = ConnectionFactory.getConnection (
+//                    "database.ciwpi6yisnng.us-east-2.rds.amazonaws.com",
+//                    5432,
+//                    "postgres",
+//                    "FallonAir",
+//                    "appuser",
+//                    "4ppp4ssDontGoChasingWaterfalls",
+//                    "org.postgresql.Driver");
+            conn = DatabaseInitializer.getconnection();
+        } catch (Exception e) {
             FileLogger.getFileLogger().writeExceptionToFile(e);
         }
         flightController = new FlightController();
@@ -43,6 +50,9 @@ public class Dispatcher {
                 case "customer":
                     customerController.createCustomer(req, resp, conn);
                     break;
+                case "getCustomers":
+                    customerController.getCustomers(req, resp, conn);
+                    break;
                 case "lookup":
                     flightController.lookUpFlights(req, resp, conn);
                     break;
@@ -56,6 +66,7 @@ public class Dispatcher {
                     resp.setStatus(501);
             }
         } catch (Exception e) {
+            resp.setStatus(500);
             FileLogger.getFileLogger().writeExceptionToFile(e);
         }
     }

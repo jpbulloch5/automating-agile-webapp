@@ -21,7 +21,7 @@ public class FileLogger {
      * Private constructor, sets default values for logger object
      */
     private FileLogger() {
-        //logFilePath = "src/main/resources/logs/";
+        //logFilePath = "D:\\Revature Training\\Apache\\tomcat\\logs\\";
         logFilePath = "/logs/";
         consoleOut = false;
     }
@@ -76,6 +76,14 @@ public class FileLogger {
         String stackInfo = stackTraceElements[3].toString();
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         return String.format("%s   [%s]   %s", timestamp, stackInfo, message);
+    }
+
+    public void writeStringToFile(String str) {
+        try (Writer fileWriter = new FileWriter(getLogFileName(), true)) {
+            fileWriter.write(str + "\n");
+        } catch (IOException ex) {
+            //System.out.println("Warning! Unable to write exception log entry to file.");
+        }
     }
 
 }
