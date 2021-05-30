@@ -13,6 +13,6 @@ public class CreateCustomerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        dispatcher.dataDispatch (req, resp);
+        dispatcher.dataDispatch(req, resp, "customer");
     }
 }

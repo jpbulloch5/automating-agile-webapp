@@ -13,7 +13,7 @@ public class CustomerFlightDetails extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        dispatcher.dataDispatch (req, resp);
+        dispatcher.dataDispatch (req, resp,"details");
 
 
 

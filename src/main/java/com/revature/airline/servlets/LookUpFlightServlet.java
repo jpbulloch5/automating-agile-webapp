@@ -13,7 +13,7 @@ public class LookUpFlightServlet extends HttpServlet {
     private Dispatcher dispatcher= new Dispatcher();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        dispatcher.dataDispatch (req, resp);
+        dispatcher.dataDispatch (req, resp, "lookup");
         resp.setStatus(202);
     }
 }
