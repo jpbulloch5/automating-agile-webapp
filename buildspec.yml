@@ -19,7 +19,6 @@ phases:
       - mkdir artifact
       - unzip target/p1-webapp-0.9.war -d artifact/
       - mv artifact/WEB-INF WEB-INF
-#      - mv target/p1-webapp-0.9.war p1-webapp-0.9.war
 artifacts:
   #This creates an artifact with the following files. This artifact is passed to the next step in the build process.
   files:

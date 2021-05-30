@@ -3,6 +3,7 @@ package com.revature.airline.servlets;
 import com.revature.airline.controller.CustomerController;
 import com.revature.airline.controller.FlightController;
 import com.revature.airline.controller.TicketController;
+import com.revature.airline.utils.FileLogger;
 import eorm.exceptions.DBConnectionException;
 import eorm.utils.ConnectionFactory;
 
@@ -18,7 +19,7 @@ public class Dispatcher {
         try {
             conn = ConnectionFactory.getConnection ("project0.cksippr4cmc5.us-east-1.rds.amazonaws.com", 5432, "postgres", "project1", "jfallon", "revature", "org.postgresql.Driver");
         } catch (DBConnectionException e) {
-            e.printStackTrace ();
+            FileLogger.getFileLogger().writeExceptionToFile(e);
         }
     }
 
@@ -30,13 +31,13 @@ public class Dispatcher {
 
         switch(req.getRequestURI ()){
             case"/webapp/flight":
-                flightController.getAllFlights(req, resp, this.conn);
+                flightController.getAllFlights(req, resp, conn);
                 break;
             case"/webapp/purchase":
-                ticketController.purchaseTickets (req, resp, this.conn);
+                ticketController.purchaseTickets (req, resp, conn);
                 break;
             case"/webapp/customer":
-                customerController.createCustomer (req, resp, this.conn);
+                customerController.createCustomer (req, resp, conn);
 
         }
     }
