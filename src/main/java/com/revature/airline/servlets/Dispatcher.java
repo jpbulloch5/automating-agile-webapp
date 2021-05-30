@@ -27,21 +27,26 @@ public class Dispatcher {
     TicketController ticketController = new TicketController ();
     CustomerController customerController = new CustomerController ();
 
-    public void dataDispatch(HttpServletRequest req, HttpServletResponse resp)throws IOException {
+    //public void dataDispatch(HttpServletRequest req, HttpServletResponse resp)throws IOException {
+    public void dataDispatch(HttpServletRequest req, HttpServletResponse resp, String target)throws IOException {
 
-        switch(req.getRequestURI ()){
-            case"/flight":
+        switch(target){
+            case"flights":
                 flightController.getAllFlights(req, resp, this.conn);
                 break;
-            case"/purchase":
+            case"purchase":
                 ticketController.purchaseTickets (req, resp, this.conn);
                 break;
-            case"/customer":
+            case"customer":
                 customerController.createCustomer (req, resp, this.conn);
                 break;
-            default:
-                resp.getWriter().print(req.getRequestURI ());
-
+            case"lookup":
+                flightController.lookUpFlights (req, resp, this.conn);
+                break;
+            case"details":
+                flightController.info (req, resp, this.conn);
+//            default:
+//                resp.getWriter().print(req.getRequestURI ());
         }
     }
 }

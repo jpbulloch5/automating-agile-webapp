@@ -7,13 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/lookup")
-public class LookUpFlightServlet extends HttpServlet {
-
+@WebServlet("/details")
+public class CustomerFlightDetails extends HttpServlet {
     private Dispatcher dispatcher= new Dispatcher();
+
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        dispatcher.dataDispatch (req, resp, "lookup");
-        resp.setStatus(202);
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        dispatcher.dataDispatch (req, resp,"details");
+
+
+
     }
 }

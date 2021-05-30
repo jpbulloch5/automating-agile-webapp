@@ -24,34 +24,14 @@
         <servlet-name>pingServlet</servlet-name>
         <url-pattern>/ping</url-pattern>
     </servlet-mapping>
-
     <servlet>
-        <servlet-name>FlightsServlet</servlet-name>
-        <servlet-class>com.revature.airline.servlets.FlightsServlet</servlet-class>
+        <servlet-name>healthCheckServlet</servlet-name>
+        <servlet-class>com.revature.airline.servlets.HealthCheckServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>FlightsServlet</servlet-name>
-        <url-pattern>/flight</url-pattern>
+        <servlet-name>healthCheckServlet</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>PurchaseTicketServlet</servlet-name>
-        <servlet-class>com.revature.airline.servlets.PurchaseTicketServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PurchaseTicketServlet</servlet-name>
-        <url-pattern>/purchase</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>CreateCustomerServlet</servlet-name>
-        <servlet-class>com.revature.airline.servlets.CreateCustomerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CreateCustomerServlet</servlet-name>
-        <url-pattern>/customer</url-pattern>
-    </servlet-mapping>
-      
     <servlet>
         <servlet-name>testServlet</servlet-name>
         <servlet-class>com.revature.airline.servlets.TestServlet</servlet-class>
@@ -61,40 +41,8 @@
         <url-pattern>/test</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>healthCheckServlet</servlet-name>
-        <servlet-class>com.revature.airline.servlets.HealthCheckServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>healthCheckServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping> 
-    <servlet>
-        <servlet-name>FlightsServlet</servlet-name>
-        <servlet-class>com.revature.airline.servlets.FlightsServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>FlightsServlet</servlet-name>
-        <url-pattern>/flight</url-pattern>
-    </servlet-mapping>
 
-    <servlet>
-        <servlet-name>PurchaseTicketServlet</servlet-name>
-        <servlet-class>com.revature.airline.servlets.PurchaseTicketServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>PurchaseTicketServlet</servlet-name>
-        <url-pattern>/purchase</url-pattern>
-    </servlet-mapping>
 
-    <servlet>
-        <servlet-name>CreateCustomerServlet</servlet-name>
-        <servlet-class>com.revature.airline.servlets.CreateCustomerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CreateCustomerServlet</servlet-name>
-        <url-pattern>/customer</url-pattern>
-    </servlet-mapping>
 
 
     <listener>

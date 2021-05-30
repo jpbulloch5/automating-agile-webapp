@@ -12,29 +12,29 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class AppDriver {
-    public static void main(String[] args) {
-        try {
-            Connection conn = ConnectionFactory.getConnection ("project0.cksippr4cmc5.us-east-1.rds.amazonaws.com", 5432, "postgres", "project1", "jfallon", "revature", "org.postgresql.com.revature.airline.Driver");
-            Flight flight = new Flight (conn);
-            TableInitializer.initializeTable (flight);
-
-
-            Customer customer = new Customer (conn);
-            TableInitializer.initializeTable (customer);
-
-            Ticket ticket = new Ticket (conn);
-            TableInitializer.initializeTable (ticket);
-
-
-
-        } catch (DBConnectionException e) {
-            e.printStackTrace ();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace ();
-        } catch (MalformedTableException e) {
-            e.printStackTrace ();
-        }
-
-
-    }
+//    public static void main(String[] args) {
+//        try {
+//            Connection conn = ConnectionFactory.getConnection ("project0.cksippr4cmc5.us-east-1.rds.amazonaws.com", 5432, "postgres", "project1", "jfallon", "revature", "org.postgresql.com.revature.airline.Driver");
+//            Flight flight = new Flight (conn);
+//            TableInitializer.initializeTable (flight);
+//
+//
+//            Customer customer = new Customer (conn);
+//            TableInitializer.initializeTable (customer);
+//
+//            Ticket ticket = new Ticket (conn);
+//            TableInitializer.initializeTable (ticket);
+//
+//
+//
+//        } catch (DBConnectionException e) {
+//            e.printStackTrace ();
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace ();
+//        } catch (MalformedTableException e) {
+//            e.printStackTrace ();
+//        }
+//
+//
+//    }
 }
