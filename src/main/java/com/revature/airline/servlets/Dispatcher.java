@@ -11,42 +11,52 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Dispatcher {
     Connection conn;
+    FlightController flightController;
+    TicketController ticketController;
+    CustomerController customerController;
 
-    {
+    public Dispatcher() {
         try {
             conn = ConnectionFactory.getConnection ("project0.cksippr4cmc5.us-east-1.rds.amazonaws.com", 5432, "postgres", "project1", "jfallon", "revature", "org.postgresql.Driver");
         } catch (DBConnectionException e) {
             FileLogger.getFileLogger().writeExceptionToFile(e);
         }
+        flightController = new FlightController();
+        ticketController = new TicketController();
+        customerController = new CustomerController();
     }
 
-    FlightController flightController = new FlightController ();
-    TicketController ticketController = new TicketController ();
-    CustomerController customerController = new CustomerController ();
 
-    //public void dataDispatch(HttpServletRequest req, HttpServletResponse resp)throws IOException {
-    public void dataDispatch(HttpServletRequest req, HttpServletResponse resp, String target)throws IOException {
-
-        switch(target){
-            case"flights":
-                flightController.getAllFlights(req, resp, this.conn);
-                break;
-            case"purchase":
-                ticketController.purchaseTickets (req, resp, this.conn);
-                break;
-            case"customer":
-                customerController.createCustomer (req, resp, this.conn);
-                break;
-            case"lookup":
-                flightController.lookUpFlights (req, resp, this.conn);
-                break;
-            case"details":
-                flightController.info (req, resp, this.conn);
-//            default:
-//                resp.getWriter().print(req.getRequestURI ());
+    public void dataDispatch(HttpServletRequest req, HttpServletResponse resp, String target) {
+        try {
+            switch(target) {
+                case "flights":
+                    flightController.getAllFlights(req, resp, conn);
+                    break;
+                case "purchase":
+                    ticketController.purchaseTickets(req, resp, conn);
+                    break;
+                case "customer":
+                    customerController.createCustomer(req, resp, conn);
+                    break;
+                case "lookup":
+                    flightController.lookUpFlights(req, resp, conn);
+                    break;
+                case "details":
+                    flightController.info(req, resp, conn);
+                    break;
+                case "createFlight":
+                    flightController.createFlight(req, resp, conn);
+                    break;
+                default:
+                    resp.setStatus(501);
+            }
+        } catch (Exception e) {
+            FileLogger.getFileLogger().writeExceptionToFile(e);
         }
     }
 }
