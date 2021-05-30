@@ -26,7 +26,7 @@ public class CustomerController {
         Customer customer = new Customer (conn, UUID.randomUUID (), firstName, lastName, customerNum);
         try {
             System.out.println ("I got hit");
-            customer.save ();
+            customer.save();
         } catch (IllegalAccessException e) {
             FileLogger.getFileLogger().writeExceptionToFile(e);
         } catch (SQLException throwables) {
