@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class CustomerController {
 
@@ -28,8 +29,18 @@ public class CustomerController {
 
         customer.save();
         resp.setStatus(201);
+    }
 
+    public List<Customer> getCustomers(HttpServletRequest req, HttpServletResponse resp, Connection conn)
+            throws SQLException, InvocationTargetException, InstantiationException, IllegalAccessException,
+            NoSuchMethodException {
+        List<Repository> queryResults = Customer.query(conn, Customer.class);
 
+        return queryResults.stream()
+                .map(e -> (Customer)e)
+                .filter(e -> e.getLastName().equals(req.getParameter("Last Name")))
+                .filter(e -> e.getFirstName().equals(req.getParameter("First Name")))
+                .collect(Collectors.toList());
     }
 
 

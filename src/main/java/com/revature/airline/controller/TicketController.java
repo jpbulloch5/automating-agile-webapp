@@ -40,7 +40,7 @@ public class TicketController {
             IllegalAccessException, NoSuchMethodException, IOException {
 
         List<Repository> queryTickets = Ticket.query (conn, Ticket.class);
-        List<Ticket> tickets = new ArrayList<>();
+        //List<Ticket> tickets = new ArrayList<>();
 
         //((Ticket)queryTickets.get(0)).getFlight_id();
 
@@ -52,7 +52,7 @@ public class TicketController {
 
         if (seatCount < 130) {
             Ticket newTicket = new Ticket(conn);
-            newTicket.setSeat(tickets.size());
+            newTicket.setSeat((int)seatCount);
             return newTicket;
         } else {
             resp.getWriter().print("Flight sold out.");

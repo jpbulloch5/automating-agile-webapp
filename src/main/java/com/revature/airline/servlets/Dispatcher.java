@@ -43,6 +43,9 @@ public class Dispatcher {
                 case "customer":
                     customerController.createCustomer(req, resp, conn);
                     break;
+                case "getCustomers":
+                    customerController.getCustomers(req, resp, conn);
+                    break;
                 case "lookup":
                     flightController.lookUpFlights(req, resp, conn);
                     break;

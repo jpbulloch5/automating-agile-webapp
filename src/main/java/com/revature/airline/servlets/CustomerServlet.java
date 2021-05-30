@@ -1,6 +1,5 @@
 package com.revature.airline.servlets;
 
-
 import com.revature.airline.utils.FileLogger;
 
 import javax.servlet.ServletException;
@@ -11,13 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/purchase")
-public class PurchaseTicketServlet extends HttpServlet {
+@WebServlet("/customer")
+public class CustomerServlet extends HttpServlet {
     Dispatcher dispatcher = new Dispatcher ();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        dispatcher.dataDispatch(req, resp, "customer");
+    }
 
-        dispatcher.dataDispatch (req, resp, "purchase");
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        dispatcher.dataDispatch(req, resp, "getCustomers");
     }
 }
