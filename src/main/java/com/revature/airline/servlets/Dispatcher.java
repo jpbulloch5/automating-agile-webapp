@@ -48,6 +48,8 @@ public class Dispatcher {
             case"details":
                 flightController.info (req, resp, conn);
                 break;
+            default:
+                resp.setStatus(501);
         }
     }
 }
