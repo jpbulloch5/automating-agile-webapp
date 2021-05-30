@@ -59,6 +59,7 @@ public class Dispatcher {
                     resp.setStatus(501);
             }
         } catch (Exception e) {
+            resp.setStatus(500);
             FileLogger.getFileLogger().writeExceptionToFile(e);
         }
     }
