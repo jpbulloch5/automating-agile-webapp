@@ -2,6 +2,7 @@ package com.revature.airline.controller;
 
 import com.revature.airline.repos.Flight;
 import com.revature.airline.services.TicketService;
+import com.revature.airline.utils.FileLogger;
 import eorm.utils.Repository;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,7 @@ public class FlightController {
             }
 
         } catch (SQLException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException | IOException e) {
-            e.printStackTrace ();
+            FileLogger.getFileLogger().writeExceptionToFile(e);
         }
     }
 

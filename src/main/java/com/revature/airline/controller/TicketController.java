@@ -2,6 +2,7 @@ package com.revature.airline.controller;
 
 import com.revature.airline.repos.Ticket;
 import com.revature.airline.services.TicketService;
+import com.revature.airline.utils.FileLogger;
 import eorm.utils.Repository;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,9 +29,9 @@ public class TicketController {
             try {
                 newTicket.save ();
             } catch (IllegalAccessException e) {
-                e.printStackTrace ();
+                FileLogger.getFileLogger().writeExceptionToFile(e);
             } catch (SQLException throwables) {
-                throwables.printStackTrace ();
+                FileLogger.getFileLogger().writeExceptionToFile(throwables);
             }
         }
 
@@ -52,7 +53,7 @@ public class TicketController {
                 try {
                     resp.getWriter ().println ("Flight sold out.");
                 } catch (IOException e) {
-                    e.printStackTrace ();
+                    FileLogger.getFileLogger().writeExceptionToFile(e);
                 }
                 return null;
             } else {
@@ -64,15 +65,15 @@ public class TicketController {
 
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace ();
+            FileLogger.getFileLogger().writeExceptionToFile(throwables);
         } catch (InvocationTargetException e) {
-            e.printStackTrace ();
+            FileLogger.getFileLogger().writeExceptionToFile(e);
         } catch (InstantiationException e) {
-            e.printStackTrace ();
+            FileLogger.getFileLogger().writeExceptionToFile(e);
         } catch (IllegalAccessException e) {
-            e.printStackTrace ();
+            FileLogger.getFileLogger().writeExceptionToFile(e);
         } catch (NoSuchMethodException e) {
-            e.printStackTrace ();
+            FileLogger.getFileLogger().writeExceptionToFile(e);
         }
         return null;
 

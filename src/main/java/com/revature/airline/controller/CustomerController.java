@@ -1,6 +1,7 @@
 package com.revature.airline.controller;
 
 import com.revature.airline.repos.Customer;
+import com.revature.airline.utils.FileLogger;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +22,9 @@ public class CustomerController {
             System.out.println ("I got hit");
             customer.save ();
         } catch (IllegalAccessException e) {
-            e.printStackTrace ();
+            FileLogger.getFileLogger().writeExceptionToFile(e);
         } catch (SQLException throwables) {
-            throwables.printStackTrace ();
+            FileLogger.getFileLogger().writeExceptionToFile(throwables);
         }
 
     }
