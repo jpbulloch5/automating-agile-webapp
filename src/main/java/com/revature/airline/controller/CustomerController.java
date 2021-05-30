@@ -23,10 +23,10 @@ public class CustomerController {
         String lastName = req.getParameter ("Last Name");
         int customerNum = Integer.parseInt (req.getParameter ("Customer Number"));
 
-        Customer customer = new Customer (conn, UUID.randomUUID (), firstName, lastName, customerNum);
+        Customer customer = new Customer (conn, UUID.randomUUID(), firstName, lastName, customerNum);
         try {
-            //System.out.println ("I got hit");
             customer.save();
+            resp.setStatus(201);
         } catch (IllegalAccessException e) {
             FileLogger.getFileLogger().writeExceptionToFile(e);
         } catch (SQLException throwables) {
