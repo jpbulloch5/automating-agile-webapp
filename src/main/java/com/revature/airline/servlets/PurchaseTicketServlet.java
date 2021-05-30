@@ -14,7 +14,6 @@ public class PurchaseTicketServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         dispatcher.dataDispatch (req, resp);
 
-
     }
 
 

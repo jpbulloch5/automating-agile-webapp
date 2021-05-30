@@ -1,6 +1,7 @@
 package com.revature.airline.controller;
 
 import com.revature.airline.repos.Ticket;
+import com.revature.airline.services.TicketService;
 import eorm.utils.Repository;
 
 import javax.servlet.http.HttpServletRequest;
