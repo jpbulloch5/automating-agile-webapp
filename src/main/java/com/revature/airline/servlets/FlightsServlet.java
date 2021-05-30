@@ -16,21 +16,5 @@ public class FlightsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         dispatcher.dataDispatch (req, resp);
-
-        resp.setStatus(202);
-
-
-        //Flight flight = new Flight (departureLocation, destinationLocation);
-
-        //TODO
-
-
-
-
-
-
-
-
-
     }
 }

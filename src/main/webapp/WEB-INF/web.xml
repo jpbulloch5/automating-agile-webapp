@@ -24,8 +24,6 @@
         <servlet-name>pingServlet</servlet-name>
         <url-pattern>/ping</url-pattern>
     </servlet-mapping>
-
-
     <servlet>
         <servlet-name>PurchaseTicketServlet</servlet-name>
         <servlet-class>com.revature.airline.servlets.PurchaseTicketServlet</servlet-class>
@@ -34,7 +32,14 @@
         <servlet-name>PurchaseTicketServlet</servlet-name>
         <url-pattern>/purchase</url-pattern>
     </servlet-mapping>
-
+    <servlet>
+        <servlet-name>healthCheckServlet</servlet-name>
+        <servlet-class>com.revature.airline.servlets.HealthCheckServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>healthCheckServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping> 
 
 
 

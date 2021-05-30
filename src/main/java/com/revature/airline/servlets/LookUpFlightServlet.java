@@ -9,8 +9,8 @@ import java.io.IOException;
 
 @WebServlet("/lookup")
 public class LookUpFlightServlet extends HttpServlet {
-    private Dispatcher dispatcher= new Dispatcher();
 
+    private Dispatcher dispatcher= new Dispatcher();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         dispatcher.dataDispatch (req, resp);
