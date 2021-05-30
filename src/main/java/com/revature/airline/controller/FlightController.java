@@ -49,9 +49,12 @@ public class FlightController {
                 .filter(e -> e.getDestinationLocation().equals(req.getParameter("DestinationLocation")))
                 .collect(Collectors.toList());
 
+        resp.setStatus(200);
         for (Flight flight : flights) {
             resp.getWriter().println(flight.toString());
         }
+
+
 
         //System.out.println (repos);
         //List<Flight> flights = new ArrayList<>();
