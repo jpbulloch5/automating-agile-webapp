@@ -17,7 +17,9 @@ import java.util.UUID;
 
 public class TicketController {
 
-    public void purchaseTickets(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws SQLException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+    public void purchaseTickets(HttpServletRequest req, HttpServletResponse resp, Connection conn)
+            throws SQLException, InvocationTargetException, InstantiationException,
+            IllegalAccessException, NoSuchMethodException, IOException {
         UUID customer_id = UUID.fromString (req.getParameter ("customer_id"));
         UUID flight_id = UUID.fromString (req.getParameter ("flight_id"));
 
@@ -33,29 +35,49 @@ public class TicketController {
 
     }
 
-    public Ticket verifySpace(Connection conn, UUID flight_id, HttpServletResponse resp) throws SQLException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+    public Ticket verifySpace(Connection conn, UUID flight_id, HttpServletResponse resp)
+            throws SQLException, InvocationTargetException, InstantiationException,
+            IllegalAccessException, NoSuchMethodException, IOException {
 
         List<Repository> queryTickets = Ticket.query (conn, Ticket.class);
-        List<Ticket> tickets = new ArrayList<> ();
+        List<Ticket> tickets = new ArrayList<>();
 
-        for (Repository repository : queryTickets) {
-            Ticket ticket = (Ticket) repository;
-            if (flight_id == ticket.getFlight_id ()) {
-                tickets.add (ticket);
-            }
-        }
+        //((Ticket)queryTickets.get(0)).getFlight_id();
 
-        if (tickets.size () > 130) {
-            try {
-                resp.getWriter ().println ("Flight sold out.");
-            } catch (IOException e) {
-                FileLogger.getFileLogger().writeExceptionToFile(e);
-            }
-            return null;
-        } else {
+        //trying out these newfangled streams
+        long seatCount = queryTickets.stream()
+                .map(obj -> (Ticket)obj)
+                .filter(e -> e.getFlight_id().equals(flight_id))
+                .count();
+
+        if (seatCount < 130) {
             Ticket newTicket = new Ticket(conn);
-            newTicket.setSeat (tickets.size ());
+            newTicket.setSeat(tickets.size());
             return newTicket;
+        } else {
+            resp.getWriter().print("Flight sold out.");
         }
+        return null;
+
+//
+//        for (Repository repository : queryTickets) {
+//            Ticket ticket = (Ticket) repository;
+//            if (flight_id.equals(ticket.getFlight_id ())) {
+//                tickets.add (ticket);
+//            }
+//        }
+//
+//        if (tickets.size () > 130) {
+//            try {
+//                resp.getWriter ().println ("Flight sold out.");
+//            } catch (IOException e) {
+//                FileLogger.getFileLogger().writeExceptionToFile(e);
+//            }
+//            return null;
+//        } else {
+//            Ticket newTicket = new Ticket(conn);
+//            newTicket.setSeat(tickets.size());
+//            return newTicket;
+//        }
     }
 }

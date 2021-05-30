@@ -18,7 +18,8 @@ import java.util.UUID;
 
 public class CustomerController {
 
-    public void createCustomer(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws SQLException, IllegalAccessException {
+    public void createCustomer(HttpServletRequest req, HttpServletResponse resp, Connection conn)
+            throws SQLException, IllegalAccessException {
         String firstName = req.getParameter ("First Name");
         String lastName = req.getParameter ("Last Name");
         int customerNum = Integer.parseInt (req.getParameter ("Customer Number"));
