@@ -29,14 +29,18 @@ public class Dispatcher {
     public void dataDispatch(HttpServletRequest req, HttpServletResponse resp)throws IOException {
 
         switch(req.getRequestURI ()){
-            case"/webapp/flight":
+            case"/flight":
                 flightController.getAllFlights(req, resp, this.conn);
                 break;
-            case"/webapp/purchase":
+            case"/purchase":
                 ticketController.purchaseTickets (req, resp, this.conn);
                 break;
-            case"/webapp/customer":
+            case"/customer":
                 customerController.createCustomer (req, resp, this.conn);
+                break;
+            default:
+                resp.getWriter().print(req.getRequestURI ());
+
 
         }
     }
