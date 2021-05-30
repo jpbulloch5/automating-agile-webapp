@@ -6,13 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class PingServlet extends HttpServlet {
+public class HealthCheckServlet extends HttpServlet {
     /*
     This will take a simple GET request and respond with "Pong!" and status 202, indicating the request was accepted.
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setStatus(202);
-        resp.getWriter().print("V0.9 - PONG!");
+        resp.setStatus(200);
     }
 }
