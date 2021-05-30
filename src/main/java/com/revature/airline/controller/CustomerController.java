@@ -1,5 +1,7 @@
 package com.revature.airline.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.airline.dtos.CustomerInfo;
 import com.revature.airline.repos.Customer;
 import com.revature.airline.utils.FileLogger;
 import com.revature.airline.repos.Flight;
@@ -20,13 +22,11 @@ import java.util.stream.Collectors;
 
 public class CustomerController {
 
-    public void createCustomer(HttpServletRequest req, HttpServletResponse resp, Connection conn)
-            throws SQLException, IllegalAccessException {
-        String firstName = req.getParameter ("First Name");
-        String lastName = req.getParameter ("Last Name");
-        int customerNum = Integer.parseInt (req.getParameter ("Customer Number"));
 
-        Customer customer = new Customer (conn, UUID.randomUUID(), firstName, lastName, customerNum);
+    public void createCustomer(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws SQLException, IllegalAccessException, IOException {
+        ObjectMapper mapper = new ObjectMapper ();
+        CustomerInfo customerInfo = mapper.readValue (req.getInputStream(), CustomerInfo.class);
+        Customer customer = new Customer (conn, UUID.randomUUID(), customerInfo.getFirstname (), customerInfo.getLastname (), customerInfo.getCustomernum ());
 
         customer.save();
         resp.setStatus(201);
