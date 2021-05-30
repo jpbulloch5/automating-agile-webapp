@@ -67,4 +67,14 @@ public class Customer extends Repository {
     public void setCustomerNum(int customerNum) {
         this.customerNum = customerNum;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customer_id=" + customer_id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", customerNum=" + customerNum +
+                '}';
+    }
 }

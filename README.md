@@ -7,35 +7,35 @@ Your first project will be to create a custom object relational mapping (ORM) fr
 Additionally, you will need to build a simple CRUD web application (what objects you CRUD is up to you and your team). You should leverage the Java EE Servlet API to expose endpoints that allow for interaction with the application.
 
 ## Tech Stack
-- [ ] Java 8
-- [ ] JUnit
-- [ ] Mockito
-- [ ] Apache Maven
+- [x] Java 8
+- [x] JUnit
+- [x] Mockito
+- [x] Apache Maven
 - [ ] Jackson library (for JSON marshalling/unmarshalling)
-- [ ] Java EE Servlet API (v4.0+)
-- [ ] PostGreSQL deployed on AWS RDS
+- [x] Java EE Servlet API (v4.0+)
+- [x] PostGreSQL deployed on AWS RDS
 - [ ] AWS CodeBuild
 - [ ] AWS CodePipeline
-- [ ] Git SCM (on GitHub)
+- [x] Git SCM (on GitHub)
 
 ## Functional Requirements
-- [ ] CRUD operations are supported for one or more domain objects via the web application's exposed endpoints
-- [ ] JDBC logic is abstracted away by the custom ORM 
-- [ ] Programmatic persistence of entities (basic CRUD support) using custom ORM
-- [ ] File-based or programmatic configuration of entities
+- [x] CRUD operations are supported for one or more domain objects via the web application's exposed endpoints
+- [x] JDBC logic is abstracted away by the custom ORM 
+- [x] Programmatic persistence of entities (basic CRUD support) using custom ORM
+- [x] File-based or programmatic configuration of entities
 
 ## Non-Functional Requirements
 - [ ] 80% line coverage of all service layer classes
-- [ ] Generated Jacoco reports that display coverage metrics
+- [x] Generated Jacoco reports that display coverage metrics
 - [ ] Usage of the java.util.Stream API within your project
-- [ ] Custom ORM source code should be included within the web application as a Maven dependency
-- [ ] Continuous integration pipelines that builds some main branch each project (the ORM and the web app, separately)
+- [x] Custom ORM source code should be included within the web application as a Maven dependency
+- [x] Continuous integration pipelines that builds some main branch each project (the ORM and the web app, separately)
 
 ## Bonus Features
 - [ ] Custom ORM supports basic transaction management (begin, commit, savepoint, rollback) 
 - [ ] Custom ORM supports connection pooling
 - [ ] Session-based caching to minimize calls to the database for already retrieved data
-- [ ] Deployment of web application to AWS EC2 (use of AWS Elastic Beanstalk is permitted) 
+- [?] Deployment of web application to AWS EC2 (use of AWS Elastic Beanstalk is permitted) 
 
 ## Init Instructions
 - Create a new repository within this organization for your custom ORM (naming convention: `orm_name_p1`; with `orm_name` being replaced by the name of your custom library)

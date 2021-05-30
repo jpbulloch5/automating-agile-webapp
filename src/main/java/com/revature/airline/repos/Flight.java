@@ -1,5 +1,6 @@
 package com.revature.airline.repos;
 
+
 import eorm.annotations.Column;
 import eorm.annotations.Table;
 import eorm.enums.SQLType;
@@ -102,5 +103,18 @@ public class Flight extends Repository {
 
     public void setDestinationGate(String destinationGate) {
         this.destinationGate = destinationGate;
+    }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "flight_id=" + flight_id +
+                ", flightNum=" + flightNum +
+                ", departureLocation='" + departureLocation + '\'' +
+                ", destinationLocation='" + destinationLocation + '\'' +
+                ", departureTime='" + departureTime + '\'' +
+                ", departureGate='" + departureGate + '\'' +
+                ", destinationGate='" + destinationGate + '\'' +
+                '}';
     }
 }
