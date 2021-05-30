@@ -11,11 +11,11 @@ Additionally, you will need to build a simple CRUD web application (what objects
 - [x] JUnit
 - [x] Mockito
 - [x] Apache Maven
-- [ ] Jackson library (for JSON marshalling/unmarshalling)
+- [x] Jackson library (for JSON marshalling/unmarshalling)
 - [x] Java EE Servlet API (v4.0+)
 - [x] PostGreSQL deployed on AWS RDS
-- [ ] AWS CodeBuild
-- [ ] AWS CodePipeline
+- [x] AWS CodeBuild
+- [x] AWS CodePipeline
 - [x] Git SCM (on GitHub)
 
 ## Functional Requirements
@@ -27,7 +27,7 @@ Additionally, you will need to build a simple CRUD web application (what objects
 ## Non-Functional Requirements
 - [ ] 80% line coverage of all service layer classes
 - [x] Generated Jacoco reports that display coverage metrics
-- [ ] Usage of the java.util.Stream API within your project
+- [x] Usage of the java.util.Stream API within your project
 - [x] Custom ORM source code should be included within the web application as a Maven dependency
 - [x] Continuous integration pipelines that builds some main branch each project (the ORM and the web app, separately)
 
@@ -35,7 +35,7 @@ Additionally, you will need to build a simple CRUD web application (what objects
 - [ ] Custom ORM supports basic transaction management (begin, commit, savepoint, rollback) 
 - [ ] Custom ORM supports connection pooling
 - [ ] Session-based caching to minimize calls to the database for already retrieved data
-- [?] Deployment of web application to AWS EC2 (use of AWS Elastic Beanstalk is permitted) 
+- [x] Deployment of web application to AWS EC2 (use of AWS Elastic Beanstalk is permitted) 
 
 ## Init Instructions
 - Create a new repository within this organization for your custom ORM (naming convention: `orm_name_p1`; with `orm_name` being replaced by the name of your custom library)

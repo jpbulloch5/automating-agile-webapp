@@ -40,11 +40,8 @@ public class TicketController {
             IllegalAccessException, NoSuchMethodException, IOException {
 
         List<Repository> queryTickets = Ticket.query (conn, Ticket.class);
-        //List<Ticket> tickets = new ArrayList<>();
 
-        //((Ticket)queryTickets.get(0)).getFlight_id();
-
-        //trying out these newfangled streams
+              //trying out these newfangled streams
         long seatCount = queryTickets.stream()
                 .map(obj -> (Ticket)obj)
                 .filter(e -> e.getFlight_id().equals(flight_id))
