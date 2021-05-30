@@ -10,6 +10,6 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setStatus(202);
-        resp.getWriter().print(req.getParameter("testParameter") + " V0.4!");
+        resp.getWriter().print(req.getParameter("testParameter") + " V0.9!");
     }
 }
