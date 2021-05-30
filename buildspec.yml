@@ -12,10 +12,10 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - mvn install
+      - mvn package
   post_build:
     commands:
       - echo Build completed on `date`
 artifacts:
   files:
-    - target/p1-webapp-0.3.war
+    - target/p1-webapp-0.4.war
