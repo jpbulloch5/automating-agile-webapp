@@ -23,14 +23,14 @@ public class Ticket extends Repository {
     @ForeignKey(referencedTable = "flight")
     private UUID flight_id;
 
-    @Column(type = SQLType.VARCHAR)
-    private String seat;
+    @Column(type = SQLType.INT)
+    private int seat;
 
     public Ticket(Connection conn) {
         super(conn);
     }
 
-    public Ticket(Connection conn, UUID id, UUID customer_id, UUID flight_id, String seat) {
+    public Ticket(Connection conn, UUID id, UUID customer_id, UUID flight_id, int seat) {
         super(conn);
         this.ticket_id = id;
         this.customer_id = customer_id;
@@ -62,11 +62,11 @@ public class Ticket extends Repository {
         this.flight_id = flight_id;
     }
 
-    public String getSeat() {
+    public int getSeat() {
         return seat;
     }
 
-    public void setSeat(String seat) {
+    public void setSeat(int seat) {
         this.seat = seat;
     }
 }

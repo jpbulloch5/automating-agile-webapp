@@ -19,7 +19,7 @@ Additionally, you will need to build a simple CRUD web application (what objects
 - [x] Git SCM (on GitHub)
 
 ## Functional Requirements
-- [ ] CRUD operations are supported for one or more domain objects via the web application's exposed endpoints
+- [x] CRUD operations are supported for one or more domain objects via the web application's exposed endpoints
 - [x] JDBC logic is abstracted away by the custom ORM 
 - [x] Programmatic persistence of entities (basic CRUD support) using custom ORM
 - [x] File-based or programmatic configuration of entities
@@ -35,7 +35,7 @@ Additionally, you will need to build a simple CRUD web application (what objects
 - [ ] Custom ORM supports basic transaction management (begin, commit, savepoint, rollback) 
 - [ ] Custom ORM supports connection pooling
 - [ ] Session-based caching to minimize calls to the database for already retrieved data
-- [ ] Deployment of web application to AWS EC2 (use of AWS Elastic Beanstalk is permitted) 
+- [?] Deployment of web application to AWS EC2 (use of AWS Elastic Beanstalk is permitted) 
 
 ## Init Instructions
 - Create a new repository within this organization for your custom ORM (naming convention: `orm_name_p1`; with `orm_name` being replaced by the name of your custom library)

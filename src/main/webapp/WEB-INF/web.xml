@@ -26,6 +26,33 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>FlightsServlet</servlet-name>
+        <servlet-class>com.revature.airline.servlets.FlightsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FlightsServlet</servlet-name>
+        <url-pattern>/flight</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PurchaseTicketServlet</servlet-name>
+        <servlet-class>com.revature.airline.servlets.PurchaseTicketServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PurchaseTicketServlet</servlet-name>
+        <url-pattern>/purchase</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateCustomerServlet</servlet-name>
+        <servlet-class>com.revature.airline.servlets.CreateCustomerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateCustomerServlet</servlet-name>
+        <url-pattern>/customer</url-pattern>
+    </servlet-mapping>
+      
+    <servlet>
         <servlet-name>testServlet</servlet-name>
         <servlet-class>com.revature.airline.servlets.TestServlet</servlet-class>
     </servlet>
