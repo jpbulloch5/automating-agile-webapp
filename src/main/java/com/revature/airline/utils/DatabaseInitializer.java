@@ -20,7 +20,7 @@ public class DatabaseInitializer {
     public static void init() throws SQLException, MalformedTableException, DBConnectionException {
         if (!initialized) {
             //remove me later
-            FileLogger.getFileLogger().writeStringToFile("host: " + System.getenv("HOST")
+            FileLogger.getFileLogger().writeStringToFile("GETENV TEST - host: " + System.getenv("HOST")
                     + ", port: " + System.getenv("PORT")
                     + ", dbname: " + System.getenv("DBNAME")
                     + ", schema: " + System.getenv("SCHEMANAME")
@@ -28,6 +28,16 @@ public class DatabaseInitializer {
                     + ", pass: " + System.getenv("PASSWORD")
                     + ", driver: " + System.getenv("DRIVER")
                     + ", test: " + System.getenv("JDBC_CONNECTION_STRING")
+            );
+
+            FileLogger.getFileLogger().writeStringToFile("GETPROPERTY TEST - host: " + System.getenv("HOST")
+                    + ", port: " + System.getProperty("PORT")
+                    + ", dbname: " + System.getProperty("DBNAME")
+                    + ", schema: " + System.getProperty("SCHEMANAME")
+                    + ", username: " + System.getProperty("USERNAME")
+                    + ", pass: " + System.getProperty("PASSWORD")
+                    + ", driver: " + System.getProperty("DRIVER")
+                    + ", test: " + System.getProperty("JDBC_CONNECTION_STRING")
             );
 
             conn = ConnectionFactory.getConnection(
