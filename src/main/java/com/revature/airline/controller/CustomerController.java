@@ -9,6 +9,7 @@ import eorm.utils.Repository;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -31,16 +32,22 @@ public class CustomerController {
         resp.setStatus(201);
     }
 
-    public List<Customer> getCustomers(HttpServletRequest req, HttpServletResponse resp, Connection conn)
+    public void getCustomers(HttpServletRequest req, HttpServletResponse resp, Connection conn)
             throws SQLException, InvocationTargetException, InstantiationException, IllegalAccessException,
-            NoSuchMethodException {
+            NoSuchMethodException, IOException {
         List<Repository> queryResults = Customer.query(conn, Customer.class);
 
-        return queryResults.stream()
+        List<Customer> customers = queryResults.stream()
                 .map(e -> (Customer)e)
                 .filter(e -> e.getLastName().equals(req.getParameter("Last Name")))
                 .filter(e -> e.getFirstName().equals(req.getParameter("First Name")))
                 .collect(Collectors.toList());
+
+        for (Customer customer : customers) {
+            resp.getWriter().println(customer.toString());
+        }
+        resp.setStatus(200);
+
     }
 
 

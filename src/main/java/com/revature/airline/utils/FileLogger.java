@@ -21,7 +21,7 @@ public class FileLogger {
      * Private constructor, sets default values for logger object
      */
     private FileLogger() {
-        //logFilePath = "src/main/resources/logs/";
+        //logFilePath = "D:\\Revature Training\\Apache\\tomcat\\logs\\";
         logFilePath = "/logs/";
         consoleOut = false;
     }
@@ -82,7 +82,7 @@ public class FileLogger {
         try (Writer fileWriter = new FileWriter(getLogFileName(), true)) {
             fileWriter.write(str + "\n");
         } catch (IOException ex) {
-            System.out.println("Warning! Unable to write exception log entry to file.");
+            //System.out.println("Warning! Unable to write exception log entry to file.");
         }
     }
 
