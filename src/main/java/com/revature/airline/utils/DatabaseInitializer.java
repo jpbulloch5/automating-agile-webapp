@@ -17,8 +17,18 @@ public class DatabaseInitializer {
     private static Connection conn;
 
 
-    public static void init() throws SQLException, MalformedTableException, IOException, DBConnectionException {
+    public static void init() throws SQLException, MalformedTableException, DBConnectionException {
         if (!initialized) {
+            //remove me later
+            FileLogger.getFileLogger().writeStringToFile("host: " + System.getenv("HOST")
+                    + ", port: " + System.getenv("PORT")
+                    + ", dbname: " + System.getenv("DBNAME")
+                    + ", schema: " + System.getenv("SCHEMANAME")
+                    + ", username: " + System.getenv("USERNAME")
+                    + ", pass: " + System.getenv("PASSWORD")
+                    + ", driver: " + System.getenv("DRIVER")
+            );
+
             conn = ConnectionFactory.getConnection(
                     System.getenv("HOST"),
                     Integer.parseInt(System.getenv("PORT")),
