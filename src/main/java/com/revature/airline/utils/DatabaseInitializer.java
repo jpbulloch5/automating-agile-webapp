@@ -30,24 +30,24 @@ public class DatabaseInitializer {
                     + ", test: " + System.getenv("JDBC_CONNECTION_STRING")
             );
 
-            FileLogger.getFileLogger().writeStringToFile("GETPROPERTY TEST - host: " + System.getenv("HOST")
+            FileLogger.getFileLogger().writeStringToFile("GETPROPERTY TEST - host: " + System.getProperty("HOST")
                     + ", port: " + System.getProperty("PORT")
                     + ", dbname: " + System.getProperty("DBNAME")
                     + ", schema: " + System.getProperty("SCHEMANAME")
                     + ", username: " + System.getProperty("USERNAME")
                     + ", pass: " + System.getProperty("PASSWORD")
                     + ", driver: " + System.getProperty("DRIVER")
-                    + ", test: " + System.getProperty("JDBC_CONNECTION_STRING")
+                    + ", JDBC: " + System.getProperty("JDBC_CONNECTION_STRING")
             );
 
             conn = ConnectionFactory.getConnection(
-                    System.getenv("HOST"),
-                    Integer.parseInt(System.getenv("PORT")),
-                    System.getenv("DBNAME"),
-                    System.getenv("SCHEMANAME"),
-                    System.getenv("USERNAME"),
-                    System.getenv("PASSWORD"),
-                    System.getenv("DRIVER"));
+                    System.getProperty("HOST"),
+                    Integer.parseInt(System.getProperty("PORT")),
+                    System.getProperty("DBNAME"),
+                    System.getProperty("SCHEMANAME"),
+                    System.getProperty("USERNAME"),
+                    System.getProperty("PASSWORD"),
+                    System.getProperty("DRIVER"));
 
 
             Flight flight = new Flight(conn);
