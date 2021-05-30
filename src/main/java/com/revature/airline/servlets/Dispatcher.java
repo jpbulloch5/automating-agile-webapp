@@ -20,7 +20,14 @@ public class Dispatcher {
 
     public Dispatcher() {
         try {
-            //conn = ConnectionFactory.getConnection ("project0.cksippr4cmc5.us-east-1.rds.amazonaws.com", 5432, "postgres", "project1", "jfallon", "revature", "org.postgresql.Driver");
+//            conn = ConnectionFactory.getConnection (
+//                    "database.ciwpi6yisnng.us-east-2.rds.amazonaws.com",
+//                    5432,
+//                    "postgres",
+//                    "FallonAir",
+//                    "appuser",
+//                    "4ppp4ssDontGoChasingWaterfalls",
+//                    "org.postgresql.Driver");
             conn = DatabaseInitializer.getconnection();
         } catch (Exception e) {
             FileLogger.getFileLogger().writeExceptionToFile(e);

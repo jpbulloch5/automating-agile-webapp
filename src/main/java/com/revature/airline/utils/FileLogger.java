@@ -21,8 +21,8 @@ public class FileLogger {
      * Private constructor, sets default values for logger object
      */
     private FileLogger() {
-        logFilePath = "D:\\Revature Training\\Apache\\tomcat\\logs\\";
-        //logFilePath = "/logs/";
+        //logFilePath = "D:\\Revature Training\\Apache\\tomcat\\logs\\";
+        logFilePath = "/logs/";
         consoleOut = false;
     }
 
