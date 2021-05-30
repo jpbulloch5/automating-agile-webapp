@@ -25,7 +25,7 @@ public class TestServletTest extends Mockito {
 
         when(request.getParameter("testParameter")).thenReturn("test");
 
-        new TestServlet().doPost(request, response);
+        new InitServlet().doPost(request, response);
 
         verify(request, atLeastOnce()).getParameter("testParameter");
         writer.flush(); // it may not have been flushed yet...

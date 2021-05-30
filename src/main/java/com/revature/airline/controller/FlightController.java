@@ -21,7 +21,9 @@ import java.util.UUID;
 
 public class FlightController {
 
-    public void getAllFlights(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws IOException, SQLException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+    public void getAllFlights(HttpServletRequest req, HttpServletResponse resp, Connection conn)
+            throws IOException, SQLException, InvocationTargetException, InstantiationException,
+            IllegalAccessException, NoSuchMethodException {
             List<Repository> flights =  Flight.query(conn, Flight.class);
 
             if(flights == null){
@@ -31,19 +33,22 @@ public class FlightController {
             }
     }
 
-    public void lookUpFlights(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws IOException, SQLException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+    public void lookUpFlights(HttpServletRequest req, HttpServletResponse resp, Connection conn)
+            throws IOException, SQLException, InvocationTargetException, InstantiationException,
+            IllegalAccessException, NoSuchMethodException {
         ObjectMapper mapper = new ObjectMapper();
 
-        System.out.println ("Am I here");
+        //System.out.println ("Am I here");
         FlightLookUp lookUp = mapper.readValue(req.getInputStream(), FlightLookUp.class);
-        System.out.println (lookUp);
+        //System.out.println (lookUp);
         List<Repository> repos = Flight.query(conn, Flight.class);
-        System.out.println (repos);
+        //System.out.println (repos);
         List<Flight> flights = new ArrayList<>();
 
         for (Repository repository:repos) {
             Flight flight = (Flight) repository;
-            if(flight.getDepartureLocation().equals(lookUp.getDeparturelocation()) && flight.getDestinationLocation() .equals (lookUp.getDestinationlocation())){
+            if(flight.getDepartureLocation().equals(lookUp.getDeparturelocation())
+                    && flight.getDestinationLocation() .equals (lookUp.getDestinationlocation())){
                 flights.add (flight);
             }
         }
@@ -56,7 +61,9 @@ public class FlightController {
 
     }
 
-    public void info(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws IOException, SQLException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+    public void info(HttpServletRequest req, HttpServletResponse resp, Connection conn)
+            throws IOException, SQLException, InvocationTargetException, InstantiationException,
+            IllegalAccessException, NoSuchMethodException {
         UUID flight_id = UUID.fromString (req.getParameter ("flight_id"));
         List<Flight> flights = new ArrayList<>();
         List<Repository> repositories = null;
@@ -70,7 +77,8 @@ public class FlightController {
         }
     }
 
-    public void createFlight(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws IOException, SQLException, IllegalAccessException {
+    public void createFlight(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws IOException,
+            SQLException, IllegalAccessException {
         ObjectMapper mapper = new ObjectMapper();
         FlightDTO flightDTO = mapper.readValue(req.getInputStream(), FlightDTO.class);
         Flight newFlight = new Flight(conn, UUID.randomUUID(), flightDTO.getFlightNum(),
