@@ -3,6 +3,8 @@ package com.revature.airline.dtos;
 import eorm.annotations.Column;
 import eorm.enums.SQLType;
 
+import java.util.UUID;
+
 public class FlightDTO {
     private int flightNum;
     private String departureLocation;

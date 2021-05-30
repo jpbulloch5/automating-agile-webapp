@@ -15,9 +15,8 @@ public class LookUpFlightServlet extends HttpServlet {
 
     private Dispatcher dispatcher= new Dispatcher();
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         dispatcher.dataDispatch (req, resp, "lookup");
-
-        resp.setStatus(202);
+        resp.setStatus(201);
     }
 }
