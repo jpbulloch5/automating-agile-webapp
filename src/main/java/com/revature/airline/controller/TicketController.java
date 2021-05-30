@@ -40,7 +40,7 @@ public class TicketController {
 
         for (Repository repository : queryTickets) {
             Ticket ticket = (Ticket) repository;
-            if (flight_id == ticket.getFlight_id ()) {
+            if (flight_id.equals(ticket.getFlight_id ())) {
                 tickets.add (ticket);
             }
         }

@@ -1,5 +1,7 @@
 package com.revature.airline.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.airline.dtos.CustomerInfo;
 import com.revature.airline.repos.Customer;
 import com.revature.airline.utils.FileLogger;
 import com.revature.airline.repos.Flight;
@@ -9,6 +11,7 @@ import eorm.utils.Repository;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,12 +21,12 @@ import java.util.UUID;
 
 public class CustomerController {
 
-    public void createCustomer(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws SQLException, IllegalAccessException {
-        String firstName = req.getParameter ("First Name");
-        String lastName = req.getParameter ("Last Name");
-        int customerNum = Integer.parseInt (req.getParameter ("Customer Number"));
+    public void createCustomer(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws SQLException, IllegalAccessException, IOException {
+        ObjectMapper mapper = new ObjectMapper ();
 
-        Customer customer = new Customer (conn, UUID.randomUUID(), firstName, lastName, customerNum);
+        CustomerInfo customerInfo = mapper.readValue (req.getInputStream (), CustomerInfo.class);
+
+        Customer customer = new Customer (conn, UUID.randomUUID(), customerInfo.getFirstname (), customerInfo.getLastname (), customerInfo.getCustomernum ());
 
         customer.save();
         resp.setStatus(201);
