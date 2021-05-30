@@ -24,14 +24,10 @@ public class CustomerController {
 
 
     public void createCustomer(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws SQLException, IllegalAccessException, IOException {
-<<<<<<< HEAD
         ObjectMapper mapper = new ObjectMapper();
-        CustomerInfo customerInfo = mapper.readValue (req.getInputStream (), CustomerInfo.class);
-=======
-        ObjectMapper mapper = new ObjectMapper ();
         CustomerInfo customerInfo = mapper.readValue (req.getInputStream(), CustomerInfo.class);
->>>>>>> 3ae9f3c940641d5e92c772c22a83717db05e3da0
-        Customer customer = new Customer (conn, UUID.randomUUID(), customerInfo.getFirstname (), customerInfo.getLastname (), customerInfo.getCustomernum ());
+
+        Customer customer = new Customer (conn, UUID.randomUUID(), customerInfo.getFirstname(), customerInfo.getLastname(), customerInfo.getCustomernum());
 
         customer.save();
         resp.setStatus(201);
