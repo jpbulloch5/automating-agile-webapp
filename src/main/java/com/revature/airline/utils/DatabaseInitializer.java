@@ -27,6 +27,7 @@ public class DatabaseInitializer {
                     + ", username: " + System.getenv("USERNAME")
                     + ", pass: " + System.getenv("PASSWORD")
                     + ", driver: " + System.getenv("DRIVER")
+                    + ", test: " + System.getenv("JDBC_CONNECTION_STRING")
             );
 
             conn = ConnectionFactory.getConnection(
