@@ -22,7 +22,7 @@ public class FileLogger {
      */
     private FileLogger() {
         //logFilePath = "src/main/resources/logs/";
-        logFilePath = "~/logs/";
+        logFilePath = "/logs";
         consoleOut = false;
     }
 
