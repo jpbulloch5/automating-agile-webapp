@@ -15,7 +15,10 @@ import java.sql.Connection;
 public class Dispatcher {
     Connection conn;
 
-    {
+    public Dispatcher() {
+        //REMOVE ME LATER
+        FileLogger.getFileLogger().writeExceptionToFile(new Exception("TEST EXCEPTION TO FORCE LOGGER TO SPAWN NEW FILE"));
+
         try {
             conn = ConnectionFactory.getConnection ("project0.cksippr4cmc5.us-east-1.rds.amazonaws.com", 5432, "postgres", "project1", "jfallon", "revature", "org.postgresql.Driver");
         } catch (DBConnectionException e) {
@@ -27,26 +30,24 @@ public class Dispatcher {
     TicketController ticketController = new TicketController ();
     CustomerController customerController = new CustomerController ();
 
-    //public void dataDispatch(HttpServletRequest req, HttpServletResponse resp)throws IOException {
     public void dataDispatch(HttpServletRequest req, HttpServletResponse resp, String target)throws IOException {
 
         switch(target){
             case"flights":
-                flightController.getAllFlights(req, resp, this.conn);
+                flightController.getAllFlights(req, resp, conn);
                 break;
             case"purchase":
-                ticketController.purchaseTickets (req, resp, this.conn);
+                ticketController.purchaseTickets (req, resp, conn);
                 break;
             case"customer":
-                customerController.createCustomer (req, resp, this.conn);
+                customerController.createCustomer (req, resp, conn);
                 break;
             case"lookup":
-                flightController.lookUpFlights (req, resp, this.conn);
+                flightController.lookUpFlights (req, resp, conn);
                 break;
             case"details":
-                flightController.info (req, resp, this.conn);
-//            default:
-//                resp.getWriter().print(req.getRequestURI ());
+                flightController.info (req, resp, conn);
+                break;
         }
     }
 }
