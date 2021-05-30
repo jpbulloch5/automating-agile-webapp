@@ -18,4 +18,4 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - target/p1-webapp-0.1.war
+    - target/p1-webapp-0.3.war
