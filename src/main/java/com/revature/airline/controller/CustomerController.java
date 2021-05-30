@@ -18,22 +18,16 @@ import java.util.UUID;
 
 public class CustomerController {
 
-    public void createCustomer(HttpServletRequest req, HttpServletResponse resp, Connection conn) {
+    public void createCustomer(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws SQLException, IllegalAccessException {
         String firstName = req.getParameter ("First Name");
         String lastName = req.getParameter ("Last Name");
         int customerNum = Integer.parseInt (req.getParameter ("Customer Number"));
 
         Customer customer = new Customer (conn, UUID.randomUUID(), firstName, lastName, customerNum);
-        try {
-            customer.save();
-            resp.setStatus(201);
-        } catch (IllegalAccessException e) {
-            FileLogger.getFileLogger().writeExceptionToFile(e);
-        } catch (SQLException throwables) {
-            FileLogger.getFileLogger().writeExceptionToFile(throwables);
-        } catch (NullPointerException e) {
-            FileLogger.getFileLogger().writeExceptionToFile(e);
-        }
+
+        customer.save();
+        resp.setStatus(201);
+
 
     }
 

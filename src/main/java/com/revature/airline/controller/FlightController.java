@@ -1,6 +1,7 @@
 package com.revature.airline.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.airline.dtos.FlightDTO;
 import com.revature.airline.dtos.FlightLookUp;
 import com.revature.airline.repos.Flight;
 import com.revature.airline.repos.Ticket;
@@ -20,96 +21,62 @@ import java.util.UUID;
 
 public class FlightController {
 
-    public void getAllFlights(HttpServletRequest req, HttpServletResponse resp, Connection conn){
-        try {
-
-            List<Repository> flights =  Flight.query (conn, Flight.class);
+    public void getAllFlights(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws IOException, SQLException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+            List<Repository> flights =  Flight.query(conn, Flight.class);
 
             if(flights == null){
                 resp.getWriter().println("Flights never showed up, so here we are");
             } else {
                 flights.forEach(resp.getWriter()::println);
             }
-
-        } catch (SQLException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException | IOException e) {
-            FileLogger.getFileLogger().writeExceptionToFile(e);
-        }
     }
 
-    public void lookUpFlights(HttpServletRequest req, HttpServletResponse resp, Connection conn){
-        ObjectMapper mapper = new ObjectMapper ();
+    public void lookUpFlights(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws IOException, SQLException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+        ObjectMapper mapper = new ObjectMapper();
 
+        System.out.println ("Am I here");
+        FlightLookUp lookUp = mapper.readValue(req.getInputStream(), FlightLookUp.class);
+        System.out.println (lookUp);
+        List<Repository> repos = Flight.query(conn, Flight.class);
+        System.out.println (repos);
+        List<Flight> flights = new ArrayList<>();
 
-        try {
-            System.out.println ("Am I here");
-            FlightLookUp lookUp = mapper.readValue (req.getInputStream (), FlightLookUp.class);
-            System.out.println (lookUp);
-            List<Repository> repos = Flight.query(conn, Flight.class);
-            System.out.println (repos);
-            List<Flight> flights = new ArrayList<> ();
-
-            for (Repository repository:repos) {
-                Flight flight = (Flight) repository;
-                if(flight.getDepartureLocation ().equals(lookUp.getDeparturelocation ()) && flight.getDestinationLocation () .equals (lookUp.getDestinationlocation ())){
-                    flights.add (flight);
-                }
+        for (Repository repository:repos) {
+            Flight flight = (Flight) repository;
+            if(flight.getDepartureLocation().equals(lookUp.getDeparturelocation()) && flight.getDestinationLocation() .equals (lookUp.getDestinationlocation())){
+                flights.add (flight);
             }
+        }
 
-            if(flights == null){
-                resp.getWriter().println("Flights never showed up, so here we are");
-            } else {
-                flights.forEach(resp.getWriter()::println);
-            }
-
-
-        } catch (IOException e) {
-            e.printStackTrace ();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace ();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace ();
-        } catch (InstantiationException e) {
-            e.printStackTrace ();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace ();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace ();
+        if(flights == null){
+            resp.getWriter().println("Flights never showed up, so here we are");
+        } else {
+            flights.forEach(resp.getWriter()::println);
         }
 
     }
 
-    public void info(HttpServletRequest req, HttpServletResponse resp, Connection conn) {
+    public void info(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws IOException, SQLException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
         UUID flight_id = UUID.fromString (req.getParameter ("flight_id"));
-        List<Flight> flights = new ArrayList<> ();
+        List<Flight> flights = new ArrayList<>();
         List<Repository> repositories = null;
-        try {
             repositories = Ticket.query (conn, Ticket.class);
 
-            for (Repository repo: repositories) {
-                Flight flight = (Flight) repo;
-                if(flight.getFlight_id () == flight_id ){
-                    resp.getWriter ().println (flight);
-                }
+        for (Repository repo: repositories) {
+            Flight flight = (Flight) repo;
+            if(flight.getFlight_id () == flight_id ){
+                resp.getWriter ().println (flight);
             }
-
-
-
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace ();
-        } catch (InstantiationException e) {
-            e.printStackTrace ();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace ();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace ();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace ();
-        } catch (IOException e) {
-            e.printStackTrace ();
         }
-
     }
 
-
+    public void createFlight(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws IOException, SQLException, IllegalAccessException {
+        ObjectMapper mapper = new ObjectMapper();
+        FlightDTO flightDTO = mapper.readValue(req.getInputStream(), FlightDTO.class);
+        Flight newFlight = new Flight(conn, UUID.randomUUID(), flightDTO.getFlightNum(),
+                flightDTO.getDepartureLocation(), flightDTO.getDestinationLocation(),
+                flightDTO.getDepartureTime(), flightDTO.getDepartureGate(), flightDTO.getDestinationGate());
+        newFlight.save();
+        resp.setStatus(201);
+    }
 }
