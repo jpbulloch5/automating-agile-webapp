@@ -78,4 +78,12 @@ public class FileLogger {
         return String.format("%s   [%s]   %s", timestamp, stackInfo, message);
     }
 
+    public void writeStringToFile(String str) {
+        try (Writer fileWriter = new FileWriter(getLogFileName(), true)) {
+            fileWriter.write(str + "\n");
+        } catch (IOException ex) {
+            System.out.println("Warning! Unable to write exception log entry to file.");
+        }
+    }
+
 }
