@@ -5,7 +5,9 @@ import com.revature.airline.dtos.CustomerInfo;
 import com.revature.airline.repos.Customer;
 import com.revature.airline.services.CustomerService;
 import eorm.utils.Repository;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
@@ -30,6 +32,19 @@ import java.util.*;
 //@Before //before each test
 //@After    //after each test
 public class CustomerServiceTest {
+    private MockedStatic<CustomerController> mockCustomerController;
+
+    @Before
+    public void setUp() {
+        mockCustomerController = Mockito.mockStatic(CustomerController.class);
+
+    }
+
+    @After
+    public void tearDown() {
+        mockCustomerController.close();
+        mockCustomerController = null;
+    }
 
 
     @Test
@@ -37,7 +52,7 @@ public class CustomerServiceTest {
             InstantiationException, IllegalAccessException, NoSuchMethodException {
 
         Connection mockConn = mock(Connection.class);
-        MockedStatic<CustomerController> mockCustomerController = Mockito.mockStatic(CustomerController.class);
+
         List<Repository> mockList = new LinkedList<Repository>();
         Customer newCustomer = new Customer(mockConn, UUID.fromString("eb6d2d8d-ab42-483a-9a79-432d8865b430"), "testFirstName", "testLastName", 1);
         mockList.add(newCustomer);
@@ -64,7 +79,7 @@ public class CustomerServiceTest {
         when(mockDTO.getLastname()).thenReturn("testLastName");
         when(mockDTO.getCustomernum()).thenReturn(1);
         Customer mockCustomer = mock(Customer.class);
-        MockedStatic<CustomerController> mockCustomerController = Mockito.mockStatic(CustomerController.class);
+        //MockedStatic<CustomerController> mockCustomerController = Mockito.mockStatic(CustomerController.class);
         //mockCustomerController.when(() -> CustomerController.createCustomer(mockCustomer)).thenReturn(null);
         //NO STUBBING VOID METHODS
         CustomerService sut = new CustomerService();
