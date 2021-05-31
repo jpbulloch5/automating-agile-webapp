@@ -59,6 +59,7 @@ public class FlightController {
         resp.setStatus(200);
         resp.getWriter().println("flights has " + flights.size() + "elements.");
         for (int i = 0; i < flights.size(); i++) {
+            resp.getWriter().println("Loop: " + i);
             resp.getWriter().println(flights.get(i));
         }
 //        for (Flight flight : flights) {
