@@ -1,6 +1,9 @@
 package com.revature.airline.repos;
 
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.revature.airline.serializers.FlightSerializer;
 import eorm.annotations.Column;
 import eorm.annotations.Table;
 import eorm.enums.SQLType;
@@ -9,6 +12,7 @@ import eorm.utils.Repository;
 import java.sql.Connection;
 import java.util.UUID;
 
+@JsonSerialize(using = FlightSerializer.class)
 @Table(tableName = "flight")
 public class Flight extends Repository {
     @Column(type = SQLType.UUID, primaryKey = true)
@@ -107,14 +111,16 @@ public class Flight extends Repository {
 
     @Override
     public String toString() {
-        return "Flight{" +
-                "flight_id=" + flight_id +
-                ", flightNum=" + flightNum +
-                ", departureLocation='" + departureLocation + '\'' +
-                ", destinationLocation='" + destinationLocation + '\'' +
-                ", departureTime='" + departureTime + '\'' +
-                ", departureGate='" + departureGate + '\'' +
-                ", destinationGate='" + destinationGate + '\'' +
-                '}';
+        return "{" +
+                "\n\t\"flight_id\":\"" + flight_id + "\"" +
+                ",\n\t\"flightNum\":" + flightNum +
+                ",\n\t\"departureLocation\":\"" + departureLocation + "\"" +
+                ",\n\t\"destinationLocation\":\"" + destinationLocation + "\"" +
+                ",\n\t\"departureTime\":\"" + departureTime + "\"" +
+                ",\n\t\"departureGate\":\"" + departureGate + "\"" +
+                ",\n\t\"destinationGate\":\"" + destinationGate + "\"" +
+                "\n}\n";
     }
+
+
 }

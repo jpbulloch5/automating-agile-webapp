@@ -14,7 +14,7 @@ public class FlightDTO {
     private String destinationGate;
 
     public FlightDTO() {
-
+        super();
     }
 
     public int getFlightNum() {

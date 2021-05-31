@@ -23,7 +23,7 @@ public class FileLogger {
     private FileLogger() {
         //logFilePath = "D:\\Revature Training\\Apache\\tomcat\\logs\\";
         logFilePath = "/logs/";
-        consoleOut = false;
+        consoleOut = true;
     }
 
     /**

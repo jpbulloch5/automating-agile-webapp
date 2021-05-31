@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 
-public class DatabaseInitializer {
+public abstract class DatabaseInitializer {
     private static boolean initialized = false;
     private static Connection conn;
 
@@ -27,6 +27,15 @@ public class DatabaseInitializer {
                     System.getProperty("USERNAME"),
                     System.getProperty("PASSWORD"),
                     System.getProperty("DRIVER"));
+
+//            conn = ConnectionFactory.getConnection(
+//               "database.ciwpi6yisnng.us-east-2.rds.amazonaws.com",
+//                    5432,
+//                    "postgres",
+//                    "FallonAir",
+//                    "appuser",
+//                    "4ppp4ssDontGoChasingWaterfalls",
+//                    "org.postgresql.Driver");
 
 
             Flight flight = new Flight(conn);

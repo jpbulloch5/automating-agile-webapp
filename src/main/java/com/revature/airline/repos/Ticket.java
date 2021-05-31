@@ -1,5 +1,8 @@
 package com.revature.airline.repos;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.revature.airline.serializers.FlightSerializer;
+import com.revature.airline.serializers.TicketSerializer;
 import eorm.annotations.Column;
 import eorm.annotations.ForeignKey;
 import eorm.annotations.Table;
@@ -9,6 +12,7 @@ import eorm.utils.Repository;
 import java.sql.Connection;
 import java.util.UUID;
 
+@JsonSerialize(using = TicketSerializer.class)
 @Table(tableName = "ticket")
 public class Ticket extends Repository {
 
@@ -68,5 +72,15 @@ public class Ticket extends Repository {
 
     public void setSeat(int seat) {
         this.seat = seat;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "\n\t\"ticket_id\":\"" + ticket_id + "\"" +
+                ",\n\t\"customer_id\":\"" + customer_id + "\"" +
+                ",\n\t\"flight_id\":\"" + flight_id + "\"" +
+                ",\n\t\"seat\":" + seat +
+                "\n}\n";
     }
 }
