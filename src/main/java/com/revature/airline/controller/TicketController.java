@@ -41,7 +41,7 @@ public class TicketController {
 
         List<Repository> queryTickets = Ticket.query (conn, Ticket.class);
 
-              //trying out these newfangled streams
+        //trying out these newfangled streams
         long seatCount = queryTickets.stream()
                 .map(obj -> (Ticket)obj)
                 .filter(e -> e.getFlight_id().equals(flight_id))
