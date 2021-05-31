@@ -1,6 +1,8 @@
 package com.revature.airline.repos;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.revature.airline.serializers.CustomerSerializer;
 import eorm.annotations.Column;
 import eorm.annotations.Table;
 import eorm.enums.SQLType;
@@ -9,6 +11,7 @@ import eorm.utils.Repository;
 import java.sql.Connection;
 import java.util.UUID;
 
+@JsonSerialize(using = CustomerSerializer.class)
 @Table(tableName = "customer")
 public class Customer extends Repository {
 
@@ -70,11 +73,12 @@ public class Customer extends Repository {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "customer_id=" + customer_id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", customerNum=" + customerNum +
-                '}';
+        return "{" +
+                "\n\t\"customer_id\":\"" + customer_id + "\"" +
+                ",\n\t\"firstName\":" + firstName +
+                ",\n\t\"lastName\":\"" + lastName + "\"" +
+                ",\n\t\"customerNum\":\"" + customerNum + "\"" +
+                "\n}\n";
     }
+
 }

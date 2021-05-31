@@ -6,7 +6,7 @@ public class CustomerInfo {
     private String lastname;
     private int customernum;
 
-    public CustomerInfo(String firstname, String lastname, int customernum) {
+    public CustomerInfo() {
         super();
     }
 
