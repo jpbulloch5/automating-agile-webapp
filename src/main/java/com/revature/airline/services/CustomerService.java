@@ -18,8 +18,6 @@ import java.util.stream.Collectors;
 public class CustomerService {
     public String getCustomers(Map<String, String> parameterMap, Connection conn) throws SQLException, IOException,
             InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
-
-        //System.out.println("DEBUG: " + parameterMap.get("Last Name") + ", " + parameterMap.get("First Name"));
         List<Repository> queryresults = CustomerController.getCustomers(conn);
         List<Customer> customerList = queryresults.stream()
                 .map(e -> (Customer)e)
@@ -30,7 +28,7 @@ public class CustomerService {
         return mapper.writeValueAsString(customerList);
 
     }
-    //Connection conn, UUID id, String firstName, String lastName, int customerNum) {
+
     public int createCustomer(CustomerInfo customerDTO, Connection conn) throws SQLException, IllegalAccessException {
         Customer newCustomer = new Customer(conn, UUID.randomUUID(), customerDTO.getFirstname(),
                 customerDTO.getLastname(), customerDTO.getCustomernum());
