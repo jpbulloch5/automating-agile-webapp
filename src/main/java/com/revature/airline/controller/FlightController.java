@@ -38,16 +38,7 @@ public class FlightController {
     public void lookUpFlights(HttpServletRequest req, HttpServletResponse resp, Connection conn)
             throws IOException, SQLException, InvocationTargetException, InstantiationException,
             IllegalAccessException, NoSuchMethodException {
-        //ObjectMapper mapper = new ObjectMapper();
 
-        //System.out.println ("Am I here");
-        //FlightLookUp lookUp = mapper.readValue(req.getInputStream(), FlightLookUp.class);
-        //System.out.println (lookUp);
-//        List<Customer> customers = queryResults.stream()
-//                .map(e -> (Customer)e)
-//                .filter(e -> e.getLastName().equals(req.getParameter("Last Name")))
-//                .filter(e -> e.getFirstName().equals(req.getParameter("First Name")))
-//                .collect(Collectors.toList());
         List<Repository> queryResults = Flight.query(conn, Flight.class);
         resp.getWriter().println("queryResults returns: " + queryResults.size() + "rows.");
         List<Flight> flights = queryResults.stream()
@@ -57,34 +48,9 @@ public class FlightController {
                 .collect(Collectors.toList());
 
         resp.setStatus(200);
-        resp.getWriter().println("flights has " + flights.size() + "elements.");
         for (int i = 0; i < flights.size(); i++) {
-            resp.getWriter().println("Loop: " + i);
             resp.getWriter().println(flights.get(i));
         }
-//        for (Flight flight : flights) {
-//            resp.getWriter().println(flight.toString());
-//        }
-
-
-
-        //System.out.println (repos);
-        //List<Flight> flights = new ArrayList<>();
-//
-//        for (Repository repository:repos) {
-//            Flight flight = (Flight) repository;
-//            if(flight.getDepartureLocation().equals(lookUp.getDeparturelocation())
-//                    && flight.getDestinationLocation() .equals (lookUp.getDestinationlocation())){
-//                flights.add (flight);
-//            }
-//        }
-
-        if(flights == null){
-            resp.getWriter().println("Flights never showed up, so here we are");
-        } else {
-            flights.forEach(resp.getWriter()::println);
-        }
-
     }
 
     public void info(HttpServletRequest req, HttpServletResponse resp, Connection conn)
@@ -101,6 +67,7 @@ public class FlightController {
                 resp.getWriter ().println (flight);
             }
         }
+        resp.setStatus(200);
     }
 
     public void createFlight(HttpServletRequest req, HttpServletResponse resp, Connection conn) throws IOException,
