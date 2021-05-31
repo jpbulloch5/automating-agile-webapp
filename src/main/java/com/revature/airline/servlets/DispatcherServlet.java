@@ -40,7 +40,6 @@ public class DispatcherServlet extends HttpServlet {
         flightService = new FlightService();
         ticketService = new TicketService();
         customerService = new CustomerService();
-
     }
 
     @Override
