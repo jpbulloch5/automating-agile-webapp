@@ -3,6 +3,7 @@ package com.revature.airline.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.airline.dtos.FlightDTO;
 import com.revature.airline.dtos.FlightLookUp;
+import com.revature.airline.repos.Customer;
 import com.revature.airline.repos.Flight;
 import com.revature.airline.repos.Ticket;
 import com.revature.airline.services.TicketService;
@@ -42,7 +43,13 @@ public class FlightController {
         //System.out.println ("Am I here");
         //FlightLookUp lookUp = mapper.readValue(req.getInputStream(), FlightLookUp.class);
         //System.out.println (lookUp);
+//        List<Customer> customers = queryResults.stream()
+//                .map(e -> (Customer)e)
+//                .filter(e -> e.getLastName().equals(req.getParameter("Last Name")))
+//                .filter(e -> e.getFirstName().equals(req.getParameter("First Name")))
+//                .collect(Collectors.toList());
         List<Repository> queryResults = Flight.query(conn, Flight.class);
+        resp.getWriter().println("queryResults returns: " + queryResults.size() + "rows.");
         List<Flight> flights = queryResults.stream()
                 .map(e -> (Flight)e)
                 .filter(e -> e.getDepartureLocation().equals(req.getParameter("departureLocation")))
@@ -50,6 +57,7 @@ public class FlightController {
                 .collect(Collectors.toList());
 
         resp.setStatus(200);
+        resp.getWriter().println("flights has " + flights.size() + "elements.");
         for (Flight flight : flights) {
             resp.getWriter().println(flight.toString());
         }
