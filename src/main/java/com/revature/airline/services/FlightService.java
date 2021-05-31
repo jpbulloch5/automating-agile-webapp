@@ -29,8 +29,6 @@ public class FlightService {
     public String flightLookup(Map<String, String> parameterMap, Connection conn) throws SQLException, IOException,
             InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
         List<Repository> queryResults = FlightController.lookUpFlights(conn);
-
-        //resp.getWriter().println("queryResults returns: " + queryResults.size() + "rows.");
         List<Flight> flights = queryResults.stream()
                 .map(e -> (Flight)e)
                 .filter(e -> e.getDepartureLocation().equals(parameterMap.get("departureLocation")))

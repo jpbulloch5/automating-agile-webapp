@@ -12,9 +12,8 @@ import java.util.UUID;
 
 public class TicketService {
     public int purchaseTicket(TicketPurchaseDTO ticketDTO, Connection conn) throws SQLException,
-            InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException, IOException {
+            InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
         int seatNum = TicketController.verifySpace(conn, ticketDTO.getFlightID());
-
         if (seatNum != -1) {
             Ticket ticket = new Ticket(conn, UUID.randomUUID(), UUID.fromString(ticketDTO.getCustomerID()),
                     UUID.fromString(ticketDTO.getFlightID()), seatNum);
@@ -24,6 +23,4 @@ public class TicketService {
             return 406;
         }
     }
-
-
 }
