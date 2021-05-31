@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class FlightController {
 
@@ -36,22 +37,35 @@ public class FlightController {
     public void lookUpFlights(HttpServletRequest req, HttpServletResponse resp, Connection conn)
             throws IOException, SQLException, InvocationTargetException, InstantiationException,
             IllegalAccessException, NoSuchMethodException {
-        ObjectMapper mapper = new ObjectMapper();
+        //ObjectMapper mapper = new ObjectMapper();
 
         //System.out.println ("Am I here");
-        FlightLookUp lookUp = mapper.readValue(req.getInputStream(), FlightLookUp.class);
+        //FlightLookUp lookUp = mapper.readValue(req.getInputStream(), FlightLookUp.class);
         //System.out.println (lookUp);
-        List<Repository> repos = Flight.query(conn, Flight.class);
-        //System.out.println (repos);
-        List<Flight> flights = new ArrayList<>();
+        List<Repository> queryResults = Flight.query(conn, Flight.class);
+        List<Flight> flights = queryResults.stream()
+                .map(e -> (Flight)e)
+                .filter(e -> e.getDepartureLocation().equals(req.getParameter("departureLocation")))
+                .filter(e -> e.getDestinationLocation().equals(req.getParameter("DestinationLocation")))
+                .collect(Collectors.toList());
 
-        for (Repository repository:repos) {
-            Flight flight = (Flight) repository;
-            if(flight.getDepartureLocation().equals(lookUp.getDeparturelocation())
-                    && flight.getDestinationLocation() .equals (lookUp.getDestinationlocation())){
-                flights.add (flight);
-            }
+        resp.setStatus(200);
+        for (Flight flight : flights) {
+            resp.getWriter().println(flight.toString());
         }
+
+
+
+        //System.out.println (repos);
+        //List<Flight> flights = new ArrayList<>();
+//
+//        for (Repository repository:repos) {
+//            Flight flight = (Flight) repository;
+//            if(flight.getDepartureLocation().equals(lookUp.getDeparturelocation())
+//                    && flight.getDestinationLocation() .equals (lookUp.getDestinationlocation())){
+//                flights.add (flight);
+//            }
+//        }
 
         if(flights == null){
             resp.getWriter().println("Flights never showed up, so here we are");
