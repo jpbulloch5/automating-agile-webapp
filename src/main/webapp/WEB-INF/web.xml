@@ -26,7 +26,7 @@
     </servlet-mapping>
 
     <listener>
-        <listener-class>com.revature.airline.services.DependencyLoaderListener</listener-class>
+        <listener-class>com.revature.airline.utils.DependencyLoaderListener</listener-class>
     </listener>
 
 

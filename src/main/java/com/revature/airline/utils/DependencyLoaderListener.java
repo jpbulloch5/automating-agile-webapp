@@ -1,4 +1,4 @@
-package com.revature.airline.services;
+package com.revature.airline.utils;
 
 import eorm.exceptions.DBConnectionException;
 import eorm.utils.ConnectionFactory;
