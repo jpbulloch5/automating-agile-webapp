@@ -23,7 +23,7 @@ public class FileLogger {
     private FileLogger() {
         //logFilePath = "D:\\Revature Training\\Apache\\tomcat\\logs\\";
         logFilePath = "/logs/";
-        consoleOut = true;
+        consoleOut = false;
     }
 
     /**
@@ -48,6 +48,7 @@ public class FileLogger {
 
             if(consoleOut) {
                 System.out.println(logEntry);
+                e.printStackTrace();
             }
 
         } catch (IOException ex) {
