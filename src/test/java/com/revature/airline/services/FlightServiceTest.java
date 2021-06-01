@@ -1,12 +1,7 @@
-package com.revature.airline.sevices;
-import com.revature.airline.controller.CustomerController;
+package com.revature.airline.services;
 import com.revature.airline.controller.FlightController;
-import com.revature.airline.dtos.CustomerInfo;
 import com.revature.airline.dtos.FlightDTO;
-import com.revature.airline.repos.Customer;
 import com.revature.airline.repos.Flight;
-import com.revature.airline.services.CustomerService;
-import com.revature.airline.services.FlightService;
 import eorm.utils.Repository;
 import org.junit.After;
 import org.junit.Assert;

@@ -42,6 +42,14 @@ public class DispatcherServlet extends HttpServlet {
         customerService = new CustomerService();
     }
 
+
+    public void testInit(Connection c, FlightService fs, TicketService ts, CustomerService cs) {
+        conn = c;
+        flightService = fs;
+        ticketService = ts;
+        customerService = cs;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String target = parseURI(req);
@@ -70,6 +78,12 @@ public class DispatcherServlet extends HttpServlet {
                     resp.setStatus(200);
                     resp.getWriter().println(flights);
                     break;
+                case "ping":
+                    resp.getWriter().println("PONG!");
+                    resp.setStatus(200);
+                    break;
+                default:
+                    resp.setStatus(501);
             }
 
         } catch(Exception e) {
@@ -102,6 +116,8 @@ public class DispatcherServlet extends HttpServlet {
                     FlightDTO flightDTO = mapper.readValue(req.getInputStream(), FlightDTO.class);
                     resp.setStatus(flightService.createFlight(flightDTO, conn));
                     break;
+                default:
+                    resp.setStatus(501);
             }
         } catch (Exception e) {
             FileLogger.getFileLogger().writeExceptionToFile(e);

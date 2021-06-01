@@ -1,7 +1,6 @@
 package com.revature.airline.repos;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.revature.airline.serializers.FlightSerializer;
 import com.revature.airline.serializers.TicketSerializer;
 import eorm.annotations.Column;
 import eorm.annotations.ForeignKey;
