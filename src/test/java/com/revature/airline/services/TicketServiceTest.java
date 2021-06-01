@@ -1,8 +1,7 @@
-package com.revature.airline.sevices;
+package com.revature.airline.services;
 
 import com.revature.airline.controller.TicketController;
 import com.revature.airline.dtos.TicketPurchaseDTO;
-import com.revature.airline.services.TicketService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

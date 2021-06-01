@@ -25,7 +25,7 @@ Additionally, you will need to build a simple CRUD web application (what objects
 - [x] File-based or programmatic configuration of entities
 
 ## Non-Functional Requirements
-- [ ] 80% line coverage of all service layer classes
+- [x] 80% line coverage of all service layer classes
 - [x] Generated Jacoco reports that display coverage metrics
 - [x] Usage of the java.util.Stream API within your project
 - [x] Custom ORM source code should be included within the web application as a Maven dependency

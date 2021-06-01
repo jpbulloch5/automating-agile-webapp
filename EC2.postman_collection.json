@@ -1,0 +1,210 @@
+{
+	"info": {
+		"_postman_id": "bf8815bb-0f8e-4a17-9f49-095a161a6306",
+		"name": "EC2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "local ping Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://18.222.211.210:8080/ping",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all flights Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://18.222.211.210:8080/flights",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"flights"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get customer by first,last name Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://18.222.211.210:8080/customer?First Name=Dave&Last Name=Bautista",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"customer"
+					],
+					"query": [
+						{
+							"key": "First Name",
+							"value": "Dave"
+						},
+						{
+							"key": "Last Name",
+							"value": "Bautista"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get flights by depart,dest Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://18.222.211.210:8080/flightLookup?departureLocation=Jonestown&DestinationLocation=Washington DC",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"flightLookup"
+					],
+					"query": [
+						{
+							"key": "departureLocation",
+							"value": "Jonestown"
+						},
+						{
+							"key": "DestinationLocation",
+							"value": "Washington DC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "purchase ticket Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerID\":\"b76e4a7d-4d22-4f84-bd27-7990fc3ddfe1\",\r\n    \"flightID\":\"39207ca1-b4d8-4fb2-8dc2-258f65010231\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://18.222.211.210:8080/purchase",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create customer Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\":\"Alec\",\r\n    \"lastname\":\"Baldwin\",\r\n    \"customernum\":123\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://18.222.211.210:8080/createCustomer",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"createCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "local createflight Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"flightNum\":2000,\r\n    \"departureLocation\":\"Maui\",\r\n    \"destinationLocation\":\"Mars\",\r\n    \"departureTime\":\"2021-05-30 06:35:00\",\r\n    \"departureGate\":\"Gate 1\",\r\n    \"destinationGate\":\"Gate Olympus Mons\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://18.222.211.210:8080/createFlight",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"createFlight"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
