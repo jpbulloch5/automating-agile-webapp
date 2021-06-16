@@ -11,10 +11,11 @@ looking up customers and creating flights.
  
  
 ### GET /ping
-This endpoint is just used to verify connectivity. Responds with "PONG!".
+ This endpoint is just used to verify connectivity. Responds with "PONG!".
  
 ### GET /flights
  flightService.getAllFlights
+ 
 
 ### GET /customer
 customerService.getCustomers

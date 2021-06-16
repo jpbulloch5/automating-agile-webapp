@@ -1,12 +1,10 @@
 package com.revature.airline.servlets;
 
-import com.revature.airline.controller.TicketController;
 import com.revature.airline.services.CustomerService;
 import com.revature.airline.services.FlightService;
 import com.revature.airline.services.TicketService;
 import com.revature.airline.utils.DatabaseInitializer;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockedStatic;
@@ -21,8 +19,6 @@ import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Enumeration;
-import java.util.StringTokenizer;
 import java.util.Vector;
 
 import static org.mockito.Mockito.*;
@@ -74,7 +70,7 @@ public class DispatcherServletTest {
         when(mockReq.getParameterNames()).thenReturn(v.elements());
         when(mockReq.getParameter("Param1")).thenReturn("Value1");
         when(mockReq.getParameter("Param2")).thenReturn("Value2");
-        mockDatabaseInitializer.when(DatabaseInitializer::getconnection).thenReturn(mockConn);
+        mockDatabaseInitializer.when(DatabaseInitializer::getConnection).thenReturn(mockConn);
         when(mockflightService.getAllFlights(mockConn)).thenReturn("testJSON");
         PrintWriter mockPrintWriter = mock(PrintWriter.class);
         when(mockResp.getWriter()).thenReturn(mockPrintWriter);

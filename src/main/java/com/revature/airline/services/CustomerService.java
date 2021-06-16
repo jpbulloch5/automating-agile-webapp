@@ -15,7 +15,26 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * This service layer class handles all requests involving the customer resource.
+ */
 public class CustomerService {
+
+    /**
+     * getCustomers returns all customers in the database, and then sorts and filters them as a stream
+     * in order to return those matching the provided first and last names. In a perfect world we wouldn't
+     * return the entire table to be sorted by the app, but we decided this was a simpler solution
+     * than designing the ORM to create more complex queries.
+     * @param parameterMap - a map of parameters pulled from the HTTP request web form parameters.
+     * @param conn - a connection object connected to the datasource.
+     * @return - JSON string representing a list of customer entities
+     * @throws SQLException
+     * @throws IOException
+     * @throws InvocationTargetException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws NoSuchMethodException
+     */
     public String getCustomers(Map<String, String> parameterMap, Connection conn) throws SQLException, IOException,
             InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
         List<Repository> queryresults = CustomerController.getCustomers(conn);
@@ -29,6 +48,14 @@ public class CustomerService {
 
     }
 
+    /**
+     * This method marshals a customer repository/entity from a DTO and sends it to the controller to be persisted.
+     * @param customerDTO - a data object representing the customer resource.
+     * @param conn - a connection object connected to the datasource.
+     * @return - successful status code 201.
+     * @throws SQLException
+     * @throws IllegalAccessException
+     */
     public int createCustomer(CustomerInfo customerDTO, Connection conn) throws SQLException, IllegalAccessException {
         Customer newCustomer = new Customer(conn, UUID.randomUUID(), customerDTO.getFirstname(),
                 customerDTO.getLastname(), customerDTO.getCustomernum());
