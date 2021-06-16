@@ -33,7 +33,7 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     public void init() {
         try {
-            conn = DatabaseInitializer.getconnection();
+            conn = DatabaseInitializer.getConnection();
         } catch (Exception e) {
             FileLogger.getFileLogger().writeExceptionToFile(e);
         }
@@ -50,6 +50,17 @@ public class DispatcherServlet extends HttpServlet {
         customerService = cs;
     }
 
+
+    /**
+     * This servlet handles and dispatches all GET requests to the appropriate service.
+     * Parameter names are queried and mapped, the map is passed to services which require parameters.
+     * Exceptions are thrown back up to here and logged. Returned data is passed back to here
+     * and written to response along with status code.
+     * @param req - HttpServletRequest provided by requester
+     * @param resp - HttpServletResponse to be returned to requester
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String target = parseURI(req);
@@ -93,6 +104,16 @@ public class DispatcherServlet extends HttpServlet {
 
     }
 
+    /**
+     * This servlet handles and dispatches all PUT requests to the appropriate service. Instead of parameter lists,
+     * requests are parsed as input streams and mapped to DTOs which are passed to the service layer.
+     * Exceptions are thrown back up to here and logged. While it is proper practice to return a copy of
+     * new/altered resources along with successful status codes, we didn't know that yet.
+     * @param req - HttpServletRequest provided by requester
+     * @param resp - HttpServletResponse to be returned to requester
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String target = parseURI(req);
@@ -125,6 +146,14 @@ public class DispatcherServlet extends HttpServlet {
     }
 
 
+    /**
+     * This function simply splits the URI into string tokens using "/" as a delimiter. It returns the last element
+     * which is the URI section after the final "/". Depending on environment (local tomcat or AWS tomact) the
+     * webserver will include additional path sections. The webapp is tooled to only ever utilize
+     * whatever the final URI section is.
+     * @param req
+     * @return
+     */
     private String parseURI(HttpServletRequest req) {
         String string = req.getRequestURI();
         String[] parsedStrings = string.split("/");

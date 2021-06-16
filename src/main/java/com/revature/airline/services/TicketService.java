@@ -10,7 +10,22 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.UUID;
 
+/**
+ * This service layer class handles all requests involving the ticket resource.
+ */
 public class TicketService {
+    /**
+     * This method checks to verify there is space available on the flight,
+     * then marshals a ticket entity/repository and sends it to the controller to be persisted.
+     * @param ticketDTO - a data object representing the ticket resource.
+     * @param conn - a connection object connected to the datasource.
+     * @return - either a 201 successful status code or a 406 unsuccessful.
+     * @throws SQLException
+     * @throws InvocationTargetException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws NoSuchMethodException
+     */
     public int purchaseTicket(TicketPurchaseDTO ticketDTO, Connection conn) throws SQLException,
             InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
         int seatNum = TicketController.verifySpace(conn, ticketDTO.getFlightID());
