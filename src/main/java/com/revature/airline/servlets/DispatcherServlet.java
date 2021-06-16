@@ -22,7 +22,10 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * The Front Controller Architecture allows for all request to be processed through this class.
+ * Once any request is made to the host, It will be evaluated through this dispatcher and service logic will be directed to the intended service class based on the URI.
+ */
 @WebServlet("/*")
 public class DispatcherServlet extends HttpServlet {
     private static Connection conn;
@@ -30,6 +33,9 @@ public class DispatcherServlet extends HttpServlet {
     private static TicketService ticketService;
     private static CustomerService customerService;
 
+    /**
+     * Initializes a connection to the database and constructs tables by leveraging the Database Initializer class.
+     */
     @Override
     public void init() {
         try {

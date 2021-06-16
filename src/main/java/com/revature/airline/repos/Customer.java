@@ -11,6 +11,11 @@ import eorm.utils.Repository;
 import java.sql.Connection;
 import java.util.UUID;
 
+/**
+ * Inherits methods from the Orm's Repository class.
+ * Implements the functionality of a plain old java object while also leveraging JDBC logic implemented in the ORM.
+ */
+
 @JsonSerialize(using = CustomerSerializer.class)
 @Table(tableName = "customer")
 public class Customer extends Repository {

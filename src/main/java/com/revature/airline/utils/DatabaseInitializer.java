@@ -10,20 +10,32 @@ import eorm.utils.ConnectionFactory;
 import eorm.utils.Repository;
 import eorm.utils.TableInitializer;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.Properties;
 import java.util.TreeMap;
 
 
+/**
+ * The Database Initializer class leverages functionality inherited from the ORM to establish a connection to the database and create tables modeled by repositories.
+ */
 public class DatabaseInitializer {
     private static boolean initialized = false;
     private static Connection conn;
 
-
+    /**
+     * Establishes Java Database Connectivity by leveraging the Connection Factory's .getConnection method imported from the ORM.
+     * Also leverages the Repository Class's save method to create tables in the database.
+     * @throws SQLException
+     * @throws MalformedTableException
+     * @throws DBConnectionException
+     */
     public static void init() throws SQLException, MalformedTableException, DBConnectionException {
         if (!initialized) {
+
             conn = ConnectionFactory.getConnection(
                     System.getProperty("HOST"),
                     Integer.parseInt(System.getProperty("PORT")),
@@ -53,7 +65,9 @@ public class DatabaseInitializer {
             initialized = true;
         }
     }
-
+    /**
+     * Calls the intialize method if JDBC and tables are not already initialized.
+     */
     public static Connection getconnection() throws SQLException, MalformedTableException, DBConnectionException, IOException {
         if(!initialized) {
             init();
