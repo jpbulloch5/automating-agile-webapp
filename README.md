@@ -5,13 +5,14 @@ This webapp exposes a small number of endpoints to serve an airline ticketing ki
 to display flights, and purchase tickets. To facilitate a demonstration of this functionality there are also endpoints for
 looking up customers and creating flights.
 
-### GET /ping
-This endpoint is just used to verify connectivity. Responds with "PONG!".
-
-
 
 ## GET Endpoints
  Some of these endpoints expect data to be sent as a URL encoded form.
+ 
+ 
+### GET /ping
+This endpoint is just used to verify connectivity. Responds with "PONG!".
+ 
 ### GET /flights
  flightService.getAllFlights
 
