@@ -7,7 +7,11 @@ import com.revature.airline.repos.Customer;
 
 import java.io.IOException;
 
-
+/**
+ * These serializers exist because jackson doesn't like the fields inherited by entities from the
+ * repository class in the ORM. There are annotations that can exclude fields or tell jackson to ignore them.
+ * It probably isn't necessary to always include custom serializers on entities.
+ */
 public class CustomerSerializer extends StdSerializer<Customer> {
     public CustomerSerializer() {
         this(null);

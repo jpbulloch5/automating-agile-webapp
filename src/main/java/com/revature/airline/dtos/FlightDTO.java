@@ -4,7 +4,10 @@ import eorm.annotations.Column;
 import eorm.enums.SQLType;
 
 import java.util.UUID;
-
+/**
+ * These DTOs are super simple java objects used by the service layer. This data goes to an entity/repository
+ * object to be persisted in the database, or is marshalled as a JSON string by jackson to be sent over HTTP.
+ */
 public class FlightDTO {
     private int flightNum;
     private String departureLocation;

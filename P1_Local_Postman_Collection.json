@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "89548571-74fd-468d-a55c-a6d3c2ac9a65",
+		"name": "local p1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "local ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/webapp/ping",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"webapp",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all flights",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/webapp/flights",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"webapp",
+						"flights"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get customer by first,last name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/webapp/customer?First Name=Dave&Last Name=Bautista",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"webapp",
+						"customer"
+					],
+					"query": [
+						{
+							"key": "First Name",
+							"value": "Dave"
+						},
+						{
+							"key": "Last Name",
+							"value": "Bautista"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get flights by depart,dest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/webapp/flightLookup?departureLocation=Jonestown&DestinationLocation=Washington DC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"webapp",
+						"flightLookup"
+					],
+					"query": [
+						{
+							"key": "departureLocation",
+							"value": "Jonestown"
+						},
+						{
+							"key": "DestinationLocation",
+							"value": "Washington DC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "purchase ticket",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerID\":\"b76e4a7d-4d22-4f84-bd27-7990fc3ddfe1\",\r\n    \"flightID\":\"39207ca1-b4d8-4fb2-8dc2-258f65010231\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/webapp/purchase",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"webapp",
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\":\"Alec1\",\r\n    \"lastname\":\"Baldwin1\",\r\n    \"customernum\":12312\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/webapp/createCustomer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"webapp",
+						"createCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "local createflight",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"flightNum\":2000,\r\n    \"departureLocation\":\"Maui\",\r\n    \"destinationLocation\":\"Mars\",\r\n    \"departureTime\":\"2021-05-30 06:35:00\",\r\n    \"departureGate\":\"Gate 1\",\r\n    \"destinationGate\":\"Gate Olympus Mons\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/webapp/createFlight",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"webapp",
+						"createFlight"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

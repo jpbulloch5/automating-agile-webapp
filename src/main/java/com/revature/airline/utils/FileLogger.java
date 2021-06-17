@@ -18,12 +18,12 @@ public class FileLogger {
     private static boolean consoleOut;
 
     /**
-     * Private constructor, sets default values for logger object
+     * Private constructor, sets default values for logger object.
      */
     private FileLogger() {
-        logFilePath = "D:\\Revature Training\\Apache\\tomcat\\logs\\";
-        //logFilePath = "/logs/";
-        consoleOut = true;
+        //logFilePath = "D:\\Revature Training\\Apache\\tomcat\\logs\\";
+        logFilePath = "/logs/";
+        consoleOut = false;
     }
 
     /**
