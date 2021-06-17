@@ -16,4 +16,12 @@ COPY . .
 #RUN mvn install
 RUN mvn clean package && mvn install
 
-CMD ["/bin/bash"]
+RUN cp ./target/p1-webapp-0.9.war /usr/local/tomcat/webapps/
+
+# I guess the tomcat image is purposely broken for "security"?
+# anyway, I found online that this helped people, so I am trying it
+#RUN mv webapps webapps2 && mv webapps.dist/ webapps
+# needs to run after catalina.sh starts, so moved to CMD
+EXPOSE 8080
+
+CMD ["catalina.sh", "run", "&&", "mv", "webapps", "webapps2", "&&", "mv", "webapps.dist/", "webapps"]
