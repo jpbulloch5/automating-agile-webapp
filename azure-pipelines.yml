@@ -1,0 +1,21 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- dev
+
+resources:
+- repo: self
+
+pool:
+  vmImage: 'ubuntu-latest'
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Jacob''s Docker Hub'
+    repository: 'revature_p1_webapp'
+    command: 'buildAndPush'
+    Dockerfile: 'Dockerfile'
+  displayName: Build WebApp in container and push image to DockerHub
+
