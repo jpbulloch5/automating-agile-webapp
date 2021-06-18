@@ -16,6 +16,6 @@ steps:
     containerRegistry: 'Jacob''s Docker Hub'
     repository: 'revature_p1_webapp'
     command: 'buildAndPush'
-    Dockerfile: 'Dockerfile'
+    Dockerfile: '**/Dockerfile'
   displayName: Build WebApp in container and push image to DockerHub
 
