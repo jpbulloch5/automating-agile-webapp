@@ -26,9 +26,6 @@ hs_err_pid*
 .idea/
 *.iml
 
-#properties file
-*.properties
-
 #Target
 target/
 
