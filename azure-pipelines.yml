@@ -39,3 +39,16 @@ steps:
     failOnStderr: true
   displayName: fetch test from container
 
+- task: NewmanPostman@4
+  inputs:
+    collectionSourceType: 'file'
+    Contents: '**/local_test.json'
+    environmentSourceType: 'none'
+    bail: true
+    reporters: 'junit'
+  displayName: run the test using Newman Postman
+
+- task: CmdLine@2
+  inputs:
+    script: 'docker compose down'
+  displayName: stop the Dockerized application network
