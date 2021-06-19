@@ -30,7 +30,9 @@ steps:
     dockerComposeFile: '**/docker-compose.yml'
     action: 'Run a Docker Compose command'
     dockerComposeCommand: 'up'
+    arguments: '-d'
   displayName: start the Dockerized application network
+
 - task: CmdLine@2
   inputs:
     script: |
@@ -40,5 +42,6 @@ steps:
       npm install -g newman
       touch local_test.log
       newman run local_test.json >> local_test.log
+      docker compose down
     failOnStderr: true
   displayName: run i/o tests using newman
