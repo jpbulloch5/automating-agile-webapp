@@ -5,11 +5,15 @@
 trigger:
 - dev
 
+
 resources:
 - repo: self
 
+
 pool:
   vmImage: 'ubuntu-latest'
+
+ 
 steps:
 - task: Docker@2
   inputs:
@@ -19,3 +23,22 @@ steps:
     Dockerfile: '**/Dockerfile'
   displayName: Build WebApp in container and push image to DockerHub
 
+- task: DockerCompose@0
+  inputs:
+    containerregistrytype: 'Container Registry'
+    dockerRegistryEndpoint: 'Jacob''s Docker Hub'
+    dockerComposeFile: '**/docker-compose.yml'
+    action: 'Run a Docker Compose command'
+    dockerComposeCommand: 'up'
+  displayName: start the Dockerized application network
+- task: CmdLine@2
+  inputs:
+    script: |
+      docker cp airline_terminal:/app/web/P1_Local_Postman_Collection.json ./local_test.json
+      apt-get update
+      apt-get install nodejs npm -y
+      npm install -g newman
+      touch local_test.log
+      newman run local_test.json >> local_test.log
+    failOnStderr: true
+  displayName: run i/o tests using newman
