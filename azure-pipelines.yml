@@ -1,67 +1,48 @@
-# Docker
-# Build and push an image to Azure Container Registry
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+# Use Ansible to deploy Project 0 to VMs 2-5
+# Tests are part of the Ansible Playbooks
+# The deployP0.yml playbook calls all relevant playbooks
 
+# Trigger the pipeline when the azure-pipelines branch gets a new push
 trigger:
 - dev
 
-resources:
-- repo: self
+# We have the latest ubuntu as our base layer
+pool:
+  vmImage: ubuntu-latest
 
-variables:
-  tag: '$(Build.BuildId)'
+steps:
 
-stages:
-- stage: Build
-  displayName: Build and push docker image
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'Jacob''s Docker Hub'
-        repository: 'jpbulloch5/revature_p1_webapp'
-        command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
-      displayName: Build WebApp in container and push image to DockerHub
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'revature_sonarcloud'
+    organization: '2105-may24-devops'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: '2105-may24-devops_jacob-project0'
+    cliProjectVersion: 
+    cliSources: '.'
 
-- stage: Test
-  displayName: Test the dockerized application network
-  jobs:
-  - job: Test
-    displayName: System Test
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: DockerCompose@0
-      inputs:
-        containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'Jacob''s Docker Hub'
-        dockerComposeFile: '**/docker-compose.yml'
-        action: 'Run a Docker Compose command'
-        dockerComposeCommand: 'up'
-        arguments: '-d'
-      displayName: start the Dockerized application network
+- task: SonarCloudAnalyze@1
 
-    - task: CmdLine@2
-      inputs:
-        script: 'docker cp airline_terminal:/app/web/P1_Local_Postman_Collection.json ./local_test.json'
-        failOnStderr: true
-      displayName: fetch test from container
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
 
-    - task: NewmanPostman@4
-      inputs:
-        collectionSourceType: 'file'
-        Contents: '**/local_test.json'
-        environmentSourceType: 'none'
-        bail: true
-        reporters: 'junit'
-      displayName: run the dev-defined system test using Newman Postman
+# Add the SSH key needed to access the VMs
+- task: InstallSSHKey@0
+  inputs:
+    knownHostsEntry: |
+      20.97.12.217 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDN4l2Jv2Krgw9EN21HHWfXGAoHZx/zHX5C0Iq9Ov/UU
+      20.97.12.217 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+OrY0VO+gD8eFk3wmVBY9McSOniH83A0mEM6kHeYQMpKNKbuar/DVBjkgz1sgfmrWLHZOPhDno96Av+1M6cPmKTEMsjWSaepPDCHxlO82RTR72h1zMy8UwimI5+AFCbehprRymLT3WJoTo2lgnQO0ZA6sCrwYhgnJVY1Yereb1lBmaS5vBJ4OVVb1l1VAdGnYVhYT44dfsEnlcFpjF4JAtH3RNUrGAJ89g9KXSSlv/6UshB+VAJ2M5kmvH/JReOuMIxnBGa/JYNCqYuUj4dj+EYYFszlpfwcHoSlUD7Laqc0yNQHSge0zVbdy/aeFxY0M/8jlF/1AU8bywBOGuWlx
+      20.97.12.217 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFAZU4nQNS6lNWqiFzoQ4pjTSmsGyxWmyoZS7pzSWooaua/yV9JDou49KuhCzZakpP/PY0WfTxbo/KrZM+ESW+Q=
+    sshKeySecureFile: '2105-may24-devops-ubuntu-vm-1_key.pem'
+  displayName: 'SSH--> Install Key'
 
-    - task: CmdLine@2
-      inputs:
-        script: 'docker-compose down'
-      displayName: stop the Dockerized application network
+# Run the playbook to deploy P0 to the VMs
+- task: Ansible@0
+  inputs:
+    ansibleInterface: 'agentMachine'
+    playbookPathOnAgentMachine: 'deployP1_docker.yml'
+    inventoriesAgentMachine: 'file'
+    inventoryFileOnAgentMachine: 'inventory.yml'
+  displayName: 'Ansible--> Ensure Python 3.9'
