@@ -35,13 +35,7 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: |
-      docker cp airline_terminal:/app/web/P1_Local_Postman_Collection.json ./local_test.json
-      apt-get update
-      apt-get install nodejs npm -y
-      npm install -g newman
-      touch local_test.log
-      newman run local_test.json >> local_test.log
-      docker compose down
+    script: 'docker cp airline_terminal:/app/web/P1_Local_Postman_Collection.json ./local_test.json'
     failOnStderr: true
-  displayName: run i/o tests using newman
+  displayName: fetch test from container
+
