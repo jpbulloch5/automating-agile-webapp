@@ -12,8 +12,8 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: Build and Test
-  displayName: Build, push, and test the docker image
+- stage: Build
+  displayName: Build and push docker image
   jobs:
   - job: Build
     displayName: Build
@@ -22,12 +22,15 @@ stages:
     steps:
     - task: Docker@2
       inputs:
-        containerRegistry: 'Jacob''s Docker Hub'
+        containerRegistry: 'Jacob Docker Hub'
         repository: 'jpbulloch5/revature_p1_webapp'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
       displayName: Build WebApp in container and push image to DockerHub
 
+- stage: Test
+  displayName: Test the dockerized application network
+  jobs:
   - job: Test
     displayName: System Test
     pool:
@@ -56,7 +59,7 @@ stages:
         environmentSourceType: 'none'
         bail: true
         reporters: 'junit'
-      displayName: run dev-defined system test using Newman Postman
+      displayName: run the dev-defined system test using Newman Postman
 
     - task: CmdLine@2
       inputs:
