@@ -5,50 +5,60 @@
 trigger:
 - dev
 
-
 resources:
 - repo: self
 
+variables:
+  tag: '$(Build.BuildId)'
 
-pool:
-  vmImage: 'ubuntu-latest'
+stages:
+- stage: Build and Test
+  displayName: Build, push, and test the docker image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Jacob''s Docker Hub'
+        repository: 'jpbulloch5/revature_p1_webapp'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+      displayName: Build WebApp in container and push image to DockerHub
 
- 
-steps:
-- task: Docker@2
-  inputs:
-    containerRegistry: 'Jacob''s Docker Hub'
-    repository: 'jpbulloch5/revature_p1_webapp'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
-  displayName: Build WebApp in container and push image to DockerHub
+  - job: Test
+    displayName: System Test
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: DockerCompose@0
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Jacob''s Docker Hub'
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Run a Docker Compose command'
+        dockerComposeCommand: 'up'
+        arguments: '-d'
+      displayName: start the Dockerized application network
 
-- task: DockerCompose@0
-  inputs:
-    containerregistrytype: 'Container Registry'
-    dockerRegistryEndpoint: 'Jacob''s Docker Hub'
-    dockerComposeFile: '**/docker-compose.yml'
-    action: 'Run a Docker Compose command'
-    dockerComposeCommand: 'up'
-    arguments: '-d'
-  displayName: start the Dockerized application network
+    - task: CmdLine@2
+      inputs:
+        script: 'docker cp airline_terminal:/app/web/P1_Local_Postman_Collection.json ./local_test.json'
+        failOnStderr: true
+      displayName: fetch test from container
 
-- task: CmdLine@2
-  inputs:
-    script: 'docker cp airline_terminal:/app/web/P1_Local_Postman_Collection.json ./local_test.json'
-    failOnStderr: true
-  displayName: fetch test from container
+    - task: NewmanPostman@4
+      inputs:
+        collectionSourceType: 'file'
+        Contents: '**/local_test.json'
+        environmentSourceType: 'none'
+        bail: true
+        reporters: 'junit'
+      displayName: run dev-defined system test using Newman Postman
 
-- task: NewmanPostman@4
-  inputs:
-    collectionSourceType: 'file'
-    Contents: '**/local_test.json'
-    environmentSourceType: 'none'
-    bail: true
-    reporters: 'junit'
-  displayName: run the test using Newman Postman
-
-- task: CmdLine@2
-  inputs:
-    script: 'docker-compose down'
-  displayName: stop the Dockerized application network
+    - task: CmdLine@2
+      inputs:
+        script: 'docker-compose down'
+      displayName: stop the Dockerized application network
