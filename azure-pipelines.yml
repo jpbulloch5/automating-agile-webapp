@@ -50,5 +50,5 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'docker compose down'
+    script: 'docker-compose down'
   displayName: stop the Dockerized application network
