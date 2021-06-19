@@ -1,7 +1,9 @@
 # The webapp layer requires a packaged orm layer, 
 # so we can use it as the base image
 # The orm layer already contains maven and tomcat too
-FROM jpbulloch5/revature_p1_orm:latest
+ARG orm_version=latest
+
+FROM jpbulloch5/revature_p1_orm:${orm_version}
 
 # setup a working directory for the application
 # the working directory for the orm layer was /app
