@@ -20,6 +20,22 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
+    
+    - task: SonarQubePrepare@4
+      inputs:
+        SonarQube: 'VM3 SonarQube'
+        scannerMode: 'CLI'
+        configMode: 'manual'
+        cliProjectKey: 'Flock_of_Hawks_team_e_p1_orm'
+        cliProjectVersion: 
+        cliSources: '.'
+        extraProperties: |
+          # Additional properties that will be passed to the scanner,
+          # Put one key=value per line, example:
+          # sonar.exclusions=**/*.bin
+          sonar.projectKey=Flock_of_Hawks_team_e_p1_orm
+      displayName: Prepare to analyze Webapp code
+      
     - task: Docker@2
       inputs:
         containerRegistry: 'Jacob''s Docker Hub'
@@ -29,6 +45,13 @@ stages:
         tags: '$(orm_version)'
         arguments: '--build-arg orm_version=$(orm_version)'
       displayName: Build WebApp in container
+
+    - task: SonarQubeAnalyze@4
+      displayName: Analyze WebApp code
+    - task: SonarQubePublish@4
+      inputs:
+        pollingTimeoutSec: '300'
+      displayName: Publish Webapp code analysis
 
     - task: DockerCompose@0
       inputs:
