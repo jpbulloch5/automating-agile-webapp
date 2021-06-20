@@ -25,7 +25,7 @@ WORKDIR /usr/local/tomcat/webapps/
 
 # All we need from the build is the .war file and the test file
 COPY --from=builder /app/web/target/webapp.war ./webapp.war
-RUN mkdir /root/app/web 
+RUN mkdir /app/web 
 COPY --from=builder /app/web/P1_Local_Postman_Collection.json /app/web/
 
 # I guess the tomcat image is purposely broken for "security"?
