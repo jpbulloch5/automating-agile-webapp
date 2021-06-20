@@ -25,7 +25,7 @@ services:
       - airline_db_volume:/var/lib/postgresql/data
 
     ports:
-      - 5432:5432
+      - 9050:5432
   
   # the pgadmin database front-end that will run in the browser
   pgadmin:
@@ -44,7 +44,7 @@ services:
 
     # set the outer:inner ports (remember Beoing 737)
     ports:
-    - 737:80
+    - 9051:80
 
     # the core java build with the logic for the airline terminal
   airline:
@@ -59,7 +59,7 @@ services:
     # set the username/password, etc. environment variables
     environment:
       - host='jdbc:postgresql://db/postgres'
-      - port='5432'
+      - port='9050'
       - dbname='postgres'
       - schemaname='public'
       - username='postgres'
@@ -68,7 +68,7 @@ services:
 
     # set the outer:inner ports
     ports:
-    - 8080:8080
+    - 9052:8080
 
 # define the volume used for database persistance
 volumes:
