@@ -62,12 +62,6 @@ stages:
         command: 'push'
         tags: '$(orm_version)'
       displayName: Push WebApp image to DockerHub
-
-  - job: Deploy
-    displayName: Deploy to VM3
-    pool:
-      vmImage: ubuntu-latest
-    steps:
     
     - task: CmdLine@2
       inputs:
