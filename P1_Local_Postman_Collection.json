@@ -11,12 +11,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/webapp/ping",
+					"raw": "http://localhost:9052/webapp/ping",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9052",
 					"path": [
 						"webapp",
 						"ping"
@@ -31,12 +31,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/webapp/flights",
+					"raw": "http://localhost:9052/webapp/flights",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9052",
 					"path": [
 						"webapp",
 						"flights"
@@ -51,12 +51,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/webapp/customer?First Name=Dave&Last Name=Bautista",
+					"raw": "http://localhost:9052/webapp/customer?First Name=Dave&Last Name=Bautista",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9052",
 					"path": [
 						"webapp",
 						"customer"
@@ -81,12 +81,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/webapp/flightLookup?departureLocation=Jonestown&DestinationLocation=Washington DC",
+					"raw": "http://localhost:9052/webapp/flightLookup?departureLocation=Jonestown&DestinationLocation=Washington DC",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9052",
 					"path": [
 						"webapp",
 						"flightLookup"
@@ -120,12 +120,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/webapp/purchase",
+					"raw": "http://localhost:9052/webapp/purchase",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9052",
 					"path": [
 						"webapp",
 						"purchase"
@@ -149,12 +149,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/webapp/createCustomer",
+					"raw": "http://localhost:9052/webapp/createCustomer",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9052",
 					"path": [
 						"webapp",
 						"createCustomer"
@@ -178,12 +178,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/webapp/createFlight",
+					"raw": "http://localhost:9052/webapp/createFlight",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "9052",
 					"path": [
 						"webapp",
 						"createFlight"
