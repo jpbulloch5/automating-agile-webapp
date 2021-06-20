@@ -17,7 +17,7 @@ COPY . .
 # maven expects to find the orm jar file at 
 #RUN mvn install
 RUN mvn clean package && mvn install
-RUN mv ./target/p1-webapp-0.9.war ./target/webapp.war
+RUN mv /home/app/web/target/p1-webapp-0.9.war /home/app/web/target/webapp.war
 
 ######### Multi-stage build: Switch to Tomcat
 FROM tomcat:8-jdk8-corretto
