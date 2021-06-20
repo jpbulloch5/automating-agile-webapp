@@ -17,12 +17,12 @@ COPY . .
 # maven expects to find the orm jar file at 
 #RUN mvn install
 RUN mvn clean package && mvn install
-
+RUN mv ./target/p1-webapp-0.9.war ./target/webapp.war
 
 ######### Multi-stage build: Switch to Tomcat
 FROM tomcat:8-jdk8-corretto
 WORKDIR /usr/local/tomcat/webapps/
-COPY --from=builder /app/web/target/p-1-webapp-0.9.war ./webapp.war
+COPY --from=builder /app/web/target/webapp.war ./webapp.war
 # I guess the tomcat image is purposely broken for "security"?
 # anyway, I found online that this helped people, so I am trying it
 #RUN mv webapps webapps2 && mv webapps.dist/ webapps
