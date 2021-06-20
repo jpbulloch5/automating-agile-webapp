@@ -24,9 +24,10 @@ FROM tomcat:8-jdk8-corretto
 RUN cd / && mkdir -p RUN mkdir /app/web 
 WORKDIR /usr/local/tomcat/webapps/
 
-# All we need from the build is the .war file and the test file
+# All we need from the build is the .war file, the test file, and the docker-compose file
 COPY --from=builder /app/web/target/webapp.war ./webapp.war
 COPY --from=builder /app/web/P1_Local_Postman_Collection.json /app/web/
+COPY --from=builder /app/web/docker-compose.yml /app/web/
 
 # I guess the tomcat image is purposely broken for "security"?
 # anyway, I found online that this helped people, so I am trying it
