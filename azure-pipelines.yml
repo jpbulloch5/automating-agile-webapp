@@ -124,4 +124,23 @@ stages:
           13.66.8.112 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBB8uiPgYsAfhZo9tzfam2hbv7G1TUF4hk0jzrxO/SjLO2qBpMrlDaQvQWYZI3kdNT1xgFHFKSXcyaPElszq3tqU=
         sshKeySecureFile: '2105-may24-devops-ubuntu-vm-1_key.pem'
       displayName: 'SSH--> Install Key'
-      
+    
+    - task: CopyFilesOverSSH@0
+      inputs:
+        sshEndpoint: 'Revature VM3'
+        sourceFolder: '''$(Build.ArtifactStagingDirectory)'''
+        contents: 'airline_terminal_compose.yml'
+        targetFolder: '/home/jacob/p1'
+        readyTimeout: '20000'
+      displayName: Send new docker-compose file to VM3
+    
+    - task: SSH@0
+      inputs:
+        sshEndpoint: 'Revature VM3'
+        runOptions: 'commands'
+        commands: |
+          start_dir=$(pwd)
+          cd /home/jacob/p1
+          docker-compose up
+          cd $(start_dir)
+        readyTimeout: '20000'
