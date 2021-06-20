@@ -18,6 +18,9 @@ COPY . .
 #RUN mvn install
 RUN mvn clean package && mvn install
 
+# since we are bulding in the container, we have to run the sonarQube analysis here
+RUN mvn sonar:sonar -Dsonar.login=6353916e544c485fbaa2ddc94a1c8b2d60110de2
+
 RUN cp ./target/p1-webapp-0.9.war /usr/local/tomcat/webapps/webapp.war
 
 # I guess the tomcat image is purposely broken for "security"?
