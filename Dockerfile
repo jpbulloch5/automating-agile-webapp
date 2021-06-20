@@ -3,7 +3,7 @@
 # The orm layer already contains maven and tomcat too
 ARG orm_version=latest
 
-FROM jpbulloch5/revature_p1_orm:${orm_version}
+FROM jpbulloch5/revature_p1_orm:${orm_version} AS builder
 
 # setup a working directory for the application
 # the working directory for the orm layer was /app
@@ -18,17 +18,17 @@ COPY . .
 #RUN mvn install
 RUN mvn clean package && mvn install
 
-# since we are bulding in the container, we have to run the sonarQube analysis here
-#RUN mvn sonar:sonar -Dsonar.login=6353916e544c485fbaa2ddc94a1c8b2d60110de2
 
-RUN cp ./target/p1-webapp-0.9.war /usr/local/tomcat/webapps/webapp.war
-
+######### Multi-stage build: Switch to Tomcat
+FROM tomcat:8-jdk8-corretto
+WORKDIR /usr/local/tomcat/webapps/
+COPY --from=builder /app/web/target/p-1webapp-0.9.war ./webapp.war
 # I guess the tomcat image is purposely broken for "security"?
 # anyway, I found online that this helped people, so I am trying it
 #RUN mv webapps webapps2 && mv webapps.dist/ webapps
 # needs to run after catalina.sh starts, so moved to CMD
 
-EXPOSE 8080
+EXPOSE 9052
 
 # # Trying to bring Newman for Postman into this container
 # RUN apt-get update
