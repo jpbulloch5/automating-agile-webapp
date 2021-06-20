@@ -3,7 +3,7 @@
 # The orm layer already contains maven and tomcat too
 ARG orm_version=latest
 
-FROM jpbulloch5/revature_p1_orm:${orm_version}
+FROM jpbulloch5/revature_p1_orm:${orm_version} AS builder
 
 # setup a working directory for the application
 # the working directory for the orm layer was /app
@@ -17,18 +17,24 @@ COPY . .
 # maven expects to find the orm jar file at 
 #RUN mvn install
 RUN mvn clean package && mvn install
+RUN mv /app/web/target/p1-webapp-0.9.war /app/web/target/webapp.war
 
-# since we are bulding in the container, we have to run the sonarQube analysis here
-#RUN mvn sonar:sonar -Dsonar.login=6353916e544c485fbaa2ddc94a1c8b2d60110de2
+######### Multi-stage build: Switch to Tomcat
+FROM tomcat:8-jdk8-corretto
+RUN cd / && mkdir -p RUN mkdir /app/web 
+WORKDIR /usr/local/tomcat/webapps/
 
-RUN cp ./target/p1-webapp-0.9.war /usr/local/tomcat/webapps/webapp.war
+# All we need from the build is the .war file, the test file, and the docker-compose file
+COPY --from=builder /app/web/target/webapp.war ./webapp.war
+COPY --from=builder /app/web/P1_Local_Postman_Collection.json /app/web/
+COPY --from=builder /app/web/docker-compose.yml /app/web/
 
 # I guess the tomcat image is purposely broken for "security"?
 # anyway, I found online that this helped people, so I am trying it
 #RUN mv webapps webapps2 && mv webapps.dist/ webapps
 # needs to run after catalina.sh starts, so moved to CMD
 
-EXPOSE 8080
+EXPOSE 9052
 
 # # Trying to bring Newman for Postman into this container
 # RUN apt-get update
