@@ -92,5 +92,6 @@ stages:
         sshEndpoint: 'Revature VM3'
         runOptions: 'commands'
         commands: 'sudo docker-compose -f /home/jacob/p1/airline_terminal_compose.yml up -d --force-recreate'
+        failOnStdErr: false
         readyTimeout: '20000'
       displayName: Start the docker container on the host
