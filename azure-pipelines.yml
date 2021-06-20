@@ -12,11 +12,11 @@ variables:
   orm_version: 'latest'
 
 stages:
-- stage: Build
-  displayName: Build
+- stage: Release
+  displayName: Build, test, and deploy the new release
   jobs:
-  - job: Build
-    displayName: Build and push 
+  - job: Release
+    displayName: Build, test, and deploy the new release
     pool:
       vmImage: ubuntu-latest
     steps:
@@ -30,14 +30,6 @@ stages:
         arguments: '--build-arg orm_version=$(orm_version)'
       displayName: Build WebApp in container
 
-- stage: Test
-  displayName: Test the dockerized application network
-  jobs:
-  - job: Test
-    displayName: System Test
-    pool:
-      vmImage: ubuntu-latest
-    steps:
     - task: DockerCompose@0
       inputs:
         containerregistrytype: 'Container Registry'
@@ -62,15 +54,6 @@ stages:
         bail: true
         reporters: 'junit'
       displayName: run the dev-defined system test using Newman Postman
-
-- stage: Deploy
-  displayName: Test the dockerized application network
-  jobs:
-  - job: Push
-    displayName: Push WebApp image to Docker Hub
-    pool:
-      vmImage: ubuntu-latest
-    steps:
 
     - task: Docker@2
       inputs:
