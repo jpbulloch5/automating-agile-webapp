@@ -94,7 +94,7 @@ stages:
         commands: |
           start_dir=$(pwd)
           cd /home/jacob/p1
-          docker-compose -d -f airline_terminal_compose.yml up
+          docker-compose -f airline_terminal_compose.yml up -d
           cd $(start_dir)
         readyTimeout: '20000'
       displayName: Start the docker container on the host
