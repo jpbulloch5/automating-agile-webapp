@@ -91,10 +91,6 @@ stages:
       inputs:
         sshEndpoint: 'Revature VM3'
         runOptions: 'commands'
-        commands: |
-          start_dir=$(pwd)
-          cd /home/jacob/p1
-          docker-compose -f airline_terminal_compose.yml up -d
-          cd $(start_dir)
+        commands: 'docker-compose -f /home/jacob/p1/airline_terminal_compose.yml up -d'
         readyTimeout: '20000'
       displayName: Start the docker container on the host
