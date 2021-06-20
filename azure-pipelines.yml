@@ -79,7 +79,7 @@ stages:
     - task: CopyFilesOverSSH@0
       inputs:
         sshEndpoint: 'Revature VM3'
-        sourceFolder: '''$(Build.ArtifactStagingDirectory)'''
+        sourceFolder: '$(Build.ArtifactStagingDirectory)'
         contents: 'airline_terminal_compose.yml'
         targetFolder: '/home/jacob/p1'
         readyTimeout: '20000'
@@ -96,16 +96,3 @@ stages:
           cd $(start_dir)
         readyTimeout: '20000'
       displayName: Start the docker container on the host
-
-- stage: Cleanup
-  displayName: Clean up loose ends
-  jobs:
-  - job: Close
-    displayName: Close the build-agent's docker network
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: CmdLine@2
-      inputs:
-        script: 'docker-compose down'
-      displayName: stop the Dockerized application network
