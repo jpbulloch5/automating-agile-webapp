@@ -20,17 +20,6 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    
-    - task: SonarQubePrepare@4
-      inputs:
-        SonarQube: 'VM3 SonarQube'
-        scannerMode: 'Other'
-        extraProperties: |
-          # Additional properties that will be passed to the scanner,
-          # Put one key=value per line, example:
-          # sonar.exclusions=**/*.bin
-          sonar.projectKey=Flock_of_Hawks_team_e_p1_orm
-      displayName: Prepare to analyze Webapp code
 
     - task: Docker@2
       inputs:
@@ -41,11 +30,6 @@ stages:
         tags: '$(orm_version)'
         arguments: '--build-arg orm_version=$(orm_version)'
       displayName: Build WebApp in container
-
-    - task: SonarQubePublish@4
-      inputs:
-        pollingTimeoutSec: '300'
-      displayName: Publish Webapp code analysis
 
     - task: DockerCompose@0
       inputs:
@@ -62,6 +46,7 @@ stages:
         script: 'docker cp airline_terminal:/app/web/P1_Local_Postman_Collection.json ./local_test.json'
         failOnStderr: true
       displayName: fetch test from container
+
 
     - task: NewmanPostman@4
       inputs:
@@ -106,10 +91,6 @@ stages:
       inputs:
         sshEndpoint: 'Revature VM3'
         runOptions: 'commands'
-        commands: |
-          start_dir=$(pwd)
-          cd /home/jacob/p1
-          docker-compose up -d
-          cd $(start_dir)
+        commands: 'docker-compose -f /home/jacob/p1/airline_terminal_compose.yml up -d'
         readyTimeout: '20000'
       displayName: Start the docker container on the host
