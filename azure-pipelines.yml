@@ -3,10 +3,14 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 resources:
+  pipelines:
+    - pipeline: orm_pipeline
+      source: test_ORM
+
   repositories:
     - repository: p1
       type: git
-      name: ORM_JAR
+      name: test_ORM
 
 trigger:
 - main
