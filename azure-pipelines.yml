@@ -19,6 +19,9 @@ steps:
     vstsFeedPackage: '2bbe8cd3-9fee-41e9-9726-d3d2c93dc2bb'
     vstsPackageVersion: '*'
   displayName: load latest ORM version
+- task: CmdLine@2
+  inputs:
+    script: 'bash'
 
 - task: Maven@3
   inputs:
