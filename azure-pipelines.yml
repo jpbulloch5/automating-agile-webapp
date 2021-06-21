@@ -101,7 +101,7 @@ stages:
         sshEndpoint: 'Revature VM3'
         runOptions: 'commands'
         commands: |
-          sudo docker exec -it airline_postgres_db psql
+          sudo docker exec -it airline_postgres_db bash
 
           createdb airline_db
           
