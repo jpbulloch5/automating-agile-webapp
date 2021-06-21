@@ -23,8 +23,15 @@ steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'install:install-file'
+    options: > 
+      -Dfile="eorm-1.0.jar" 
+      -DgroupId="org.example" 
+      -DartifactId="eorm" 
+      -Dversion="1.0" 
+      -Dpackaging=jar 
+      -DgeneratePom=true'
+    publishJUnitResults: false
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
