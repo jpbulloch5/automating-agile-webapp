@@ -27,7 +27,7 @@ hs_err_pid*
 *.iml
 
 #properties file
-*.properties
+# *.properties
 
 #target
 target/
