@@ -101,8 +101,8 @@ stages:
         sshEndpoint: 'Revature VM3'
         runOptions: 'commands'
         commands: |
-          sudo docker exec -it airline_postgres_db
-          
+          sudo docker exec -it airline_postgres_db psql
+
           createdb airline_db
           
           postgres=# CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
