@@ -10,7 +10,7 @@ resources:
   repositories:
     - repository: p1
       type: git
-      name: test_ORM
+      name: p1
 
 trigger:
 - main
