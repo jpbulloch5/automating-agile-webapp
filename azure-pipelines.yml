@@ -43,7 +43,12 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
-  displayName: install the ORM dependency
+  displayName: provide the ORM dependency
+
+- task: CmdLine@2
+  inputs:
+    script: 'mvn clean package && mvn install'
+  displayName: Ensure dependencies are installed
 
 - task: Maven@3
   inputs:
