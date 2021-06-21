@@ -22,20 +22,10 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      echo "Structure of work folder of this pipeline:"
-      tree $(Agent.WorkFolder)\1 /f
+      contents=ls $(Pipeline.Workspace)/s/
+      echo "contents:"
       
-      echo "Build.ArtifactStagingDirectory:" 
-      
-      echo "$(Build.ArtifactStagingDirectory)"
-      
-      echo "Build.BinariesDirectory:" 
-      
-      echo "$(Build.BinariesDirectory)"
-      
-      echo "Build.SourcesDirectory:"
-      
-      echo "$(Build.SourcesDirectory)"
+      echo "$(contents)"
 
 - task: Maven@3
   inputs:
