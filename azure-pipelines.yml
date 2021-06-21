@@ -31,7 +31,7 @@ steps:
     mavenPomFile: 'pom.xml'
     goals: 'install:install-file'
     options: > 
-      -Dfile="**.jar" 
+      -Dfile="$(Build.ArtifactStagingDirectory)/eorm-1.0.jar" 
       -DgroupId="org.example" 
       -DartifactId="eorm" 
       -Dversion="1.0" 
