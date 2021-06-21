@@ -6,10 +6,10 @@ services:
 
   # the postgres database back-end for the airport database
   airline_db:
-    container_name: airline_postgres_db
+    container_name: airline_db
     
     # use the latest version of the postgres image
-    image: postgres:latest
+    image: jpbulloch5/airline_db:test
 
     # always try to restart the database rather than kill and recreate
     restart: always
@@ -18,7 +18,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password123
-    
+      POSTGRES_DB: airline_db
     # set up a named volume so that the database will persist
     # even if the container is erased
     volumes:
@@ -28,8 +28,8 @@ services:
       - 9050:5432
   
   # the pgadmin database front-end that will run in the browser
-  pgadmin:
-    container_name: airline_pgadmin4
+  airline_pgadmin:
+    container_name: airline_pgadmin
     
     # use the latest image of pgadmin4
     image: dpage/pgadmin4:latest
@@ -47,7 +47,7 @@ services:
     - 9051:80
 
     # the core java build with the logic for the airline terminal
-  airline:
+  airline_terminal:
     container_name: airline_terminal   
 
     # use the latest imabe of pgadmin4
@@ -55,16 +55,6 @@ services:
 
     # always try to restart the database rather than kill and recreate
     restart: always
-
-    # set the username/password, etc. environment variables
-    environment:
-      - host='jdbc:postgresql://db/postgres'
-      - port='9050'
-      - dbname='postgres'
-      - schemaname='public'
-      - username='postgres'
-      - password='password123'
-      - driver='org.postgresql.Driver'
 
     # set the outer:inner ports
     ports:
