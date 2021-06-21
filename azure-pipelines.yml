@@ -22,10 +22,9 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      contents=ls $(Pipeline.Workspace)/s/
       echo "contents:"
       
-      echo "$(contents)"
+      ls $(Pipeline.Workspace)/s/
 
 - task: Maven@3
   inputs:
