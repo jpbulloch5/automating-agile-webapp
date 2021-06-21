@@ -95,3 +95,26 @@ stages:
         failOnStdErr: false
         readyTimeout: '20000'
       displayName: Start the docker container on the host
+
+    # - task: SSH@0
+    #   inputs:
+    #     sshEndpoint: 'Revature VM3'
+    #     runOptions: 'commands'
+    #     commands: |
+    #       sudo docker exec airline_postgres_db createdb airline_db
+    #       sudo docker exec airline_postgres_db psql postgres=# CREATE EXTENSION IF NOT EXISTS "uuid-ossp"; \q
+    #       sudo docker exec airline_postgres_db psql postgres=# DROP TABLE IF EXISTS customer CASCADE; \q
+    #       sudo docker exec airline_postgres_db psql postgres=# CREATE TABLE customer(customer_id uuid NOT NULL,firstname VARCHAR NOT NULL, lastname VARCHAR NOT NULL, customerNum VARCHAR NOT NULL, PRIMARY KEY (customer_id)); \q
+    #       sudo docker exec airline_postgres_db psql postgres=# INSERT INTO customer(customer_id, firstname, lastname, customerNum) VALUES('a3b3f5a0-d04f-11eb-aad1-0242ac170001', 'first1', 'last1', 1), ('a3b3fc8a-d04f-11eb-aad1-0242ac170002', 'first2', 'last2', 2); \q
+    #       sudo docker exec airline_postgres_db psql postgres=# SELECT * FROM customer; \q
+    #       sudo docker exec airline_postgres_db psql postgres=# DROP TABLE IF EXISTS flight CASCADE; \q
+    #       sudo docker exec airline_postgres_db psql postgres=# CREATE TABLE flight(flight_id uuid NOT NULL, flightNum INT NOT NULL, departureLocation VARCHAR NOT NULL, destinationLocation VARCHAR NOT NULL, departureTime VARCHAR NOT NULL, departureGate VARCHAR NOT NULL, destinationGate VARCHAR NOT NULL, PRIMARY KEY (flight_id)); \q
+    #       sudo docker exec airline_postgres_db psql postgres=# INSERT INTO flight (flight_id, flightNum, departureLocation, destinationLocation, departureTime, departureGate, destinationGate) VALUES ('a3b3f5a0-d04f-11eb-aad1-0242ac170001', 1, 'dep1', 'dest1', 'depTime1', 'depGate1', 'destGate1'), ('a3b3fc8a-d04f-11eb-aad1-0242ac170002', 2, 'dep2', 'dest2', 'depTime2', 'depGate2', 'destGate2'); \q
+    #       sudo docker exec airline_postgres_db psql postgres=# SELECT * FROM flight; \q
+    #       sudo docker exec airline_postgres_db psql postgres=# DROP TABLE IF EXISTS ticket CASCADE; \q
+    #       sudo docker exec airline_postgres_db psql postgres=# CREATE TABLE ticket(ticket_id uuid NOT NULL, customer_id uuid NOT NULL, flight_id uuid NOT NULL, PRIMARY KEY (ticket_id), FOREIGN KEY (customer_id) REFERENCES customer(customer_id), FOREIGN KEY (flight_id) REFERENCES flight(flight_id)); \q
+    #       sudo docker exec airline_postgres_db psql postgres=# INSERT INTO ticket (ticket_id, customer_id, flight_id) VALUES('a3b3f5a0-d04f-11eb-aad1-0242ac170001', 'a3b3f5a0-d04f-11eb-aad1-0242ac170001', 'a3b3f5a0-d04f-11eb-aad1-0242ac170001'), ('a3b3fc8a-d04f-11eb-aad1-0242ac170002', 'a3b3fc8a-d04f-11eb-aad1-0242ac170002', 'a3b3fc8a-d04f-11eb-aad1-0242ac170002'); \q
+    #       sudo docker exec airline_postgres_db psql postgres=# SELECT ticket.ticket_id, customer.*, flight.* FROM ticket JOIN customer on ticket.customer_id = customer.customer_id JOIN flight on ticket.flight_id = flight.flight_id; \q
+    #     readyTimeout: '20000'
+    #   displayName: load DB with default values
+      
