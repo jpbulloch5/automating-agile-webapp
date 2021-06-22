@@ -41,6 +41,13 @@ stages:
         arguments: '-d'
       displayName: Start the Dockerized application network
 
+    
+    - task: CmdLine@2
+      inputs:
+        script: 'docker cp airline_terminal:/app/web/P1_Local_Postman_Collection.json ./local_test.json'
+        failOnStderr: true
+      displayName: fetch test from container
+
     - task: CmdLine@2
       inputs:
         script: 'docker cp airline_terminal:/app/web/P1_Local_Postman_Collection.json ./local_test.json'
