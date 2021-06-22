@@ -44,7 +44,7 @@ stages:
     
     - task: CmdLine@2
       inputs:
-        script: 'docker exec airline_terminal ls $(System.DefaultWorkingDirectory)'
+        script: 'docker exec airline_terminal ls ./main/resources'
         failOnStderr: true
       displayName: check the resources directory
 
