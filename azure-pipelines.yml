@@ -23,17 +23,17 @@ steps:
     vstsPackageVersion: '*'
   displayName: load latest ORM version
 
-- task: CmdLine@2
-  inputs:
-    script: |
-      echo $(Build.ArtifactStagingDirectory)
-      ls $(Build.ArtifactStagingDirectory)
-  displayName: Show contents of Artifact Staging Directory
+# - task: CmdLine@2
+#   inputs:
+#     script: |
+#       echo $(Build.ArtifactStagingDirectory)
+#       ls $(Build.ArtifactStagingDirectory)
+#   displayName: Show contents of Artifact Staging Directory
 - task: CmdLine@2
   inputs:
     script: |
       mvn install:install-file -e \
-      -Dfile="/home/vsts/work/1/a/eorm-1.0.jar" \
+      -Dfile="$(Build.ArtifactStagingDirectory)/eorm-1.0.jar" \
       -DgroupId="eteam" \
       -DartifactId="eorm" \
       -Dversion="1.0" \
