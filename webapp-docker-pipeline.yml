@@ -124,7 +124,7 @@ stages:
           **Reason:** $(Build.Reason)
           **Status:** $(Agent.JobStatus)
           **Repo:** $(Build.Repository.Uri)
-          **Message: $(Build.SourceVersionMessage)
+          **Message:** $(Build.SourceVersionMessage)
       condition: always()
       displayName: send message to Discord 
 
