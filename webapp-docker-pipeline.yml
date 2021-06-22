@@ -115,10 +115,10 @@ stages:
       inputs:
         channelId: '856587514218545203'
         webhookKey: 'OmVq23OAAKWh6VQGfoiFE-DRlGwtDst19OLHedR9HaQ7eONnVdlBJlc1i8OiAUpz4hqd'
-        name: '**__Flock of Hawks --> webapp_docker_dev__**  '
+        name: 'Flock of Hawks --> webapp_docker_dev__'
         avatar: 'https://avatarfiles.alphacoders.com/565/thumb-1920-56514.jpg'
         messageType: 'content'
-        content: '**Build Number:**```$(Build.BuildNumber)```**Build Reason:**```$(Build.Reason)```**Build Status**```$(Agent.JobStatus)```'
+        content: '  **Build Number:**```$(Build.BuildNumber)```**Build Reason:**```$(Build.Reason)```**Build Status**```$(Agent.JobStatus)```'
       condition: always()
       displayName: send message to Discord 
 
