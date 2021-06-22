@@ -23,25 +23,6 @@ steps:
     vstsPackageVersion: '*'
   displayName: load latest ORM version
 
-# - task: Bash@3
-#   displayName: Create settings.xml file
-#   inputs:
-#     targetType: 'inline'
-#     script: |
-#       set -e
-#       mkdir ~/.m2/
-#       echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-#               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-#               xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
-#                               https://maven.apache.org/xsd/settings-1.0.0.xsd">
-#               <servers>
-#                   <server>
-#                       <id>Flock-of_Hawks-Artifacts</id>
-#                       <username>revature-training-uta</username>
-#                       <password>$(maven_key)</password>
-#                   </server>
-#               </servers>
-#       </settings>' > ~/.m2/settings.xml
 - task: CmdLine@2
   inputs:
     script: |
@@ -60,10 +41,15 @@ steps:
       -DgeneratePom=true
   displayName: add orm jar file to maven packages
 
-# - task: MavenAuthenticate@0
-#   inputs:
-#     artifactsFeeds: 'Flock-of-Hawks-Artifacts'
-#   displayName: Authenticate Flock-of-Hawks-Artifacts with Maven
+- task: SonarQubePrepare@4
+  inputs:
+    SonarQube: 'VM3 SonarQube'
+    scannerMode: 'Other'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner,
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.projectKey=Flock_of_Hawks_team_e_p1_webapp
 
 - task: Maven@3
   inputs:
@@ -76,3 +62,7 @@ steps:
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
   displayName: package the WebApp
+
+- task: SonarQubePublish@4
+  inputs:
+    pollingTimeoutSec: '300'
