@@ -19,36 +19,30 @@ steps:
     vstsFeedPackage: '2bbe8cd3-9fee-41e9-9726-d3d2c93dc2bb'
     vstsPackageVersion: '*'
   displayName: load latest ORM version
-- task: CmdLine@2
-  inputs:
-    script: |
-      echo "contents:"
-      
-      ls $(Build.ArtifactStagingDirectory)
 
 - task: MavenAuthenticate@0
   inputs:
     artifactsFeeds: 'Flock-of-Hawks-Artifacts'
   displayName: Authenticate Flock-of-Hawks-Artifacts with Maven
-  
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'install:install-file'
-    options: > 
-      -Dfile="$(Build.ArtifactStagingDirectory)/eorm-1.0.jar" 
-      -DgroupId="org.example" 
-      -DartifactId="eorm" 
-      -Dversion="1.0" 
-      -Dpackaging=jar 
-      -DgeneratePom=true'
-    publishJUnitResults: false
-    javaHomeOption: 'JDKVersion'
-    mavenVersionOption: 'Default'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false
-  displayName: provide the ORM dependency
+
+# - task: Maven@3
+#   inputs:
+#     mavenPomFile: 'pom.xml'
+#     goals: 'install:install-file'
+#     options: > 
+#       -Dfile="$(Build.ArtifactStagingDirectory)/eorm-1.0.jar" 
+#       -DgroupId="org.example" 
+#       -DartifactId="eorm" 
+#       -Dversion="1.0" 
+#       -Dpackaging=jar 
+#       -DgeneratePom=true'
+#     publishJUnitResults: false
+#     javaHomeOption: 'JDKVersion'
+#     mavenVersionOption: 'Default'
+#     mavenAuthenticateFeed: false
+#     effectivePomSkip: false
+#     sonarQubeRunAnalysis: false
+#   displayName: provide the ORM dependency
 
 - task: CmdLine@2
   inputs:
