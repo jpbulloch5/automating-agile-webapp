@@ -44,9 +44,9 @@ stages:
     
     - task: CmdLine@2
       inputs:
-        script: 'docker cp airline_terminal:/app/web/P1_Local_Postman_Collection.json ./local_test.json'
+        script: 'docker exec airline_terminal ls **/resources/'
         failOnStderr: true
-      displayName: fetch test from container
+      displayName: check the resources directory
 
     - task: CmdLine@2
       inputs:
