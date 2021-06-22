@@ -52,7 +52,7 @@ steps:
   inputs:
     script: 
       mvn install:install-file -e \
-      -Dfile="$(Build.ArtifactStagingDirectory)/eorm-1.0.jar" \
+      -Dfile="/home/vsts/work/1/a/eorm-1.0.jar" \
       -DgroupId="org.example" \
       -DartifactId="eorm" \
       -Dversion="1.0" \
