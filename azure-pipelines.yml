@@ -49,7 +49,7 @@ steps:
       mvn install:install-file -e \
       -Dfile="./eorm-1.0.jar" \
       -DgroupId="org.example" \
-      -DartifactId="ORM-testing" \
+      -DartifactId="eorm" \
       -Dversion="1.0" \
       -Dpackaging=jar \
       -DgeneratePom=true
