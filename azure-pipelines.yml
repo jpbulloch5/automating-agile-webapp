@@ -44,7 +44,9 @@ steps:
 #       </settings>' > ~/.m2/settings.xml
 - task: CmdLine@2
   inputs:
-    script: 'ls $(Build.ArtifactStagingDirectory)'
+    script: |
+      echo $(Build.ArtifactStagingDirectory)
+      ls $(Build.ArtifactStagingDirectory)
   displayName: Show contents of Artifact Staging Directory
 - task: CmdLine@2
   inputs:
