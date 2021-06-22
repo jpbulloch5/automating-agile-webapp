@@ -23,12 +23,6 @@ steps:
     vstsPackageVersion: '*'
   displayName: load latest ORM version
 
-# - task: CmdLine@2
-#   inputs:
-#     script: |
-#       echo $(Build.ArtifactStagingDirectory)
-#       ls $(Build.ArtifactStagingDirectory)
-#   displayName: Show contents of Artifact Staging Directory
 - task: CmdLine@2
   inputs:
     script: |
@@ -66,3 +60,20 @@ steps:
 - task: SonarQubePublish@4
   inputs:
     pollingTimeoutSec: '300'
+
+- task: ado-discord-webhook@1
+  inputs:
+    channelId: '856747431500447755'
+    webhookKey: 'pnX9mrDlsv86zWC7VMmGQfR9vhvwEGqxWGJjDKyEXltzpPmzwTnC-zz85drbHeZaxw3C'
+    name: '$(System.TeamProject) --> '
+    avatar: 'https://avatarfiles.alphacoders.com/565/thumb-1920-56514.jpg'
+    messageType: 'content'
+    content: |
+      __**$(Build.DefinitionName)**__
+      **Build:** $(Build.BuildNumber)
+      **Reason:** $(Build.Reason)
+      **Status:** $(Agent.JobStatus)
+      **Repo:** $(Build.Repository.Uri)
+      **Message:** $(Build.SourceVersionMessage)
+  condition: always()
+  displayName: send message to Discord 
