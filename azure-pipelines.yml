@@ -53,7 +53,7 @@ steps:
     script: |
       mvn install:install-file -e \
       -Dfile="/home/vsts/work/1/a/eorm-1.0.jar" \
-      -DgroupId="org.example" \
+      -DgroupId="eteam" \
       -DartifactId="eorm" \
       -Dversion="1.0" \
       -Dpackaging=jar \
