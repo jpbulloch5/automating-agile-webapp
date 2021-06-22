@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+- group: Keys
+
 steps:
 - task: UniversalPackages@0
   inputs:
@@ -28,14 +31,14 @@ steps:
       set -e
       mkdir ~/.m2/
       echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
               xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
                               https://maven.apache.org/xsd/settings-1.0.0.xsd">
               <servers>
                   <server>
                       <id>Flock-of_Hawks-Artifacts</id>
                       <username>revature-training-uta</username>
-                      <password>$(Maven Key)</password>
+                      <password>$(maven_key)</password>
                   </server>
               </servers>
       </settings>' > ~/.m2/settings.xml
