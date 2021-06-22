@@ -50,7 +50,7 @@ steps:
   displayName: Show contents of Artifact Staging Directory
 - task: CmdLine@2
   inputs:
-    script: 
+    script: |
       mvn install:install-file -e \
       -Dfile="/home/vsts/work/1/a/eorm-1.0.jar" \
       -DgroupId="org.example" \
