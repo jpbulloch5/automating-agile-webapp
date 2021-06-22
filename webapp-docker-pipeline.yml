@@ -10,6 +10,7 @@ resources:
 
 variables:
   orm_version: 'latest'
+  groups: Keys
 
 stages:
 - stage: Release
@@ -113,8 +114,8 @@ stages:
 
     - task: ado-discord-webhook@1
       inputs:
-        channelId: '856747431500447755'
-        webhookKey: 'pnX9mrDlsv86zWC7VMmGQfR9vhvwEGqxWGJjDKyEXltzpPmzwTnC-zz85drbHeZaxw3C'
+        channelId: 'FoH_disord_ID'
+        webhookKey: '$(FoH_discord_webhook)'
         name: '$(System.TeamProject) --> '
         avatar: 'https://avatarfiles.alphacoders.com/565/thumb-1920-56514.jpg'
         messageType: 'content'
