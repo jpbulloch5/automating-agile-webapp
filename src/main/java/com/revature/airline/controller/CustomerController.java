@@ -9,7 +9,9 @@ import java.util.List;
 import com.revature.airline.repos.Customer;
 
 
-
+/**
+ * These functions are called by the service layer and invoke the entity/repository CRUD functions.
+ */
 public class CustomerController {
 
 

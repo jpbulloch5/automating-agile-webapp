@@ -1,0 +1,297 @@
+{
+	"info": {
+		"_postman_id": "5cbff2de-2e8c-4c07-a977-8da93aef9fbe",
+		"name": "p1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ping",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "First Name",
+							"value": "Kyle",
+							"type": "text"
+						},
+						{
+							"key": "Last Name",
+							"value": "Plummer",
+							"type": "text"
+						},
+						{
+							"key": "Customer Number",
+							"value": "35",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://18.222.211.210:8080/ping",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all flights Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/webapp/flights",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"webapp",
+						"flights"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Flights (JSON RESPONSE)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://18.222.211.210:8080/flights",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"flights"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Purchase Ticket",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "flight_id",
+							"value": "e1cbdf8a-65b9-4753-8ac6-36f18004283c",
+							"type": "text"
+						},
+						{
+							"key": "customer_id",
+							"value": "41a672f5-8ffb-4ce2-8982-4c6ba49ae5c0",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://18.222.211.210:8080/purchase",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "First Name",
+							"value": "Matthew",
+							"type": "text"
+						},
+						{
+							"key": "Last Name",
+							"value": "Vaughn",
+							"type": "text"
+						},
+						{
+							"key": "Customer Number",
+							"value": "12345",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://18.222.211.210:8080/customer",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get customer by first,last name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://18.222.211.210:8080/customer?First Name=Matthew&Last Name=Vaughn",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"customer"
+					],
+					"query": [
+						{
+							"key": "First Name",
+							"value": "Matthew"
+						},
+						{
+							"key": "Last Name",
+							"value": "Vaughn"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remote Create Flight (JSON BODY)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"flightNum\":3342,\r\n    \"departureLocation\":\"New York\",\r\n    \"destinationLocation\":\"Las Angeles\",\r\n    \"departureTime\":\"2021-06-14 14:35:00\",\r\n    \"departureGate\":\"Gate HH2\",\r\n    \"destinationGate\":\"Gate 14\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://18.222.211.210:8080/flights",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"flights"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all flights",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://18.222.211.210:8080/flights",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"flights"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get flights by dep,dest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://18.222.211.210:8080/lookup?departureLocation=Miami&DestinationLocation=Las Vegas",
+					"protocol": "http",
+					"host": [
+						"18",
+						"222",
+						"211",
+						"210"
+					],
+					"port": "8080",
+					"path": [
+						"lookup"
+					],
+					"query": [
+						{
+							"key": "departureLocation",
+							"value": "Miami"
+						},
+						{
+							"key": "DestinationLocation",
+							"value": "Las Vegas"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

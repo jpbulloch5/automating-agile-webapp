@@ -18,11 +18,11 @@ public class FileLogger {
     private static boolean consoleOut;
 
     /**
-     * Private constructor, sets default values for logger object
+     * Private constructor, sets default values for logger object.
      */
     private FileLogger() {
-        logFilePath = "D:\\Revature Training\\Apache\\tomcat\\logs\\";
-        //logFilePath = "/logs/";
+        //logFilePath = "D:\\Revature Training\\Apache\\tomcat\\logs\\";
+        logFilePath = "/logs/";
         consoleOut = true;
     }
 
@@ -42,14 +42,14 @@ public class FileLogger {
      * @param e caught Exception to be logged
      */
     public void writeExceptionToFile(Exception e) {
-        try (Writer fileWriter = new FileWriter(getLogFileName(), true)) {
-            String logEntry = formatExceptionLogEntry(e.toString());
-            fileWriter.write(logEntry + "\n");
-
-            if(consoleOut) {
+        String logEntry = formatExceptionLogEntry(e.toString());
+        if(consoleOut) {
                 System.out.println(logEntry);
                 e.printStackTrace();
-            }
+        }
+        try (Writer fileWriter = new FileWriter(getLogFileName(), true)) {
+            //String logEntry = formatExceptionLogEntry(e.toString());
+            fileWriter.write(logEntry + "\n");
 
         } catch (IOException ex) {
             System.out.println("Warning! Unable to write exception log entry to file.");

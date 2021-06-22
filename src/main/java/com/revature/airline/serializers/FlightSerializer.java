@@ -6,7 +6,11 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.revature.airline.repos.Flight;
 
 import java.io.IOException;
-
+/**
+ * These serializers exist because jackson doesn't like the fields inherited by entities from the
+ * repository class in the ORM. There are annotations that can exclude fields or tell jackson to ignore them.
+ * It probably isn't necessary to always include custom serializers on entities.
+ */
 public class FlightSerializer extends StdSerializer<Flight> {
     public FlightSerializer() {
         this(null);

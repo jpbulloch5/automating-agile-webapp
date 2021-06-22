@@ -26,8 +26,11 @@ hs_err_pid*
 .idea/
 *.iml
 
-#properties file
-# *.properties
-
-#target
+#Target
 target/
+
+# the gitignore file does not need to be in the container
+.gitignore
+
+# the dockerfile does not need to be in the container
+Dockerfile

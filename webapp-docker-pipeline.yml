@@ -1,0 +1,125 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- version_1
+
+resources:
+- repo: self
+
+variables:
+  orm_version: 'latest'
+
+stages:
+- stage: Release
+  displayName: Build, test, and deploy the new release
+  jobs:
+  - job: Release
+    displayName: Build, test, and deploy the new release
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Jacob''s Docker Hub'
+        repository: 'jpbulloch5/revature_p1_webapp'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        tags: '$(orm_version)'
+        arguments: '--build-arg orm_version=$(orm_version)'
+      displayName: Build WebApp in container
+
+    - task: DockerCompose@0
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Jacob''s Docker Hub'
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Run a Docker Compose command'
+        dockerComposeCommand: 'up'
+        arguments: '-d'
+      displayName: Start the Dockerized application network
+
+    
+    - task: CmdLine@2
+      inputs:
+        script: 'docker exec airline_terminal ls ./'
+        failOnStderr: true
+      displayName: check the resources directory
+
+    - task: CmdLine@2
+      inputs:
+        script: 'docker cp airline_terminal:/app/web/P1_Local_Postman_Collection.json ./local_test.json'
+        failOnStderr: true
+      displayName: fetch test from container
+
+
+    - task: NewmanPostman@4
+      inputs:
+        collectionSourceType: 'file'
+        Contents: '**/local_test.json'
+        environmentSourceType: 'none'
+        bail: true
+        reporters: 'junit'
+      displayName: run the dev-defined system test using Newman Postman
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Jacob''s Docker Hub'
+        repository: 'jpbulloch5/revature_p1_webapp'
+        command: 'push'
+        tags: '$(orm_version)'
+      displayName: Push WebApp image to DockerHub
+    
+    - task: CmdLine@2
+      inputs:
+        script: 'docker cp airline_terminal:/app/web/docker-compose.yml $(Build.ArtifactStagingDirectory)/airline_terminal_compose.yml'
+        failOnStderr: true
+      displayName: Fetch the docker compose file from the container
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'airline_terminal_compose.yml'
+        publishLocation: 'Container'
+      displayName: Publish the docker compose file as an artifact
+    
+    - task: CopyFilesOverSSH@0
+      inputs:
+        sshEndpoint: 'Revature VM3'
+        sourceFolder: '$(Build.ArtifactStagingDirectory)'
+        contents: 'airline_terminal_compose.yml'
+        targetFolder: '/home/jacob/p1'
+        readyTimeout: '20000'
+      displayName: Send new docker-compose file to VM3
+    
+    - task: SSH@0
+      inputs:
+        sshEndpoint: 'Revature VM3'
+        runOptions: 'commands'
+        commands: sudo docker-compose -f /home/jacob/p1/airline_terminal_compose.yml up -d --force-recreate
+        failOnStdErr: false
+        readyTimeout: '20000'
+      displayName: Start the docker container on the host
+    - task: SSH@0
+      inputs:
+        sshEndpoint: 'Revature VM3'
+        runOptions: 'commands'
+        commands: sudo docker system prune -a -f
+        failOnStdErr: false
+        readyTimeout: '20000'
+      displayName: Prune out-dated docker resources
+
+    - task: ado-discord-webhook@1
+      inputs:
+        channelId: '856747431500447755'
+        webhookKey: 'pnX9mrDlsv86zWC7VMmGQfR9vhvwEGqxWGJjDKyEXltzpPmzwTnC-zz85drbHeZaxw3C'
+        name: 'Flock of Hawks --> webapp_docker_dev'
+        avatar: 'https://avatarfiles.alphacoders.com/565/thumb-1920-56514.jpg'
+        messageType: 'content'
+        content: '**Build Number:**```$(Build.BuildNumber)```**Build Reason:**```$(Build.Reason)```**Build Status**```$(Agent.JobStatus)```'
+      condition: always()
+      displayName: send message to Discord 
+
+      

@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
+/**
+ * These functions are called by the service layer and invoke the entity/repository CRUD functions.
+ */
 public class FlightController {
 
     public static List<Repository> getAllFlights(Connection conn)
