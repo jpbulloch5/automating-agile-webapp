@@ -25,7 +25,7 @@ services:
       - airline_db_volume:/var/lib/postgresql/data
 
     ports:
-      - 9050:5432
+      - 5432:5432
   
   # the pgadmin database front-end that will run in the browser
   airline_pgadmin:
