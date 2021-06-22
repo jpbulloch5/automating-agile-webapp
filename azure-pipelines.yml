@@ -25,6 +25,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      set -e
       mkdir ~/.m2/
       echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
