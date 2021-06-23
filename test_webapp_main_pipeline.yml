@@ -44,8 +44,8 @@ steps:
       # Additional properties that will be passed to the scanner,
       # Put one key=value per line, example:
       # sonar.exclusions=**/*.bin
-      sonar.projectKey=revature-training-uta_team_e_p1_orm
-      sonar.projectName=team_e_p1_orm
+      sonar.projectKey=revature-training-uta_team_e_p1_webapp
+      sonar.projectName=team_e_p1_webapp
 
 # - task: SonarQubePrepare@4
 #   inputs:
