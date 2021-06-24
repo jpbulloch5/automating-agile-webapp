@@ -96,12 +96,9 @@ stages:
       displayName: Publish p1-webapp-0.9.war as a Build Artifact --> Task
 
     displayName: Build and Test WebApp --> Job
-  displayName: Build and Test WebApp --> Stage
 
-- stage: dockerize
-  dependsOn: []
-  jobs:
   - job: dockerize
+    dependsOn: []
     steps:
     - task: Docker@2
       inputs:
@@ -159,11 +156,11 @@ stages:
       displayName: Publish docker-compose.yml file
     
     displayName: Build and Push WebApp Docker image --> Job
-  displayName: Build and Push WebApp Docker image --> Stage
+  displayName: Build, Test, and Push WebApp Docker image --> Stage
 
 - stage: test
   dependsOn:
-  - dockerize
+  - build
   jobs:
   - job: test
     steps:
