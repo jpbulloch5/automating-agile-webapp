@@ -183,7 +183,7 @@ stages:
       
     - task: CmdLine@2
       inputs:
-        script: 'docker cp airline_terminal:/app/web/docker-compose.yml $(Build.ArtifactStagingDirectory)/docker-compose.yml'
+        script: 'docker cp airline_terminal:/app/web/docker-compose.yml $(Build.ArtifactStagingDirectory)/docker-compose/docker-compose.yml'
         failOnStderr: true
       displayName: Fetch the docker compose file from the container
 
@@ -195,11 +195,19 @@ stages:
           20.97.12.217 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFAZU4nQNS6lNWqiFzoQ4pjTSmsGyxWmyoZS7pzSWooaua/yV9JDou49KuhCzZakpP/PY0WfTxbo/KrZM+ESW+Q=
         sshKeySecureFile: 'revature.pem'
       displayName: Authorize remote access to VM-3
+
+    - task: CopyFilesOverSSH@0
+      inputs:
+        sshEndpoint: 'Revature VM3'
+        sourceFolder: '$(Build.ArtifactStagingDirectory)/docker-compose'
+        contents: 'docker-compose.yml'
+        targetFolder: '/home/jacob/p1'
+        readyTimeout: '20000'
     - task: SSH@0
       inputs:
         sshEndpoint: 'Revature VM3'
         runOptions: 'commands'
-        commands: sudo docker-compose up -f ~/p1/docker-compose.yml --force-recreate -d
+        commands: sudo docker-compose -f /home/jacob/p1/docker-compose.yml up --force-recreate -d
         failOnStdErr: false
         readyTimeout: '20000'
       displayName: Start Dockerized application on VM-3 --> Task
