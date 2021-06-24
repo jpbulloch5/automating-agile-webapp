@@ -183,7 +183,7 @@ stages:
       
     - task: CmdLine@2
       inputs:
-        script: 'docker cp airline_terminal:/app/web/docker-compose.yml $(Build.ArtifactStagingDirectory)/docker-compose/docker-compose.yml'
+        script: 'docker cp airline_terminal:/app/web/docker-compose.yml $(Build.ArtifactStagingDirectory)/docker-compose.yml'
         failOnStderr: true
       displayName: Fetch the docker compose file from the container
 
@@ -199,7 +199,7 @@ stages:
     - task: CopyFilesOverSSH@0
       inputs:
         sshEndpoint: 'Revature VM3'
-        sourceFolder: '$(Build.ArtifactStagingDirectory)/docker-compose'
+        sourceFolder: '$(Build.ArtifactStagingDirectory)'
         contents: 'docker-compose.yml'
         targetFolder: '/home/jacob/p1'
         readyTimeout: '20000'
