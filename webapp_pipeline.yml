@@ -199,10 +199,7 @@ stages:
       inputs:
         sshEndpoint: 'Revature VM3'
         runOptions: 'commands'
-        commands: |
-          cd ~/p1
-          ls
-          sudo docker-compose up --force-recreate -d
+        commands: sudo docker-compose up -f ~/p1/docker-compose --force-recreate -d
         failOnStdErr: false
         readyTimeout: '20000'
       displayName: Start Dockerized application on VM-3 --> Task
