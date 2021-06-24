@@ -187,7 +187,7 @@ stages:
         messageType: 'content'
         content: |
           __**$(Build.DefinitionName)**__
-          **Image:** $(image_repo):$(Build.BuildId)-$(orm_version)
+          **Image:** $(image_repo):$(Build.BuildId)
           **Branch:** $(Build.SourceBranch)
           **Build:** $(Build.BuildNumber)
           **Reason:** $(Build.Reason)
