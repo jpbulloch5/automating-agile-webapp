@@ -243,7 +243,10 @@ stages:
           
           - task: CmdLine@2
             inputs:
-              script: 'mv $(Build.Repository.LocalPath)/docker-compose.yml  $(Build.ArtifactStagingDirectory)/docker-compose.yml'
+              script: |
+                echo $(pwd)
+                ls
+                mv $(Build.Repository.LocalPath)/docker-compose.yml  $(Build.ArtifactStagingDirectory)/docker-compose.yml'
             displayName: Prepare docker-compose for file transfer --> Task
             
           - task: CopyFilesOverSSH@0
@@ -261,7 +264,6 @@ stages:
               runOptions: 'commands'
               commands: |
                 cd ~/p1
-                ls
                 sudo docker-compose up --force-recreate -d
               failOnStdErr: false
               readyTimeout: '20000'
