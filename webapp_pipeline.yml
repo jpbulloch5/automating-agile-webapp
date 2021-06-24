@@ -113,6 +113,20 @@ stages:
           $(orm_version)-$(Build.BuildId)
           latest_dev
         arguments: '--build-arg orm_version=$(orm_version)'
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
+      displayName: Build WebApp container --> Task
+      
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Jacob''s Docker Hub'
+        repository: $(image_repo)
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        tags: |
+          $(orm_version)-$(Build.BuildId)
+          latest
+        arguments: '--build-arg orm_version=$(orm_version)'
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
       displayName: Build WebApp container --> Task
 
     - task: Docker@2
