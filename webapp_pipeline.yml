@@ -241,10 +241,12 @@ stages:
               sshKeySecureFile: 'revature.pem'
             displayName: Authorize remote access to VM-3
           
+          
+
           - task: CopyFilesOverSSH@0
             inputs:
               sshEndpoint: 'Revature VM3'
-              sourceFolder: '$(System.DefaultWorkingDirectory)'
+              sourceFolder: '$(Build.ArtifactStagingDirectory)'
               contents: 'docker-compose.yml'
               targetFolder: '~/p1'
               readyTimeout: '20000'
