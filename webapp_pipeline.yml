@@ -224,3 +224,58 @@ stages:
         
     displayName: Report build results --> Job
   displayName: Report build results --> Stage
+
+- stage: deploy
+  jobs:
+  - deployment: deploy
+    
+    pool:
+      vmImage: 'Ubuntu-latest'
+    # creates an environment if it doesn't exist
+    environment: 'smarthotel-dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: InstallSSHKey@0
+            inputs:
+              knownHostsEntry: |
+                20.97.12.217 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDN4l2Jv2Krgw9EN21HHWfXGAoHZx/zHX5C0Iq9Ov/UU
+                20.97.12.217 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+OrY0VO+gD8eFk3wmVBY9McSOniH83A0mEM6kHeYQMpKNKbuar/DVBjkgz1sgfmrWLHZOPhDno96Av+1M6cPmKTEMsjWSaepPDCHxlO82RTR72h1zMy8UwimI5+AFCbehprRymLT3WJoTo2lgnQO0ZA6sCrwYhgnJVY1Yereb1lBmaS5vBJ4OVVb1l1VAdGnYVhYT44dfsEnlcFpjF4JAtH3RNUrGAJ89g9KXSSlv/6UshB+VAJ2M5kmvH/JReOuMIxnBGa/JYNCqYuUj4dj+EYYFszlpfwcHoSlUD7Laqc0yNQHSge0zVbdy/aeFxY0M/8jlF/1AU8bywBOGuWlx
+                20.97.12.217 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFAZU4nQNS6lNWqiFzoQ4pjTSmsGyxWmyoZS7pzSWooaua/yV9JDou49KuhCzZakpP/PY0WfTxbo/KrZM+ESW+Q=
+              sshKeySecureFile: 'revature.pem'
+            displayName: Authorize remote access to VM-3
+          
+          - task: CopyFilesOverSSH@0
+            inputs:
+              sshEndpoint: 'Revature VM3'
+              sourceFolder: '$(System.DefaultWorkingDirectory)/docker-compose.yml'
+              contents: 'docker-compose.yml'
+              targetFolder: '~/p1'
+              readyTimeout: '20000'
+            displayName: Copy docker-compose to VM-3 --> Task
+          
+          - task: SSH@0
+            inputs:
+              sshEndpoint: 'Revature VM3'
+              runOptions: 'commands'
+              commands: |
+                cd ~/p1
+                sudo docker-compose up --force-recreate -d
+              failOnStdErr: false
+              readyTimeout: '20000'
+            displayName: Start Dockerized application on VM-3 --> Task
+        
+          - task: SSH@0
+            inputs:
+              sshEndpoint: 'Revature VM3'
+              runOptions: 'commands'
+              commands: |
+                cd ~/p1
+                sudo docker system prune -a -f --volumes
+              failOnStdErr: false
+              readyTimeout: '20000'
+            displayName: Remove outdated Docker resources --> Task
+            
+    displayName: Deploy to VM-3 using Docker --> Deployment
+  displayName: Deploy with Docker --> Stage
