@@ -189,7 +189,7 @@ stages:
       inputs:
         channelId: '$(discord_id)'
         webhookKey: '$(discord_webhook)'
-        name: '$(System.TeamProject) --> '
+        name: '$(System.TeamProject) -->'
         avatar: 'https://avatarfiles.alphacoders.com/565/thumb-1920-56514.jpg'
         messageType: 'content'
         content: |
