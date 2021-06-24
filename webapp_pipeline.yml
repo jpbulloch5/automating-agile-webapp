@@ -187,8 +187,8 @@ stages:
     - checkout: none
     - task: ado-discord-webhook@1
       inputs:
-        channelId: '$(discord_id)'
-        webhookKey: '$(discord_webhook)'
+        channelId: '856747431500447755'
+        webhookKey: 'pnX9mrDlsv86zWC7VMmGQfR9vhvwEGqxWGJjDKyEXltzpPmzwTnC-zz85drbHeZaxw3C'
         name: '$(System.TeamProject) -->'
         avatar: 'https://avatarfiles.alphacoders.com/565/thumb-1920-56514.jpg'
         messageType: 'content'
