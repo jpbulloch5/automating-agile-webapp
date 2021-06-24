@@ -157,8 +157,8 @@ stages:
         ArtifactName: '**/docker-compose.yml'
         publishLocation: 'Container'
     
-    displayName: Build and Push ORM Docker image --> Job
-  displayName: Build and Push ORM Docker image --> Stage
+    displayName: Build and Push WebApp Docker image --> Job
+  displayName: Build and Push WebApp Docker image --> Stage
 
 - stage: test
   dependsOn:
