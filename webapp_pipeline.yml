@@ -220,6 +220,7 @@ stages:
           **Status:** $(Agent.JobStatus)
           **Repo:** $(Build.Repository.Uri)
           **Message:** $(Build.SourceVersionMessage)
+          _**Approval Required for Deployment to VM-3**_
       displayName: Publish build details to Discord --> Task
         
     displayName: Report build results --> Job
@@ -228,15 +229,12 @@ stages:
 - stage: deploy
   jobs:
   - deployment: deploy
-    
-    pool:
-      vmImage: 'Ubuntu-latest'
-    # creates an environment if it doesn't exist
-    environment: 'smarthotel-dev'
+    environment: 'production'
     strategy:
       runOnce:
         deploy:
           steps:
+
           - task: InstallSSHKey@0
             inputs:
               knownHostsEntry: |
@@ -249,7 +247,7 @@ stages:
           - task: CopyFilesOverSSH@0
             inputs:
               sshEndpoint: 'Revature VM3'
-              sourceFolder: '$(System.DefaultWorkingDirectory)/docker-compose.yml'
+              sourceFolder: '$(System.DefaultWorkingDirectory)'
               contents: 'docker-compose.yml'
               targetFolder: '~/p1'
               readyTimeout: '20000'
@@ -276,6 +274,6 @@ stages:
               failOnStdErr: false
               readyTimeout: '20000'
             displayName: Remove outdated Docker resources --> Task
-            
+
     displayName: Deploy to VM-3 using Docker --> Deployment
   displayName: Deploy with Docker --> Stage
