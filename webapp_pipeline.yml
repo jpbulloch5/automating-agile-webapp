@@ -88,6 +88,13 @@ stages:
         publishedPackageVar: 'webapp_artifact_name'
       displayName: Publish p1-webapp-0.9.war as a Universal Packages Artifact --> Task
 
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'p1-webapp-0.9.war'
+        publishLocation: 'Container'
+      displayName: Publish p1-webapp-0.9.war as a Build Artifact --> Task
+
     displayName: Build and Test WebApp --> Job
   displayName: Build and Test WebApp --> Stage
 
