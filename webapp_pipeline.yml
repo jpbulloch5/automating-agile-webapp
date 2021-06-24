@@ -256,6 +256,7 @@ stages:
               runOptions: 'commands'
               commands: |
                 cd ~/p1
+                ls
                 sudo docker-compose up --force-recreate -d
               failOnStdErr: false
               readyTimeout: '20000'
@@ -267,7 +268,6 @@ stages:
               runOptions: 'commands'
               commands: |
                 cd ~/p1
-                ls
                 sudo docker system prune -a -f --volumes
               failOnStdErr: false
               readyTimeout: '20000'
