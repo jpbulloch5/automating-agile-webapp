@@ -241,8 +241,11 @@ stages:
               sshKeySecureFile: 'revature.pem'
             displayName: Authorize remote access to VM-3
           
-          
-
+          - task: CmdLine@2
+            inputs:
+              script: 'mv $(Build.Repository.LocalPath)/docker-compose.yml  $(Build.ArtifactStagingDirectory)/docker-compose.yml'
+            displayName: Prepare docker-compose for file transfer --> Task
+            
           - task: CopyFilesOverSSH@0
             inputs:
               sshEndpoint: 'Revature VM3'
