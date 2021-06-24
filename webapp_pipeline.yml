@@ -183,14 +183,14 @@ stages:
       
     - task: CmdLine@2
       inputs:
-        script: 'docker cp airline_terminal:/app/web/docker-compose.yml $(Build.ArtifactStagingDirectory)/docker_compose.yml'
+        script: 'docker cp airline_terminal:/app/web/docker-compose.yml $(Build.ArtifactStagingDirectory)/docker-compose.yml'
         failOnStderr: true
       displayName: Fetch the docker compose file from the container
 
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'docker_compose.yml'
+        ArtifactName: 'docker-compose.yml'
         publishLocation: 'Container'
       displayName: Publish the docker compose file as an artifact
     
