@@ -150,7 +150,13 @@ stages:
           latest
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
       displayName: Push main WebApp image to DockerHub --> Task
-
+      
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '*'
+        ArtifactName: '**/docker-compose.yml'
+        publishLocation: 'Container'
+    
     displayName: Build and Push ORM Docker image --> Job
   displayName: Build and Push ORM Docker image --> Stage
 
