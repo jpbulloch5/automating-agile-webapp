@@ -252,7 +252,7 @@ stages:
           - task: CopyFilesOverSSH@0
             inputs:
               sshEndpoint: 'Revature VM3'
-              sourceFolder: '$(Build.ArtifactStagingDirectory)'
+              sourceFolder: '$(Build.ArtifactStagingDirectory)/'
               contents: 'docker-compose.yml'
               targetFolder: '~/p1'
               readyTimeout: '20000'
