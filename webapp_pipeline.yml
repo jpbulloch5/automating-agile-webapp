@@ -123,9 +123,8 @@ stages:
         tags: |
           $(orm_version)-$(Build.BuildId)
           latest_dev
-        arguments: '--build-arg orm_version=$(orm_version)'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
-      displayName: Psh dev WebApp image to DockerHub --> Task
+      displayName: Push dev WebApp image to DockerHub --> Task
 
     - task: Docker@2
       inputs:
@@ -135,9 +134,8 @@ stages:
         tags: |
           $(orm_version)-$(Build.BuildId)
           latest
-        arguments: '--build-arg orm_version=$(orm_version)'
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
-      displayName: Psh main WebApp image to DockerHub --> Task
+      displayName: Push main WebApp image to DockerHub --> Task
 
     displayName: Build and Push ORM Docker image --> Job
   displayName: Build and Push ORM Docker image --> Stage
