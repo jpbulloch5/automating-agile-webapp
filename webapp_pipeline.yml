@@ -173,7 +173,6 @@ stages:
 - stage: report
   dependsOn:
   - build
-  - dockerize
   - test
   jobs:
   - job: report
