@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-- dev
+- main
 
 pool:
   vmImage: ubuntu-latest
@@ -35,31 +35,53 @@ steps:
       -DgeneratePom=true
   displayName: add orm jar file to maven packages
 
-- task: SonarQubePrepare@4
+- task: SonarCloudPrepare@1
   inputs:
-    SonarQube: 'VM3 SonarQube'
+    SonarCloud: 'SonarCloud'
+    organization: 'isaac-revature-training-uta'
     scannerMode: 'Other'
     extraProperties: |
       # Additional properties that will be passed to the scanner,
       # Put one key=value per line, example:
       # sonar.exclusions=**/*.bin
-      sonar.projectKey=Flock_of_Hawks_team_e_p1_webapp
+      sonar.projectKey=revature-training-uta_team_e_p1_webapp
+      sonar.projectName=team_e_p1_webapp
+
+# - task: SonarQubePrepare@4
+#   inputs:
+#     SonarQube: 'VM3 SonarQube'
+#     scannerMode: 'Other'
+#     extraProperties: |
+#       # Additional properties that will be passed to the scanner,
+#       # Put one key=value per line, example:
+#       # sonar.exclusions=**/*.bin
+#       sonar.projectKey=Flock_of_Hawks_team_e_p1_webapp
 
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    codeCoverageToolOption: 'JaCoCo'
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
     effectivePomSkip: false
-    sonarQubeRunAnalysis: false
+    sonarQubeRunAnalysis: true
+    isJacocoCoverageReportXML: true
+    sqMavenPluginVersionChoice: 'latest'
+    checkStyleRunAnalysis: true
+    pmdRunAnalysis: true
+    findBugsRunAnalysis: true
   displayName: package the WebApp
 
-- task: SonarQubePublish@4
+- task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
+
+# - task: SonarQubePublish@4
+#   inputs:
+#     pollingTimeoutSec: '300'
 
 - task: ado-discord-webhook@1
   inputs:

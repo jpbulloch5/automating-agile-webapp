@@ -1,0 +1,207 @@
+# Builds and deploys the ORM .jar artifact on pushes to dev or main
+
+trigger:
+- main
+- dev
+
+variables:
+  group: Keys
+  image_repo: 'jpbulloch5/revature_p1_webapp'
+  orm_version: 'latest'
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: build
+  jobs:
+  - job: build
+    steps:
+    - task: UniversalPackages@0
+      inputs:
+        command: 'download'
+        downloadDirectory: '$(Build.ArtifactStagingDirectory)'
+        feedsToUse: 'internal'
+        vstsFeed: '24909f86-8d03-4826-8947-55d471b47b72/57273a34-95c4-4b34-8b08-4600b3975070'
+        vstsFeedPackage: 'b15fe07f-0110-4392-969b-957fa4eae94a'
+        vstsPackageVersion: '*'
+      displayName: Load latest ORM Artifact --> Task
+    
+    - task: CmdLine@2
+      inputs:
+        script: |
+          mvn install:install-file -e \
+          -Dfile="$(Build.ArtifactStagingDirectory)/eorm-1.0.jar" \
+          -DgroupId="eteam" \
+          -DartifactId="eorm" \
+          -Dversion="1.0" \
+          -Dpackaging=jar \
+          -DgeneratePom=true
+      displayName: Add ORM artifact to Maven packages --> Task
+    
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'SonarCloud'
+        organization: 'isaac-revature-training-uta'
+        scannerMode: 'Other'
+        extraProperties: |
+          # Additional properties that will be passed to the scanner,
+          # Put one key=value per line, example:
+          # sonar.exclusions=**/*.bin
+          sonar.projectKey=revature-training-uta_team_e_p1_webapp
+          sonar.projectName=team_e_p1_webapp
+      displayName: Prepare Analysis --> Task
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        codeCoverageToolOption: 'JaCoCo'
+        codeCoverageClassFilesDirectories: 'src/main/java/com/revature/airline/controller,dtos,repos,serializers,services,servlets,utils'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: true
+        isJacocoCoverageReportXML: true
+        sqMavenPluginVersionChoice: 'latest'
+        checkStyleRunAnalysis: true
+        pmdRunAnalysis: true
+        findBugsRunAnalysis: true
+      displayName: Package WebApp war file; run analysis --> Task
+      
+    - task: SonarCloudPublish@1
+      inputs:
+        pollingTimeoutSec: '300'  
+      displayName: Publish Analysis to SonarCloud --> Task
+
+    - task: UniversalPackages@0
+      inputs:
+        command: 'publish'
+        publishDirectory: '$(Build.SourcesDirectory)/target/p1-webapp-0.9.war'
+        feedsToUsePublish: 'internal'
+        vstsFeedPublish: '24909f86-8d03-4826-8947-55d471b47b72/57273a34-95c4-4b34-8b08-4600b3975070'
+        vstsFeedPackagePublish: 'p1-webapp-0.9.war'
+        versionOption: 'patch'
+        packagePublishDescription: 'p1-webapp-0.9.war'
+        verbosity: 'Debug'
+        publishedPackageVar: 'webapp_artifact_name'
+      displayName: Publish p1-webapp-0.9.war as a Universal Packages Artifact --> Task
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'p1-webapp-0.9.war'
+        publishLocation: 'Container'
+      displayName: Publish p1-webapp-0.9.war as a Build Artifact --> Task
+
+    displayName: Build and Test WebApp --> Job
+  displayName: Build and Test WebApp --> Stage
+
+- stage: dockerize
+  dependsOn: []
+  jobs:
+  - job: dockerize
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Jacob''s Docker Hub'
+        repository: $(image_repo)
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        tags: |
+          $(orm_version)-$(Build.BuildId)
+          latest_dev
+        arguments: '--build-arg orm_version=$(orm_version)'
+      displayName: Build WebApp container --> Task
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Jacob''s Docker Hub'
+        repository: '$(image_repo)'
+        command: 'push'
+        tags: |
+          $(orm_version)-$(Build.BuildId)
+          latest_dev
+        arguments: '--build-arg orm_version=$(orm_version)'
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
+      displayName: Psh dev WebApp image to DockerHub --> Task
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Jacob''s Docker Hub'
+        repository: '$(image_repo)'
+        command: 'push'
+        tags: |
+          $(orm_version)-$(Build.BuildId)
+          latest
+        arguments: '--build-arg orm_version=$(orm_version)'
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+      displayName: Psh main WebApp image to DockerHub --> Task
+
+    displayName: Build and Push ORM Docker image --> Job
+  displayName: Build and Push ORM Docker image --> Stage
+
+- stage: test
+  dependsOn:
+  - dockerize
+  jobs:
+  - job: test
+    steps:
+    
+    - task: DockerCompose@0
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'Jacob''s Docker Hub'
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Run a Docker Compose command'
+        dockerComposeCommand: 'up'
+        arguments: '-d'
+      displayName: Start Dockerized application network --> Task
+
+    - task: CmdLine@2
+      inputs:
+        script: 'docker cp airline_terminal:/app/web/P1_Local_Postman_Collection.json ./local_test.json'
+        failOnStderr: true
+      displayName: Fetch test from container --> Task
+
+    - task: NewmanPostman@4
+      inputs:
+        collectionSourceType: 'file'
+        Contents: '**/local_test.json'
+        environmentSourceType: 'none'
+        bail: true
+        reporters: 'junit'
+      displayName: Run Newman Postman function test --> Task
+
+    displayName: Run dev's fucnction test --> Job
+  displayName: Run dev's fucnction test --> Stage
+
+- stage: report
+  dependsOn:
+  - build
+  - test
+  jobs:
+  - job: report
+    steps:
+    - checkout: none
+    - task: ado-discord-webhook@1
+      inputs:
+        channelId: '856747431500447755'
+        webhookKey: 'pnX9mrDlsv86zWC7VMmGQfR9vhvwEGqxWGJjDKyEXltzpPmzwTnC-zz85drbHeZaxw3C'
+        name: '$(System.TeamProject) -->'
+        avatar: 'https://avatarfiles.alphacoders.com/565/thumb-1920-56514.jpg'
+        messageType: 'content'
+        content: |
+          __**$(Build.DefinitionName)**__
+          **Image:** $(image_repo):$(Build.BuildId)
+          **Branch:** $(Build.SourceBranch)
+          **Build:** $(Build.BuildNumber)
+          **Reason:** $(Build.Reason)
+          **Status:** $(Agent.JobStatus)
+          **Repo:** $(Build.Repository.Uri)
+          **Message:** $(Build.SourceVersionMessage)
+      displayName: Publish build details to Discord --> Task
+        
+    displayName: Report build results --> Job
+  displayName: Report build results --> Stage

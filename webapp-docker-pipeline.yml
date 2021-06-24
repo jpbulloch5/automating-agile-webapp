@@ -3,13 +3,14 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- version_1
+- main
 
 resources:
 - repo: self
 
 variables:
   orm_version: 'latest'
+  groups: Keys
 
 stages:
 - stage: Release
@@ -113,12 +114,18 @@ stages:
 
     - task: ado-discord-webhook@1
       inputs:
-        channelId: '856747431500447755'
-        webhookKey: 'pnX9mrDlsv86zWC7VMmGQfR9vhvwEGqxWGJjDKyEXltzpPmzwTnC-zz85drbHeZaxw3C'
-        name: 'Flock of Hawks --> webapp_docker_dev'
+        channelId: '$(discord_id)'
+        webhookKey: '$(discord_webhook)'
+        name: '$(System.TeamProject) --> '
         avatar: 'https://avatarfiles.alphacoders.com/565/thumb-1920-56514.jpg'
         messageType: 'content'
-        content: '**Build Number:**```$(Build.BuildNumber)```**Build Reason:**```$(Build.Reason)```**Build Status**```$(Agent.JobStatus)```'
+        content: |
+          __**$(Build.DefinitionName)**__
+          **Build:** $(Build.BuildNumber)
+          **Reason:** $(Build.Reason)
+          **Status:** $(Agent.JobStatus)
+          **Repo:** $(Build.Repository.Uri)
+          **Message:** $(Build.SourceVersionMessage)
       condition: always()
       displayName: send message to Discord 
 
