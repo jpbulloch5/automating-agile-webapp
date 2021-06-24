@@ -60,7 +60,7 @@ steps:
     versionOption: 'patch'
     packagePublishDescription: {{ artifact_name }}
     verbosity: 'Debug'
-    publishedPackageVar: {{ artifact_name }}
+    publishedPackageVar: '{{ artifact_name }}-artifact'
   displayName: Publish {{ artifact_name }} as a Universal Packages Artifact --> Task
 
 - task: PublishBuildArtifacts@1
