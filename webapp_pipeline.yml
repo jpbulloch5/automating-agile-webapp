@@ -180,6 +180,7 @@ stages:
         script: 'docker cp airline_terminal:/app/web/P1_Local_Postman_Collection.json ./local_test.json'
         failOnStderr: true
       displayName: Fetch test from container --> Task
+      
     - task: CmdLine@2
       inputs:
         script: 'docker cp airline_terminal:/app/web/docker-compose.yml $(Build.ArtifactStagingDirectory)/docker_compose.yml'
@@ -193,14 +194,6 @@ stages:
         publishLocation: 'Container'
       displayName: Publish the docker compose file as an artifact
     
-    - task: CopyFilesOverSSH@0
-      inputs:
-        sshEndpoint: 'Revature VM3'
-        sourceFolder: '$(Build.ArtifactStagingDirectory)'
-        contents: 'docker_compose.yml'
-        targetFolder: '/home/jacob/p1'
-        readyTimeout: '20000'
-      displayName: Send new docker-compose file to VM3
     - task: NewmanPostman@4
       inputs:
         collectionSourceType: 'file'
@@ -261,10 +254,16 @@ stages:
               sshKeySecureFile: 'revature.pem'
             displayName: Authorize remote access to VM-3
             
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              buildType: 'current'
+              itemPattern: '**/*compose.yml'
+              targetPath: '$(Pipeline.Workspace)'
+
           - task: CopyFilesOverSSH@0
             inputs:
               sshEndpoint: 'Revature VM3'
-              sourceFolder: '$(Build.ArtifactStagingDirectory)'
+              sourceFolder: '$(Pipeline.Workspace)'
               contents: 'docker-compose.yml'
               targetFolder: '~/p1'
               readyTimeout: '20000'
@@ -291,6 +290,21 @@ stages:
               failOnStdErr: false
               readyTimeout: '20000'
             displayName: Remove outdated Docker resources --> Task
+
+          - task: ado-discord-webhook@1
+            inputs:
+              channelId: '856747431500447755'
+              webhookKey: 'pnX9mrDlsv86zWC7VMmGQfR9vhvwEGqxWGJjDKyEXltzpPmzwTnC-zz85drbHeZaxw3C'
+              name: '$(System.TeamProject) -->'
+              avatar: 'https://avatarfiles.alphacoders.com/565/thumb-1920-56514.jpg'
+              messageType: 'content'
+              content: |
+                __**$(Build.DefinitionName)**__
+                **__DEPLOYING__**
+                **Build:** $(Build.BuildNumber)
+                **Status:** $(Agent.JobStatus)
+                
+            displayName: Publish deployment details to Discord --> Task
 
     displayName: Deploy to VM-3 using Docker --> Deployment
   displayName: Deploy with Docker --> Stage
