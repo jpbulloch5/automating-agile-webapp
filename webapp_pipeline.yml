@@ -153,8 +153,8 @@ stages:
       
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '*'
-        ArtifactName: '**/docker-compose.yml'
+        PathtoPublish: 'System.DefaultWorkingDirectory'
+        ArtifactName: 'docker-compose.yml'
         publishLocation: 'Container'
     
     displayName: Build and Push WebApp Docker image --> Job
