@@ -153,7 +153,7 @@ stages:
       
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: 'System.DefaultWorkingDirectory'
+        PathtoPublish: '$(Build.SourcesDirectory)'
         ArtifactName: 'docker-compose.yml'
         publishLocation: 'Container'
       displayName: Publish docker-compose.yml file
