@@ -187,15 +187,6 @@ stages:
         failOnStderr: true
       displayName: Fetch the docker compose file from the container
 
-    - task: CopyFilesOverSSH@0
-      inputs:
-        sshEndpoint: 'Revature VM3'
-        sourceFolder: '$(Pipeline.Workspace)'
-        contents: 'docker-compose.yml'
-        targetFolder: '~/p1'
-        readyTimeout: '20000'
-      displayName: Copy docker-compose to VM-3 --> Task
-    
     - task: InstallSSHKey@0
       inputs:
         knownHostsEntry: |
@@ -210,6 +201,7 @@ stages:
         runOptions: 'commands'
         commands: |
           cd ~/p1
+          ls
           sudo docker-compose up --force-recreate -d
         failOnStdErr: false
         readyTimeout: '20000'
