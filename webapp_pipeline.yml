@@ -231,6 +231,7 @@ stages:
           **Repo:** $(Build.Repository.Uri)
           **Message:** $(Build.SourceVersionMessage)
           _**Approval Required for Deployment to VM-3**_
+          https://dev.azure.com/revature-training-uta/Flock%20of%20Hawks/_build/results?buildId=$(Build.BuildId)&view=results
       displayName: Publish build details to Discord --> Task
         
     displayName: Report build results --> Job
@@ -299,7 +300,6 @@ stages:
                 **__DEPLOYING__**
                 **Build:** $(Build.BuildNumber)
                 **Status:** $(Agent.JobStatus)
-                
             displayName: Publish deployment details to Discord --> Task
 
     displayName: Deploy to VM-3 using Docker --> Deployment
