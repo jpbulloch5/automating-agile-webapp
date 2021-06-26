@@ -10,7 +10,7 @@ https://github.com/jpbulloch5/automating-agile-orm
   
 The DevOps repo was cloned to GitHub from Azure Repos for the sole purpose of having a copy in my personal repository.
 The CI/CD pipelines are designed for use with Azure DevOps and require configuration to match the requirements of the virtual machine(s) to which you would like to deploy the webapp, for example, the ssh key, known hosts, and ansible inventory files will all need to be changed to match your deployment environment.  
-Alternatively, if you would like to test the functionality without setting up a virtual machine, you could download only the docker-compose file from this repo and run the application locally through Docker, in which case you can access the endpoints via localhost:9052/webapp/<endpoint> where the <endpoint> is the desired endpoint as described by the Java Developers below.
+Alternatively, if you would like to test the functionality without setting up a virtual machine, you could download only the docker-compose file from this repo and run the application locally through Docker, in which case you can access the endpoints via localhost:9052/webapp/\<endpoint> where the \<endpoint> is the desired endpoint as described by the Java Developers below.
 Note: This docker-compose setup uses a test image of the postgreSQL database that is pre-loaded with some dummy-values for testing purposes.  If you would like to test the functionality with other pre-loaded data, you can do so by creating your own postgreSQL file called initialization.sql in the same directory as a Dockerfile with the following contents:
 ```Dockerfile
 FROM postgres:latest
