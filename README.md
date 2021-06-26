@@ -1,4 +1,8 @@
 # team_e_p1_webapp
+
+Note: This webapp depends on a custom-built ORM, which can be found here:
+https://dev.azure.com/revature-training-uta/Flock%20of%20Hawks/_git/team_e_p1_orm
+
 ## Ticket purchasing microservice
 
 This webapp exposes a small number of endpoints to serve an airline ticketing kiosk. It allows the UI running on the kiosk
